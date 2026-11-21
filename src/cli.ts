@@ -11,7 +11,7 @@ const serverEntry = join(packageRoot, 'dist', 'index.js');
 function printHelp(): void {
   console.log(`
 ================================================================================
-  🎬 NovaCut AI Studio — Universal MCP Bridge for Adobe Premiere Pro (v2.0)
+  NovaCut AI Studio — Universal MCP Bridge for Adobe Premiere Pro (v2.0)
   استودیو هوشمند نوواکات — بریج جامع هوش مصنوعی برای ادوبی پریمیر پرو
 ================================================================================
 
@@ -208,11 +208,11 @@ async function main(): Promise<void> {
       return;
     case '--check-update':
     case 'check-update': {
-      console.log('🔍 Checking for NovaCut AI Studio updates from GitHub...');
+      console.log('[CHECK] Checking for NovaCut AI Studio updates from GitHub...');
       console.log('در حال بررسی نسخه جدید استودیو نوواکات در گیت‌هاب...');
       const status = await checkForUpdate();
       if (status.available && status.latest) {
-        console.log(`\n🚀 [UPDATE AVAILABLE] A new version (v${status.latest}) is ready!`);
+        console.log(`\n[UPDATE AVAILABLE] A new version (v${status.latest}) is ready!`);
         console.log(`نسخه جدید (v${status.latest}) در دسترس است! شما از نسخه v${status.current} استفاده می‌کنید.`);
         console.log(`\nTo update, run: novacut update`);
         console.log(`یا کافی است روی فایل update.bat دابل کلیک کنید.\n`);

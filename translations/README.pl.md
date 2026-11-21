@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (Polski)
+# NovaCut AI Studio (Polski)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@ Steruj Premiere Pro za pomocą **ChatGPT, Google Gemini, xAI Grok, Claude, Curso
 
 ---
 
-> 💡 **Pochodzenie i Źródło Inspiracji (Attribution):**  
+> **Pochodzenie i Źródło Inspiracji (Attribution):**  
 > NovaCut AI Studio to **zoptymalizowana, ulepszona i pozbawiona błędów wersja zainspirowana** projektem open-source [Adobe_Premiere_Pro_MCP autorstwa hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
 > **Kluczowe ulepszenia w NovaCut:**
 > - **Uniwersalne wsparcie AI:** Pełna obsługa ChatGPT, Gemini, Grok, Claude i Cursor (brak ograniczenia wyłącznie do Claude).
@@ -18,7 +18,7 @@ Steruj Premiere Pro za pomocą **ChatGPT, Google Gemini, xAI Grok, Claude, Curso
 
 ---
 
-## ⚡ Szybki start w 3 krokach
+## Szybki start w 3 krokach
 
 1. **Instalacja 1-kliknięciem:** Uruchom **`NovaCut-Setup.exe`** w systemie Windows (lub `scripts/install-macos.sh` na macOS).  
    *Kreator automatycznie skonfiguruje Premiere Pro, rejestr i aplikacje AI.*
@@ -31,7 +31,7 @@ Steruj Premiere Pro za pomocą **ChatGPT, Google Gemini, xAI Grok, Claude, Curso
 
 ---
 
-## 📄 Licencja
+## Licencja
 
 - **Licencja:** [MIT License](../LICENSE.md) — Bezpłatne i w pełni open-source.
 - **Autor i Opiekun:** [mhfa1380](https://github.com/mhfa1380)

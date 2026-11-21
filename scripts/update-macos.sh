@@ -39,4 +39,4 @@ echo "[INFO] Running diagnostics..."
 node dist/cli.js --doctor
 
 echo ""
-echo "🎉 UPDATE COMPLETE! NovaCut AI Studio is fully up to date."
+echo "[SUCCESS] UPDATE COMPLETE! NovaCut AI Studio is fully up to date."

@@ -276,8 +276,8 @@ foreach ($line in $configResults) {
 # --- Grand Success Guide ---
 Write-Host ""
 Write-Host "========================================================================" -ForegroundColor Green
-Write-Host "  🎉 تبریک! نصب استودیو نوواکات با موفقیت ۱۰۰٪ به پایان رسید." -ForegroundColor Green
-Write-Host "  🎉 Installation Successful! NovaCut AI Studio is Ready." -ForegroundColor Green
+Write-Host "  [SUCCESS] تبریک! نصب استودیو نوواکات با موفقیت ۱۰۰٪ به پایان رسید." -ForegroundColor Green
+Write-Host "  [SUCCESS] Installation Successful! NovaCut AI Studio is Ready." -ForegroundColor Green
 Write-Host "========================================================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "  تنها ۲ مرحله بسیار ساده برای شروع استفاده باقی مانده است:" -ForegroundColor Yellow

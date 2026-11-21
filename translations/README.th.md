@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (ภาษาไทย)
+# NovaCut AI Studio (ภาษาไทย)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@
 
 ---
 
-> 💡 **ที่มาและข้อความแสดงความขอบคุณ (Attribution):**  
+> **ที่มาและข้อความแสดงความขอบคุณ (Attribution):**  
 > NovaCut AI Studio เป็น **เวอร์ชันที่ได้รับการพัฒนา ปรับปรุงประสิทธิภาพ และแก้ไขข้อผิดพลาดทั้งหมด โดยได้รับแรงบันดาลใจจาก** โครงการโอเพนซอร์ส [Adobe_Premiere_Pro_MCP โดย hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp)  
 > **จุดเด่นที่พัฒนาขึ้นใน NovaCut:**
 > - **รองรับ AI ทุกโมเดล:** ใช้งานร่วมกับ ChatGPT, Gemini, Grok, Claude, Cursor ได้โดยตรง (ไม่จำกัดเฉพาะ Claude อีกต่อไป)
@@ -18,7 +18,7 @@
 
 ---
 
-## ⚡ เริ่มต้นใช้งานง่ายๆ ใน 3 ขั้นตอน
+## เริ่มต้นใช้งานง่ายๆ ใน 3 ขั้นตอน
 
 1. **ติดตั้งในคลิกเดียว:** ดับเบิลคลิกไฟล์ **`NovaCut-Setup.exe`** บน Windows (หรือ `scripts/install-macos.sh` บน Mac)
 2. **เปิดใน Premiere Pro:**
@@ -30,7 +30,7 @@
 
 ---
 
-## 📄 สัญญาอนุญาต
+## สัญญาอนุญาต
 
 - **ใบอนุญาต:** [MIT License](../LICENSE.md) — ใช้งานได้ฟรีและเป็นโอเพนซอร์ส 100%
 - **ผู้พัฒนา:** [mhfa1380](https://github.com/mhfa1380)

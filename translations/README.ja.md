@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (日本語)
+# NovaCut AI Studio (日本語)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@
 
 ---
 
-> 💡 **プロジェクトの起源と謝辞 (Attribution):**  
+> **プロジェクトの起源と謝辞 (Attribution):**  
 > NovaCut AI Studio は、オープンソースプロジェクト [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp) を **ベースに、徹底した最適化・UI刷新・バグ修正を行った進化版** です。  
 > **NovaCut の主な進化ポイント:**
 > - **全 AI モデル対応:** Claude 専用という制約を撤廃し、ChatGPT、Gemini、Grok、Cursor など主要モデルに全対応。
@@ -18,7 +18,7 @@
 
 ---
 
-## ⚡ 3ステップ・クイックスタート
+## 3ステップ・クイックスタート
 
 1. **1クリックインストール:** Windows では **`NovaCut-Setup.exe`** をダブルクリックして実行（macOS では `scripts/install-macos.sh`）。  
    *Premiere 拡張機能、レジストリ、各種 AI アプリの設定がすべて自動で行われます。*
@@ -31,7 +31,7 @@
 
 ---
 
-## 📄 ライセンス
+## ライセンス
 
 - **ライセンス:** [MIT License](../LICENSE.md) — 完全無料のオープンソース。
 - **開発・メンテナー:** [mhfa1380](https://github.com/mhfa1380)

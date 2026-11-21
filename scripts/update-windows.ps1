@@ -156,7 +156,7 @@ node (Join-Path $repoRoot 'dist\cli.js') --doctor
 
 Write-Host ""
 Write-Host "========================================================================" -ForegroundColor Magenta
-Write-Host "  🎉 UPDATE COMPLETE! NovaCut AI Studio is fully up to date." -ForegroundColor Green
+Write-Host "  [SUCCESS] UPDATE COMPLETE! NovaCut AI Studio is fully up to date." -ForegroundColor Green
 Write-Host "  عملیات به‌روزرسانی با موفقیت به پایان رسید! اکنون می‌توانید از پریمیر استفاده کنید." -ForegroundColor Cyan
 Write-Host "========================================================================" -ForegroundColor Magenta
 Write-Host ""

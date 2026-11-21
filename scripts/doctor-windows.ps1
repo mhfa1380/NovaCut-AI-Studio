@@ -80,7 +80,7 @@ function Test-JsonServer([string] $Path, [string] $RootKey) {
 
 Write-Host ''
 Write-Host '========================================================================' -ForegroundColor Cyan
-Write-Host '  🩺 NovaCut AI Studio Diagnostics (Windows)' -ForegroundColor Green
+Write-Host '  [DIAGNOSTICS] NovaCut AI Studio Diagnostics (Windows)' -ForegroundColor Green
 Write-Host '  گزارش سلامت و عیب‌یابی نوواکات در ویندوز' -ForegroundColor Yellow
 Write-Host '========================================================================' -ForegroundColor Cyan
 Write-Host ''
@@ -143,7 +143,7 @@ Test-JsonServer -Path $WindsurfConfigPath -RootKey 'mcpServers'
 
 Write-Host ''
 if ($failures -eq 0) {
-    Write-Host '🎉 All checks passed! NovaCut AI Studio is completely healthy and ready.' -ForegroundColor Green
+    Write-Host '[SUCCESS] All checks passed! NovaCut AI Studio is completely healthy and ready.' -ForegroundColor Green
     Write-Host 'همه تست‌ها با موفقیت پاس شدند! سیستم کاملاً آماده است.' -ForegroundColor Green
 } else {
     Write-Host "⚠️  Found $failures issue(s). Run 'npm run setup' to fix them." -ForegroundColor Yellow

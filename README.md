@@ -2,31 +2,31 @@
 
 <img src="assets/icon.png" width="96" height="96" alt="NovaCut AI Studio Logo" />
 
-# 🎬 NovaCut AI Studio
+# NovaCut AI Studio
 ### Universal AI Automation Bridge for Adobe Premiere Pro
 
 **Control Premiere Pro with any AI: ChatGPT • Google Gemini • xAI Grok • Claude • Cursor • Windsurf**
 
 [![Version](https://img.shields.io/badge/NovaCut-v2.0.0-00f2fe.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-5fd3c6.svg)](LICENSE.md)
-[![1-Click Setup](https://img.shields.io/badge/Installer-1--Click%20Ready-10b981.svg)](#-1-click-quick-start)
+[![1-Click Setup](https://img.shields.io/badge/Installer-1--Click%20Ready-10b981.svg)](#1-click-quick-start-windows)
 [![Premiere Pro](https://img.shields.io/badge/Adobe%20Premiere%20Pro-2020--2026%2B-ff007f.svg)](#)
 [![Persian Support](https://img.shields.io/badge/Language-Persian%20%7C%20English-818cf8.svg)](README.fa.md)
 
 <br/>
 
 <p align="center">
-  <a href="README.fa.md">🇮🇷 فارسی</a> •
-  <a href="README.md"><b>🇬🇧 English</b></a> •
-  <a href="translations/README.es.md">🇪🇸 Español</a> •
-  <a href="translations/README.zh-CN.md">🇨🇳 简体中文</a> •
-  <a href="translations/README.ar.md">🇸🇦 العربية</a> •
-  <a href="translations/README.de.md">🇩🇪 Deutsch</a> •
-  <a href="translations/README.fr.md">🇫🇷 Français</a> •
-  <a href="translations/README.ru.md">🇷🇺 Русский</a> •
-  <a href="translations/README.ja.md">🇯🇵 日本語</a> •
-  <a href="translations/README.tr.md">🇹🇷 Türkçe</a> •
-  <a href="#-all-languages">🌍 More</a>
+  <a href="README.fa.md">فارسی</a> •
+  <a href="README.md"><b>English</b></a> •
+  <a href="translations/README.es.md">Español</a> •
+  <a href="translations/README.zh-CN.md">简体中文</a> •
+  <a href="translations/README.ar.md">العربية</a> •
+  <a href="translations/README.de.md">Deutsch</a> •
+  <a href="translations/README.fr.md">Français</a> •
+  <a href="translations/README.ru.md">Русский</a> •
+  <a href="translations/README.ja.md">日本語</a> •
+  <a href="translations/README.tr.md">Türkçe</a> •
+  <a href="#all-languages">More Languages</a>
 </p>
 
 <br/>
@@ -39,7 +39,7 @@
 
 ---
 
-> 💡 **Attribution & Origin (منبع الگو و نسخه بهینه‌شده):**  
+> **Attribution & Origin (منبع الگو و نسخه بهینه‌شده):**  
 > NovaCut AI Studio is an **optimized, enhanced, and bug-free evolution inspired by** the open-source repository [Adobe_Premiere_Pro_MCP by hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
 > **What makes NovaCut better?**
 > - **Universal AI Support:** Works out-of-the-box with **ChatGPT, Gemini, Grok, Claude, Cursor, and Windsurf** (no longer limited to Claude).
@@ -50,7 +50,7 @@
 
 ---
 
-## ⚡ 1-Click Quick Start (Windows)
+## 1-Click Quick Start (Windows)
 
 No command line knowledge is required:
 
@@ -67,12 +67,12 @@ No command line knowledge is required:
 
 ---
 
-## 🤖 Connect Any AI Client
+## AI Client Integrations
 
 Copy the configuration below and paste it into your AI client's MCP configuration:
 
 <details open>
-<summary><b>🟢 ChatGPT Desktop / OpenAI MCP</b> (<code>%APPDATA%\OpenAI\ChatGPT\mcp.json</code>)</summary>
+<summary><b>ChatGPT Desktop / OpenAI MCP</b> (<code>%APPDATA%\OpenAI\ChatGPT\mcp.json</code>)</summary>
 
 ```json
 {
@@ -91,7 +91,7 @@ Copy the configuration below and paste it into your AI client's MCP configuratio
 </details>
 
 <details>
-<summary><b>🟣 Claude Desktop / Claude Code</b> (<code>%APPDATA%\Claude\claude_desktop_config.json</code>)</summary>
+<summary><b>Claude Desktop / Claude Code</b> (<code>%APPDATA%\Claude\claude_desktop_config.json</code>)</summary>
 
 ```json
 {
@@ -110,7 +110,7 @@ Copy the configuration below and paste it into your AI client's MCP configuratio
 </details>
 
 <details>
-<summary><b>🔵 Google Gemini / xAI Grok / Antigravity</b></summary>
+<summary><b>Google Gemini / xAI Grok / Antigravity</b></summary>
 
 Use the same standard MCP server command:
 `node <path-to-repo>/dist/index.js` with `NOVACUT_TOOLSET=standard`.
@@ -118,7 +118,7 @@ Use the same standard MCP server command:
 </details>
 
 <details>
-<summary><b>🔷 Cursor & Windsurf IDE</b> (<code>.cursor/mcp.json</code>)</summary>
+<summary><b>Cursor & Windsurf IDE</b> (<code>.cursor/mcp.json</code>)</summary>
 
 ```json
 {
@@ -134,7 +134,7 @@ Use the same standard MCP server command:
 
 ---
 
-## 🎙️ Capzo AI Persian Subtitles (کپزو)
+## Capzo AI Subtitles Integration
 
 NovaCut includes built-in integration with the **[Capzo AI Subtitle Platform](https://capzo.ir/docs/api)**:
 - **Speech to Text:** Accurate speech recognition with word-level precision.
@@ -144,7 +144,7 @@ NovaCut includes built-in integration with the **[Capzo AI Subtitle Platform](ht
 
 ---
 
-## 🔄 1-Click Updates
+## 1-Click Updates
 
 Keep NovaCut always up to date with the latest features:
 - **Windows:** Double-click `update.bat`.
@@ -153,42 +153,42 @@ Keep NovaCut always up to date with the latest features:
 
 ---
 
-## 🌍 All Languages
+## All Languages
 
 Read this documentation in your native language:
 
-| Flag | Language | Summary / Link |
-| :---: | :--- | :--- |
-| 🇮🇷 | **فارسی (Persian)** | [راهنمای جامع فارسی](README.fa.md) — نسخه بهینه‌شده با نصب ۱-کلیکه و اتصال کپزو |
-| 🇬🇧 | **English** | [English Guide](README.md) — Universal AI automation for Premiere Pro |
-| 🇪🇸 | **Español (Spanish)** | [Guía en Español](translations/README.es.md) — Edición de video con IA en Premiere Pro |
-| 🇨🇳 | **简体中文 (Chinese)** | [简体中文文档](translations/README.zh-CN.md) — Premiere Pro 全模型通用 AI 剪辑自动化 |
-| 🇹🇼 | **繁體中文 (Trad. Chinese)** | [繁體中文文檔](translations/README.zh-TW.md) — Premiere Pro 全模型通用 AI 剪輯自動化 |
-| 🇸🇦 | **العربية (Arabic)** | [الدليل بالعربية](translations/README.ar.md) — أتمتة تحرير الفيديو بالذكاء الاصطناعي في بريمير برو |
-| 🇩🇪 | **Deutsch (German)** | [Deutsche Anleitung](translations/README.de.md) — Universelle KI-Automatisierung für Premiere Pro |
-| 🇫🇷 | **Français (French)** | [Guide en Français](translations/README.fr.md) — Automatisation IA pour Adobe Premiere Pro |
-| 🇷🇺 | **Русский (Russian)** | [Руководство](translations/README.ru.md) — Автоматизация монтажа в Premiere Pro через ИИ |
-| 🇯🇵 | **日本語 (Japanese)** | [日本語ガイド](translations/README.ja.md) — Premiere Pro 向け万能 AI 自動化ブリッジ |
-| 🇰🇷 | **한국어 (Korean)** | [한국어 가이드](translations/README.ko.md) — 프리미어 프로를 위한 범용 AI 자동화 브릿지 |
-| 🇹🇷 | **Türkçe (Turkish)** | [Türkçe Kılavuz](translations/README.tr.md) — Premiere Pro için Evrensel Yapay Zeka Otomasyonu |
-| 🇧🇷 | **Português (BR)** | [Guia em Português](translations/README.pt-BR.md) — Automação de edição com IA no Premiere Pro |
-| 🇮🇹 | **Italiano (Italian)** | [Guida in Italiano](translations/README.it.md) — Automazione AI per Adobe Premiere Pro |
-| 🇵🇱 | **Polski (Polish)** | [Przewodnik Polski](translations/README.pl.md) — Automatyzacja montażu wideo z AI dla Premiere Pro |
-| 🇻🇳 | **Tiếng Việt (Vietnamese)**| [Hướng dẫn tiếng Việt](translations/README.vi.md) — Tự động hóa dựng video Premiere Pro bằng AI |
-| 🇹🇭 | **ไทย (Thai)** | [คู่มือภาษาไทย](translations/README.th.md) — ระบบอัตโนมัติ AI สำหรับ Adobe Premiere Pro |
-| 🇩🇰 | **Dansk (Danish)** | [Dansk Vejledning](translations/README.da.md) — Universel AI-automatisering til Premiere Pro |
-| 🇳🇴 | **Norsk (Norwegian)** | [Norsk Veiledning](translations/README.no.md) — Universell AI-automatisering for Premiere Pro |
-| 🇧🇦 | **Bosanski (Bosnian)** | [Vodič na bosanskom](translations/README.bs.md) — Univerzalna AI automatizacija za Premiere Pro |
-| 🇰🇭 | **ភាសាខ្មែរ (Khmer)** | [ការណែនាំជាភាសាខ្មែរ](translations/README.km.md) — ស្វ័យប្រវត្តិកម្ម AI សម្រាប់ Premiere Pro |
+| Language | Summary / Link |
+| :--- | :--- |
+| **فارسی (Persian)** | [راهنمای جامع فارسی](README.fa.md) — نسخه بهینه‌شده با نصب ۱-کلیکه و اتصال کپزو |
+| **English** | [English Guide](README.md) — Universal AI automation for Premiere Pro |
+| **Español (Spanish)** | [Guía en Español](translations/README.es.md) — Edición de video con IA en Premiere Pro |
+| **简体中文 (Chinese)** | [简体中文文档](translations/README.zh-CN.md) — Premiere Pro 全模型通用 AI 剪辑自动化 |
+| **繁體中文 (Trad. Chinese)** | [繁體中文文檔](translations/README.zh-TW.md) — Premiere Pro 全模型通用 AI 剪輯自動化 |
+| **العربية (Arabic)** | [الدليل بالعربية](translations/README.ar.md) — أتمتة تحرير الفيديو بالذكاء الاصطناعي في بريمير برو |
+| **Deutsch (German)** | [Deutsche Anleitung](translations/README.de.md) — Universelle KI-Automatisierung für Premiere Pro |
+| **Français (French)** | [Guide en Français](translations/README.fr.md) — Automatisation IA pour Adobe Premiere Pro |
+| **Русский (Russian)** | [Руководство](translations/README.ru.md) — Автоматизация монтажа в Premiere Pro через ИИ |
+| **日本語 (Japanese)** | [日本語ガイド](translations/README.ja.md) — Premiere Pro 向け万能 AI 自動化ブリッジ |
+| **한국어 (Korean)** | [한국어 가이드](translations/README.ko.md) — 프리미어 프로를 위한 범용 AI 자동화 브릿지 |
+| **Türkçe (Turkish)** | [Türkçe Kılavuz](translations/README.tr.md) — Premiere Pro için Evrensel Yapay Zeka Otomasyonu |
+| **Português (BR)** | [Guia em Português](translations/README.pt-BR.md) — Automação de edição com IA no Premiere Pro |
+| **Italiano (Italian)** | [Guida in Italiano](translations/README.it.md) — Automazione AI per Adobe Premiere Pro |
+| **Polski (Polish)** | [Przewodnik Polski](translations/README.pl.md) — Automatyzacja montażu wideo z AI dla Premiere Pro |
+| **Tiếng Việt (Vietnamese)**| [Hướng dẫn tiếng Việt](translations/README.vi.md) — Tự động hóa dựng video Premiere Pro bằng AI |
+| **ไทย (Thai)** | [คู่มือภาษาไทย](translations/README.th.md) — ระบบอัตโนมัติ AI สำหรับ Adobe Premiere Pro |
+| **Dansk (Danish)** | [Dansk Vejledning](translations/README.da.md) — Universel AI-automatisering til Premiere Pro |
+| **Norsk (Norwegian)** | [Norsk Veiledning](translations/README.no.md) — Universell AI-automatisering for Premiere Pro |
+| **Bosanski (Bosnian)** | [Vodič na bosanskom](translations/README.bs.md) — Univerzalna AI automatizacija za Premiere Pro |
+| **ភាសាខ្មែរ (Khmer)** | [ការណែនាំជាភាសាខ្មែរ](translations/README.km.md) — ស្វ័យប្រវត្តិកម្ម AI សម្រាប់ Premiere Pro |
 
 ---
 
-## 📄 License & Attribution
+## License & Attribution
 
 - **License:** [MIT License](LICENSE.md) — Free, open-source, and unrestricted.
 - **Inspiration:** Evolved and optimized from [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).
 - **Author & Maintenance:** [mhfa1380](https://github.com/mhfa1380)
 
 <div align="center">
-<b>NovaCut AI Studio</b> • Crafted with excellence for editors & creators worldwide ⚡
+<b>NovaCut AI Studio</b> • Crafted with excellence for editors & creators worldwide
 </div>

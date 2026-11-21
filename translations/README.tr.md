@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (Türkçe)
+# NovaCut AI Studio (Türkçe)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@ Premiere Pro'yu **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor ve Windsurf**
 
 ---
 
-> 💡 **Proje Kaynağı ve Teşekkür (Attribution):**  
+> **Proje Kaynağı ve Teşekkür (Attribution):**  
 > NovaCut AI Studio, açık kaynaklı [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp) projesinden **ilham alınarak optimize edilmiş, geliştirilmiş ve sıfır hatalı olarak yeniden tasarlanmış versiyondur**.  
 > **NovaCut ile Gelen Yenilikler:**
 > - **Evrensel Yapay Zeka Desteği:** Yalnızca Claude ile sınırlı kalmaz; ChatGPT, Gemini, Grok ve Cursor ile doğrudan çalışır.
@@ -18,7 +18,7 @@ Premiere Pro'yu **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor ve Windsurf**
 
 ---
 
-## ⚡ 3 Adımda Hızlı Başlangıç
+## 3 Adımda Hızlı Başlangıç
 
 1. **Tek Tıkla Kurulum:** Windows'ta **`NovaCut-Setup.exe`** dosyasını çalıştırın (macOS için `scripts/install-macos.sh`).  
    *Premiere uzantısını, kayıt defterini ve yapay zeka istemcilerini otomatik olarak ayarlar.*
@@ -31,7 +31,7 @@ Premiere Pro'yu **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor ve Windsurf**
 
 ---
 
-## 📄 Lisans
+## Lisans
 
 - **Lisans:** [MIT License](../LICENSE.md) — Tamamen ücretsiz ve açık kaynak.
 - **Geliştirici:** [mhfa1380](https://github.com/mhfa1380)

@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (Dansk)
+# NovaCut AI Studio (Dansk)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@ Styr Premiere Pro via **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor og Wind
 
 ---
 
-> 💡 **Oprindelse & Anerkendelse (Attribution):**  
+> **Oprindelse & Anerkendelse (Attribution):**  
 > NovaCut AI Studio er en **optimeret, forbedret og fejlfri version inspireret af** open source-projektet [Adobe_Premiere_Pro_MCP af hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
 > **Nøgleforbedringer i NovaCut:**
 > - **Universel AI-understøttelse:** Virker problemfrit med ChatGPT, Gemini, Grok, Claude og Cursor.
@@ -18,7 +18,7 @@ Styr Premiere Pro via **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor og Wind
 
 ---
 
-## ⚡ Hurtig Start i 3 Trin
+## Hurtig Start i 3 Trin
 
 1. **1-Klik Installation:** Kør **`NovaCut-Setup.exe`** på Windows (eller `scripts/install-macos.sh` på Mac).
 2. **Åbn i Premiere Pro:**
@@ -29,7 +29,7 @@ Styr Premiere Pro via **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor og Wind
 
 ---
 
-## 📄 Licens
+## Licens
 
 - **Licens:** [MIT License](../LICENSE.md) — Frit og open source.
 - **Vedligeholder:** [mhfa1380](https://github.com/mhfa1380)

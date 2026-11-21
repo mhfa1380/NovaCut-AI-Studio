@@ -195,7 +195,6 @@
         fa: {
             title: "NovaCut AI Studio",
             langLabel: "English",
-            langFlag: "🇬🇧",
             connected: "بریج فعال و متصل است",
             disconnected: "بریج متوقف است",
             premiereReady: "پریمیر پرو: متصل و آماده",
@@ -225,7 +224,7 @@
             toolsetLabel: "پروفایل ابزارهای هوش مصنوعی (AI Toolset)",
             telemetryLabel: "ارسال ناشناس گزارش خطاها و سلامت عملکرد جهت بهبود عملکرد افزونه",
             saveConfigBtn: "ذخیره تنظیمات",
-            copied: "کپی شد!",
+            copied: "کپی شد",
             copyConfig: "کپی کانفیگ",
             aiTitle: "راهنمای اتصال مدل‌های هوش مصنوعی",
             aiSubtitle: "کانفیگ مربوط به کلاینت خود را کپی کنید و در تنظیمات MCP آن قرار دهید:",
@@ -234,14 +233,13 @@
             checkUpdatesBtn: "بررسی نسخه جدید",
             doUpdateBtn: "آپدیت ۱-کلیکه",
             checkingUpdates: "در حال بررسی گیت‌هاب...",
-            upToDate: "✓ شما از آخرین نسخه نوواکات استفاده می‌کنید (v2.0.0)",
-            updateAvailable: "🚀 نسخه جدید در دسترس است! روی آپدیت ۱-کلیکه بزنید.",
+            upToDate: "شما از آخرین نسخه نوواکات استفاده می‌کنید (v2.0.0)",
+            updateAvailable: "نسخه جدید در دسترس است. برای ارتقا کلیک کنید.",
             startingUpdate: "در حال اجرای پروسه به‌روزرسانی..."
         },
         en: {
             title: "NovaCut AI Studio",
             langLabel: "فارسی",
-            langFlag: "🇮🇷",
             connected: "Bridge Connected & Ready",
             disconnected: "Bridge Stopped",
             premiereReady: "Premiere Pro: Ready",
@@ -271,7 +269,7 @@
             toolsetLabel: "AI Toolset Profile (Standard/Full/Search)",
             telemetryLabel: "Share anonymous diagnostic health data to improve stability",
             saveConfigBtn: "Save Settings",
-            copied: "Copied!",
+            copied: "Copied",
             copyConfig: "Copy Config",
             aiTitle: "AI Assistants Connection Guide",
             aiSubtitle: "Copy the configuration for your client and paste it into its MCP configuration:",
@@ -280,8 +278,8 @@
             checkUpdatesBtn: "Check for Updates",
             doUpdateBtn: "1-Click Update",
             checkingUpdates: "Checking GitHub...",
-            upToDate: "✓ NovaCut AI Studio is up to date (v2.0.0)",
-            updateAvailable: "🚀 A new version is available! Click 1-Click Update.",
+            upToDate: "NovaCut AI Studio is up to date (v2.0.0)",
+            updateAvailable: "A new version is available. Click to update.",
             startingUpdate: "Starting update process in a new window..."
         }
     };
@@ -772,7 +770,7 @@
                 capzoInput.value = this.capzoApiKey;
                 var badge = document.getElementById('capzoStatusBadge');
                 if (badge) {
-                    badge.textContent = '🟢 کلید ذخیره شده';
+                    badge.textContent = 'کلید ذخیره شده';
                     badge.style.background = 'rgba(16, 185, 129, 0.15)';
                     badge.style.color = '#34d399';
                     badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
@@ -1023,7 +1021,7 @@
 
         if (!key) {
             if (badge) {
-                badge.textContent = '🔴 کلید وارد نشده';
+                badge.textContent = 'کلید وارد نشده';
                 badge.style.background = 'rgba(244, 63, 94, 0.15)';
                 badge.style.color = '#fb7185';
             }
@@ -1032,7 +1030,7 @@
         }
 
         if (badge) {
-            badge.textContent = '⏳ در حال بررسی...';
+            badge.textContent = 'در حال بررسی...';
             badge.style.background = 'rgba(139, 92, 246, 0.15)';
             badge.style.color = '#c084fc';
         }
@@ -1049,7 +1047,7 @@
         })
         .then(function(data) {
             if (badge) {
-                badge.textContent = '🟢 متصل شد';
+                badge.textContent = 'متصل شد';
                 badge.style.background = 'rgba(16, 185, 129, 0.15)';
                 badge.style.color = '#34d399';
                 badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
@@ -1064,7 +1062,7 @@
         })
         .catch(function(err) {
             if (badge) {
-                badge.textContent = '🔴 خطا در اتصال به کپزو';
+                badge.textContent = 'خطا در اتصال به کپزو';
                 badge.style.background = 'rgba(244, 63, 94, 0.15)';
                 badge.style.color = '#fb7185';
             }
@@ -1156,7 +1154,7 @@
                         '(function(){ try { if (app.project) { app.project.importFiles(["' + escaped + '"], true, app.project.rootItem, false); return "IMPORTED_OK"; } return "NO_PROJECT"; } catch(e){ return String(e); } })()',
                         function(err, prRes) {
                             if (logBox) {
-                                logBox.innerHTML += '<div style="color: #c084fc; font-weight: bold;">🎉 فایل زیرنویس با موفقیت به پروژه ادوبی پریمیر پرو اضافه شد!</div>';
+                                logBox.innerHTML += '<div style="color: #c084fc; font-weight: bold;">فایل زیرنویس با موفقیت به پروژه ادوبی پریمیر پرو اضافه شد.</div>';
                             }
                             self.log('Capzo SRT synced to Premiere: ' + srtPath, 'info');
                             self.checkCapzoAccount();

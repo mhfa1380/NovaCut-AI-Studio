@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (繁體中文)
+# NovaCut AI Studio (繁體中文)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@
 
 ---
 
-> 💡 **專案來源與致謝：**  
+> **專案來源與致謝：**  
 > NovaCut AI Studio 是基於開源專案 [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp) **進行深度優化、重構並消除 Bug 的進階版本**。  
 > **NovaCut 的重大升級：**
 > - **全模型通用支援：** 全面支援 ChatGPT、Gemini、Grok、Claude、Cursor，打破原版僅限 Claude 的限制。
@@ -18,7 +18,7 @@
 
 ---
 
-## ⚡ 三步快速上手
+## 三步快速上手
 
 1. **一鍵安裝：** 雙擊執行 **`NovaCut-Setup.exe`**（macOS 執行 `scripts/install-macos.sh`）。  
    *程式將自動配置 Premiere 擴充功能、登錄檔及本地所有 AI 客戶端。*
@@ -31,7 +31,7 @@
 
 ---
 
-## 📄 開源許可證
+## 開源許可證
 
 - **許可證：** [MIT License](../LICENSE.md) — 自由且開源。
 - **維護者：** [mhfa1380](https://github.com/mhfa1380)

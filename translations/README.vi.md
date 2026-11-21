@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (Tiếng Việt)
+# NovaCut AI Studio (Tiếng Việt)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@
 
 ---
 
-> 💡 **Nguồn gốc và Ghi nhận (Attribution):**  
+> **Nguồn gốc và Ghi nhận (Attribution):**  
 > NovaCut AI Studio là phiên bản **được tối ưu hóa, nâng cấp và sửa lỗi toàn diện lấy cảm hứng từ** dự án mã nguồn mở [Adobe_Premiere_Pro_MCP của hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
 > **Cải tiến vượt bậc của NovaCut:**
 > - **Hỗ trợ mọi mô hình AI:** Hoạt động trực tiếp với ChatGPT, Gemini, Grok, Claude và Cursor (không còn bị bó hẹp trong Claude).
@@ -18,7 +18,7 @@
 
 ---
 
-## ⚡ Bắt đầu nhanh trong 3 bước
+## Bắt đầu nhanh trong 3 bước
 
 1. **Cài đặt 1-Click:** Chạy tệp **`NovaCut-Setup.exe`** trên Windows (hoặc `scripts/install-macos.sh` trên Mac).  
    *Tự động thiết lập extension Premiere Pro, registry và kết nối các ứng dụng AI.*
@@ -31,7 +31,7 @@
 
 ---
 
-## 📄 Bản quyền
+## Bản quyền
 
 - **Giấy phép:** [MIT License](../LICENSE.md) — Miễn phí và mã nguồn mở 100%.
 - **Nhà phát triển:** [mhfa1380](https://github.com/mhfa1380)

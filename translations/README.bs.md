@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (Bosanski)
+# NovaCut AI Studio (Bosanski)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@ Upravljajte Premiere Pro projektima koristeći **ChatGPT, Google Gemini, xAI Gro
 
 ---
 
-> 💡 **Izvor i Zahvala (Attribution):**  
+> **Izvor i Zahvala (Attribution):**  
 > NovaCut AI Studio je **optimizovana, nadograđena i verzija bez grešaka inspirisana** open-source projektom [Adobe_Premiere_Pro_MCP od hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
 > **Ključna poboljšanja:**
 > - **Univerzalna podrška:** Radi sa svim AI modelima bez ograničenja na Claude.
@@ -18,7 +18,7 @@ Upravljajte Premiere Pro projektima koristeći **ChatGPT, Google Gemini, xAI Gro
 
 ---
 
-## ⚡ Brzi Početak u 3 Koraka
+## Brzi Početak u 3 Koraka
 
 1. **Instalacija:** Pokrenite **`NovaCut-Setup.exe`** na Windows-u (ili `scripts/install-macos.sh` na Mac-u).
 2. **Otvaranje u Premiere Pro:**
@@ -29,7 +29,7 @@ Upravljajte Premiere Pro projektima koristeći **ChatGPT, Google Gemini, xAI Gro
 
 ---
 
-## 📄 Licenca
+## Licenca
 
 - **Licenca:** [MIT License](../LICENSE.md) — Slobodan i otvoren kod.
 - **Autor:** [mhfa1380](https://github.com/mhfa1380)

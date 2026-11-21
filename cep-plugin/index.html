@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaCut AI Studio (CEP)</title>
+    <title>NovaCut AI Studio</title>
     <style>
         :root {
-            --bg-void: #080a10;
-            --bg-deck: #0d111a;
-            --bg-card: rgba(16, 21, 33, 0.72);
-            --bg-card-hover: rgba(24, 31, 48, 0.85);
-            --bg-input: rgba(10, 13, 22, 0.85);
-            --border-subtle: rgba(255, 255, 255, 0.07);
-            --border-bright: rgba(255, 255, 255, 0.14);
+            --bg-void: #07090e;
+            --bg-deck: #0b0f17;
+            --bg-surface: #101623;
+            --bg-card: rgba(16, 22, 35, 0.76);
+            --bg-card-hover: rgba(22, 30, 48, 0.88);
+            --bg-input: rgba(10, 14, 22, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-bright: rgba(255, 255, 255, 0.16);
+
             --text-main: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
@@ -23,7 +25,7 @@
             --iris-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
 
             --cyan-primary: #06b6d4;
-            --cyan-glow: rgba(6, 182, 212, 0.35);
+            --cyan-glow: rgba(6, 182, 212, 0.3);
 
             --mint-primary: #10b981;
             --mint-glow: rgba(16, 185, 129, 0.35);
@@ -33,10 +35,10 @@
 
             --amber-primary: #f59e0b;
 
-            --radius-xl: 14px;
-            --radius-lg: 10px;
-            --radius-md: 8px;
-            --radius-sm: 6px;
+            --radius-xl: 12px;
+            --radius-lg: 9px;
+            --radius-md: 7px;
+            --radius-sm: 5px;
             --font-family: "Vazirmatn", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
 
@@ -59,7 +61,7 @@
             padding: 10px;
             overflow-x: hidden;
             background-image:
-                radial-gradient(circle at 10% 0%, rgba(139, 92, 246, 0.12), transparent 40%),
+                radial-gradient(circle at 10% 0%, rgba(139, 92, 246, 0.12), transparent 42%),
                 radial-gradient(circle at 90% 100%, rgba(6, 182, 212, 0.08), transparent 45%),
                 linear-gradient(180deg, var(--bg-void) 0%, var(--bg-deck) 100%);
             background-attachment: fixed;
@@ -68,6 +70,7 @@
         }
 
         .studio-layout {
+            width: 100%;
             max-width: 440px;
             margin: 0 auto;
             display: flex;
@@ -86,24 +89,25 @@
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-xl);
             padding: 8px 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
         }
 
         .brand-cluster {
             display: flex;
             align-items: center;
             gap: 9px;
+            min-width: 0;
         }
 
         .brand-logo-gem {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
             background: var(--iris-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 16px var(--iris-glow);
+            box-shadow: 0 0 14px var(--iris-glow);
             color: #ffffff;
             user-select: none;
             flex-shrink: 0;
@@ -112,22 +116,26 @@
         .brand-title-wrap {
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         .brand-title {
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 800;
             letter-spacing: -0.01em;
             background: linear-gradient(90deg, #ffffff 40%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .brand-subtitle {
-            font-size: 9.5px;
+            font-size: 9px;
             font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 0.03em;
+            letter-spacing: 0.04em;
             text-transform: uppercase;
         }
 
@@ -143,8 +151,9 @@
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             outline: none;
+            flex-shrink: 0;
         }
 
         .lang-switcher:hover {
@@ -153,7 +162,7 @@
             border-color: var(--border-bright);
         }
 
-        /* Minimal Status Hero Deck */
+        /* Status Deck with Live Beacon */
         .status-deck {
             background: var(--bg-card);
             backdrop-filter: blur(20px);
@@ -161,7 +170,7 @@
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-xl);
             padding: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -182,18 +191,20 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
         }
 
         .radar-box {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
         }
 
         .radar-beacon {
             position: relative;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             flex-shrink: 0;
         }
 
@@ -202,16 +213,16 @@
             height: 10px;
             border-radius: 50%;
             position: absolute;
-            top: 3px;
-            left: 3px;
+            top: 2px;
+            left: 2px;
             background: var(--rose-primary);
             box-shadow: 0 0 10px var(--rose-glow);
             transition: all 0.3s ease;
         }
 
         .radar-wave {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             position: absolute;
             top: 0;
@@ -222,7 +233,7 @@
 
         .connected .radar-core {
             background: var(--mint-primary);
-            box-shadow: 0 0 14px var(--mint-glow);
+            box-shadow: 0 0 12px var(--mint-glow);
         }
 
         .connected .radar-wave {
@@ -232,29 +243,36 @@
 
         @keyframes radar-ping {
             0% { transform: scale(0.85); opacity: 0.9; }
-            70% { transform: scale(2.4); opacity: 0; }
-            100% { transform: scale(2.4); opacity: 0; }
+            70% { transform: scale(2.2); opacity: 0; }
+            100% { transform: scale(2.2); opacity: 0; }
         }
 
         .radar-text-group {
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         .radar-main-title {
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 800;
             color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .radar-sub-title {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 500;
             color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .profile-chip {
-            font-size: 9.5px;
+            font-size: 9px;
             font-weight: 700;
             letter-spacing: 0.04em;
             text-transform: uppercase;
@@ -262,8 +280,9 @@
             border-radius: 999px;
             background: rgba(139, 92, 246, 0.12);
             color: #c084fc;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.28);
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* Metric Mini Strip */
@@ -274,17 +293,18 @@
         }
 
         .tile {
-            background: rgba(10, 14, 23, 0.6);
+            background: rgba(9, 13, 21, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: var(--radius-md);
-            padding: 7px 10px;
+            padding: 6px 9px;
             display: flex;
             flex-direction: column;
             gap: 2px;
+            min-width: 0;
         }
 
         .tile-label {
-            font-size: 9.5px;
+            font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-muted);
@@ -295,7 +315,7 @@
         }
 
         .tile-value {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-secondary);
             white-space: nowrap;
@@ -306,7 +326,7 @@
         /* Modern Segment Navigation */
         .nav-segment {
             display: flex;
-            background: rgba(12, 16, 26, 0.85);
+            background: rgba(11, 15, 24, 0.85);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
             padding: 3px;
@@ -316,11 +336,11 @@
 
         .segment-btn {
             flex: 1;
-            min-width: 60px;
+            min-width: 58px;
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            padding: 6px 3px;
+            padding: 6px 4px;
             border-radius: var(--radius-md);
             font-size: 10.5px;
             font-weight: 700;
@@ -330,6 +350,10 @@
             text-align: center;
             outline: none;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .segment-btn:hover {
@@ -343,12 +367,16 @@
             box-shadow: 0 3px 12px var(--iris-glow);
         }
 
+        .segment-btn svg {
+            flex-shrink: 0;
+        }
+
         /* Panes */
         .tab-pane {
             display: none;
             flex-direction: column;
             gap: 10px;
-            animation: fadeIn 0.22s ease forwards;
+            animation: fadeIn 0.2s ease forwards;
         }
 
         .tab-pane.active {
@@ -360,14 +388,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glass Cards */
+        /* Minimal Glass Cards */
         .glass-card {
             background: var(--bg-card);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-xl);
-            padding: 12px;
+            padding: 11px 12px;
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
         }
 
@@ -375,11 +403,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 9px;
+            gap: 8px;
         }
 
         .card-caption {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.06em;
@@ -389,19 +418,19 @@
             gap: 5px;
         }
 
-        /* Action Buttons */
+        /* Action Buttons Grid */
         .actions-quad {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 7px;
         }
 
         .dock-btn {
             appearance: none;
             border: none;
             border-radius: var(--radius-md);
-            padding: 9px 11px;
-            font-size: 11.5px;
+            padding: 8px 10px;
+            font-size: 11px;
             font-weight: 700;
             font-family: inherit;
             cursor: pointer;
@@ -411,18 +440,19 @@
             justify-content: center;
             gap: 6px;
             outline: none;
+            white-space: nowrap;
         }
 
         .btn-launch {
             background: var(--iris-gradient);
             color: #ffffff;
-            box-shadow: 0 3px 16px var(--iris-glow);
+            box-shadow: 0 3px 14px var(--iris-glow);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .btn-launch:hover:enabled {
             transform: translateY(-1px);
-            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.5);
+            box-shadow: 0 5px 18px rgba(139, 92, 246, 0.5);
         }
 
         .btn-halt {
@@ -457,14 +487,14 @@
         .ai-hub-deck {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 7px;
         }
 
         .hub-card {
-            background: rgba(10, 14, 23, 0.55);
+            background: rgba(9, 13, 21, 0.55);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 9px;
+            padding: 8px 10px;
             transition: border-color 0.2s;
         }
 
@@ -476,7 +506,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .hub-title-tag {
@@ -485,18 +515,18 @@
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .code-vault {
-            background: #04060a;
+            background: #030509;
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: var(--radius-sm);
-            padding: 7px;
+            padding: 6px 8px;
             font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
-            font-size: 10px;
+            font-size: 9.5px;
             color: #94a3b8;
-            max-height: 75px;
+            max-height: 70px;
             overflow-y: auto;
             white-space: pre;
             user-select: all;
@@ -505,7 +535,7 @@
         .copy-pill-btn {
             background: rgba(139, 92, 246, 0.12);
             color: #c084fc;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.28);
             border-radius: 5px;
             padding: 3px 8px;
             font-size: 10px;
@@ -513,6 +543,9 @@
             font-family: inherit;
             cursor: pointer;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .copy-pill-btn:hover {
@@ -522,11 +555,11 @@
 
         /* Terminal & Queue */
         .terminal-box, .queue-box {
-            background: #04060a;
+            background: #030509;
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 8px;
-            max-height: 200px;
+            padding: 7px 9px;
+            max-height: 190px;
             overflow-y: auto;
             font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
             font-size: 10.5px;
@@ -537,8 +570,8 @@
             align-items: center;
             justify-content: space-between;
             gap: 6px;
-            padding: 6px 8px;
-            margin-bottom: 4px;
+            padding: 5px 7px;
+            margin-bottom: 3px;
             border-radius: var(--radius-sm);
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.03);
@@ -552,9 +585,9 @@
         }
 
         .badge-status {
-            font-size: 8.5px;
+            font-size: 8px;
             font-weight: 800;
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 999px;
             text-transform: uppercase;
         }
@@ -565,7 +598,7 @@
         .badge-status.error { background: rgba(244, 63, 94, 0.18); color: #fb7185; }
 
         .log-line {
-            padding: 4px 7px;
+            padding: 4px 6px;
             margin-bottom: 3px;
             border-radius: var(--radius-sm);
             color: var(--text-secondary);
@@ -582,12 +615,12 @@
         .form-row {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            margin-bottom: 10px;
+            gap: 4px;
+            margin-bottom: 9px;
         }
 
         .input-label {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 700;
             color: var(--text-secondary);
         }
@@ -597,8 +630,8 @@
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
             color: var(--text-main);
-            padding: 8px 10px;
-            font-size: 11.5px;
+            padding: 7px 9px;
+            font-size: 11px;
             font-family: inherit;
             outline: none;
             transition: all 0.2s;
@@ -613,10 +646,10 @@
         .toggle-card {
             display: flex;
             align-items: flex-start;
-            gap: 8px;
-            padding: 8px 10px;
+            gap: 7px;
+            padding: 7px 9px;
             border-radius: var(--radius-md);
-            background: rgba(10, 13, 22, 0.45);
+            background: rgba(9, 13, 21, 0.45);
             border: 1px solid var(--border-subtle);
             cursor: pointer;
             margin-top: 4px;
@@ -631,7 +664,7 @@
         }
 
         .toggle-txt {
-            font-size: 10.5px;
+            font-size: 10px;
             color: var(--text-secondary);
             line-height: 1.4;
         }
@@ -644,7 +677,7 @@
 
         .studio-footer {
             text-align: center;
-            font-size: 9.5px;
+            font-size: 9px;
             font-weight: 500;
             color: var(--text-muted);
             padding: 4px 0;
@@ -658,17 +691,22 @@
         <header class="top-deck">
             <div class="brand-cluster">
                 <div class="brand-logo-gem">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                     </svg>
                 </div>
                 <div class="brand-title-wrap">
                     <span class="brand-title" id="txtTitle">NovaCut AI Studio</span>
-                    <span class="brand-subtitle">Premiere Pro • Ultra-Minimal</span>
+                    <span class="brand-subtitle">Premiere Pro Automation</span>
                 </div>
             </div>
-            <button class="lang-switcher" id="langToggleBtn" onclick="toggleLanguage()">
-                <span id="langFlag">🇬🇧</span> <span id="langLabel">English</span>
+            <button class="lang-switcher" id="langToggleBtn" onclick="toggleLanguage()" aria-label="Toggle language">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span id="langLabel">English</span>
             </button>
         </header>
 
@@ -693,14 +731,14 @@
             <div class="metric-tiles">
                 <div class="tile">
                     <span class="tile-label">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                         <span id="txtHostMetric">نسخه پریمیر</span>
                     </span>
                     <span class="tile-value" id="valHostVersion">در حال اتصال...</span>
                 </div>
                 <div class="tile">
                     <span class="tile-label">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                         <span id="txtProjectMetric">پروژه فعال</span>
                     </span>
                     <span class="tile-value" id="valProjectName">پروژه‌ای باز نیست</span>
@@ -708,13 +746,28 @@
             </div>
         </section>
 
-        <!-- Modern Segment Navigation -->
-        <nav class="nav-segment">
-            <button class="segment-btn active" onclick="switchTab('dashboard')" id="tabBtnDashboard">میز کار</button>
-            <button class="segment-btn" onclick="switchTab('capzo')" id="tabBtnCapzo">کپزو AI</button>
-            <button class="segment-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">هوش مصنوعی</button>
-            <button class="segment-btn" onclick="switchTab('queue')" id="tabBtnQueue">صف و لاگ</button>
-            <button class="segment-btn" onclick="switchTab('settings')" id="tabBtnSettings">تنظیمات</button>
+        <!-- Modern Segment Navigation with SVG Icons -->
+        <nav class="nav-segment" role="tablist">
+            <button class="segment-btn active" onclick="switchTab('dashboard')" id="tabBtnDashboard">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>میز کار</span>
+            </button>
+            <button class="segment-btn" onclick="switchTab('capzo')" id="tabBtnCapzo">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                <span>کپزو AI</span>
+            </button>
+            <button class="segment-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>هوش مصنوعی</span>
+            </button>
+            <button class="segment-btn" onclick="switchTab('queue')" id="tabBtnQueue">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                <span>صف و لاگ</span>
+            </button>
+            <button class="segment-btn" onclick="switchTab('settings')" id="tabBtnSettings">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>تنظیمات</span>
+            </button>
         </nav>
 
         <!-- Pane 1: Studio Dashboard -->
@@ -725,19 +778,19 @@
                 </div>
                 <div class="actions-quad">
                     <button class="dock-btn btn-launch" onclick="startBridge()" id="startButton">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         <span id="lblStart">شروع بریج</span>
                     </button>
                     <button class="dock-btn btn-halt" onclick="stopBridge()" id="stopButton" disabled>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
                         <span id="lblStop">توقف بریج</span>
                     </button>
                     <button class="dock-btn btn-neutral" onclick="testPremiereConnection()" id="pingButton">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                         <span id="lblPing">تست اتصال</span>
                     </button>
                     <button class="dock-btn btn-neutral" onclick="runDiagnostics()" id="diagnosticsButton">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                         <span id="lblDiag">عیب‌یابی</span>
                     </button>
                 </div>
@@ -746,9 +799,12 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtRecentTaskTitle">آخرین وضعیت زنده</span>
-                    <button class="copy-pill-btn" onclick="clearLog()" id="clearButton">پاک‌سازی</button>
+                    <button class="copy-pill-btn" onclick="clearLog()" id="clearButton">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <span>پاک‌سازی</span>
+                    </button>
                 </div>
-                <div class="terminal-box" id="quickLogPreview" style="max-height: 85px;">
+                <div class="terminal-box" id="quickLogPreview" style="max-height: 80px;">
                     <div class="log-line info">NovaCut AI Studio Bridge آماده دریافت دستورات تدوین است.</div>
                 </div>
             </div>
@@ -759,12 +815,12 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtCapzoTitle">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                         زیرنویس هوش مصنوعی کپزو (Capzo AI)
                     </span>
-                    <span class="profile-chip" id="capzoStatusBadge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; border-color: rgba(244, 63, 94, 0.3);">🔴 متصل نیست</span>
+                    <span class="profile-chip" id="capzoStatusBadge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; border-color: rgba(244, 63, 94, 0.3);">متصل نیست</span>
                 </div>
-                <p style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.45;" id="txtCapzoDesc">
+                <p style="font-size: 10px; color: var(--text-secondary); margin-bottom: 9px; line-height: 1.45;" id="txtCapzoDesc">
                     تولید دقیق زیرنویس فارسی با تقطیع کلمه‌ای صدم‌ثانیه‌ای (مستندات: capzo.ir/docs/api).
                 </p>
 
@@ -773,29 +829,31 @@
                     <label class="input-label" for="capzoApiKeyInput" id="lblCapzoKey">کلید اختصاصی API کپزو (پیشوند capzo_live_...):</label>
                     <div style="display: flex; gap: 6px;">
                         <input type="password" id="capzoApiKeyInput" placeholder="capzo_live_xxxxxxxxxxxxxxxxxxxxxxxx" style="flex: 1;" />
-                        <button class="dock-btn btn-neutral" onclick="toggleCapzoKeyVisibility()" style="padding: 0 10px;" title="نمایش/مخفی‌سازی">👁️</button>
+                        <button class="dock-btn btn-neutral" onclick="toggleCapzoKeyVisibility()" style="padding: 0 9px;" title="نمایش/مخفی‌سازی" aria-label="Toggle Key Visibility">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
                     </div>
                 </div>
 
-                <div class="actions-quad" style="margin-top: 8px;">
+                <div class="actions-quad" style="margin-top: 6px;">
                     <button class="dock-btn btn-launch" onclick="saveCapzoApiKey()" id="btnSaveCapzoKey">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                         <span id="lblSaveCapzo">ذخیره و تست کلید</span>
                     </button>
                     <button class="dock-btn btn-neutral" onclick="checkCapzoAccount()" id="btnCheckCapzo">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         <span id="lblCheckCapzo">استعلام مانده سهمیه</span>
                     </button>
                 </div>
 
                 <!-- Capzo Account Feedback Card -->
-                <div id="capzoAccountCard" style="display: none; margin-top: 10px; padding: 8px 10px; border-radius: var(--radius-md); background: rgba(8, 12, 22, 0.7); border: 1px solid var(--border-subtle);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px;">
+                <div id="capzoAccountCard" style="display: none; margin-top: 9px; padding: 7px 9px; border-radius: var(--radius-md); background: rgba(7, 11, 19, 0.75); border: 1px solid var(--border-subtle);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px;">
                         <span style="color: var(--text-muted);">پلن حساب:</span>
                         <span id="capzoPlanName" style="color: #c084fc; font-weight: 700;">-</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; margin-top: 3px;">
-                        <span style="color: var(--text-muted);">اعتبار دقایق باقیمانده:</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; margin-top: 3px;">
+                        <span style="color: var(--text-muted);">اعتبار باقیمانده:</span>
                         <span id="capzoCreditsRem" style="color: #34d399; font-weight: 800;">- دقیقه</span>
                     </div>
                 </div>
@@ -805,17 +863,17 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtCapzoSyncTitle">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                         تولید زیرنویس و سینک به تایم‌لاین
                     </span>
                 </div>
 
                 <div class="form-row">
                     <label class="input-label" for="capzoMediaInput" id="lblCapzoMedia">مسیر فایل ویدیو یا صوت (یا خالی برای سکانس فعال):</label>
-                    <input type="text" id="capzoMediaInput" placeholder="خالی بگذارید تا از سکانس فعال خروجی گرفته شود" />
+                    <input type="text" id="capzoMediaInput" placeholder="خالی بگذارید تا از سکانس فعال استفاده شود" />
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 9px;">
                     <div class="form-row" style="margin-bottom: 0;">
                         <label class="input-label" id="lblCapzoSeg">حالت تقطیع:</label>
                         <select id="capzoSegmentMode">
@@ -834,11 +892,11 @@
                 </div>
 
                 <button class="dock-btn btn-launch" style="width: 100%;" onclick="runCapzoTimelineSync()" id="btnSyncCapzo">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                     <span id="lblBtnSyncCapzo">تولید زیرنویس با هوش مصنوعی و افزودن به تایم‌لاین</span>
                 </button>
 
-                <div id="capzoProcessLog" style="display: none; margin-top: 8px; font-size: 10.5px; padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); max-height: 100px; overflow-y: auto; font-family: monospace;"></div>
+                <div id="capzoProcessLog" style="display: none; margin-top: 8px; font-size: 10px; padding: 6px 9px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); max-height: 95px; overflow-y: auto; font-family: monospace;"></div>
             </div>
         </section>
 
@@ -848,7 +906,7 @@
                 <div class="card-head">
                     <span class="card-caption" id="txtAiTitle">راهنمای اتصال مدل‌های هوش مصنوعی</span>
                 </div>
-                <p style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 10px;" id="txtAiSubtitle">
+                <p style="font-size: 10px; color: var(--text-secondary); margin-bottom: 9px;" id="txtAiSubtitle">
                     کانفیگ مربوط به هوش مصنوعی مورد نظر را کپی کنید و در تنظیمات MCP آن قرار دهید:
                 </p>
 
@@ -856,8 +914,14 @@
                     <!-- ChatGPT -->
                     <div class="hub-card">
                         <div class="hub-head">
-                            <span class="hub-title-tag">🟢 ChatGPT Desktop / OpenAI MCP</span>
-                            <button class="copy-pill-btn" onclick="copySnippet('chatgpt')">کپی کانفیگ</button>
+                            <span class="hub-title-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="#10b981"></polygon></svg>
+                                <span>ChatGPT Desktop / OpenAI MCP</span>
+                            </span>
+                            <button class="copy-pill-btn" onclick="copySnippet('chatgpt')">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>کپی کانفیگ</span>
+                            </button>
                         </div>
                         <div class="code-vault" id="code-chatgpt"></div>
                     </div>
@@ -865,8 +929,14 @@
                     <!-- Gemini -->
                     <div class="hub-card">
                         <div class="hub-head">
-                            <span class="hub-title-tag">🔵 Google Gemini & Antigravity</span>
-                            <button class="copy-pill-btn" onclick="copySnippet('gemini')">کپی کانفیگ</button>
+                            <span class="hub-title-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg>
+                                <span>Google Gemini & Antigravity</span>
+                            </span>
+                            <button class="copy-pill-btn" onclick="copySnippet('gemini')">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>کپی کانفیگ</span>
+                            </button>
                         </div>
                         <div class="code-vault" id="code-gemini"></div>
                     </div>
@@ -874,8 +944,14 @@
                     <!-- Grok -->
                     <div class="hub-card">
                         <div class="hub-head">
-                            <span class="hub-title-tag">⚫ xAI Grok (CLI / WebUI)</span>
-                            <button class="copy-pill-btn" onclick="copySnippet('grok')">کپی کانفیگ</button>
+                            <span class="hub-title-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f8fafc" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+                                <span>xAI Grok (CLI / WebUI)</span>
+                            </span>
+                            <button class="copy-pill-btn" onclick="copySnippet('grok')">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>کپی کانفیگ</span>
+                            </button>
                         </div>
                         <div class="code-vault" id="code-grok"></div>
                     </div>
@@ -883,8 +959,14 @@
                     <!-- Claude -->
                     <div class="hub-card">
                         <div class="hub-head">
-                            <span class="hub-title-tag">🟣 Claude Desktop & Claude Code</span>
-                            <button class="copy-pill-btn" onclick="copySnippet('claude')">کپی کانفیگ</button>
+                            <span class="hub-title-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                                <span>Claude Desktop & Claude Code</span>
+                            </span>
+                            <button class="copy-pill-btn" onclick="copySnippet('claude')">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>کپی کانفیگ</span>
+                            </button>
                         </div>
                         <div class="code-vault" id="code-claude"></div>
                     </div>
@@ -892,8 +974,14 @@
                     <!-- Cursor / Windsurf -->
                     <div class="hub-card">
                         <div class="hub-head">
-                            <span class="hub-title-tag">🔷 Cursor & Windsurf IDE</span>
-                            <button class="copy-pill-btn" onclick="copySnippet('cursor')">کپی کانفیگ</button>
+                            <span class="hub-title-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><polygon points="3 3 10 21 13 13 21 10 3 3"></polygon></svg>
+                                <span>Cursor & Windsurf IDE</span>
+                            </span>
+                            <button class="copy-pill-btn" onclick="copySnippet('cursor')">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span>کپی کانفیگ</span>
+                            </button>
                         </div>
                         <div class="code-vault" id="code-cursor"></div>
                     </div>
@@ -906,7 +994,7 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtQueueTitle">صف فرامین دریافتی</span>
-                    <span style="font-size: 9.5px; color: var(--text-muted); font-weight: 700;" id="queueCount">0 فرامین</span>
+                    <span style="font-size: 9px; color: var(--text-muted); font-weight: 700;" id="queueCount">0 فرامین</span>
                 </div>
                 <div class="queue-box" id="commandQueue">
                     <div class="queue-entry">
@@ -918,9 +1006,12 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtConsoleTitle">کنسول لاگ زنده سیستم</span>
-                    <button class="copy-pill-btn" onclick="clearLog()">پاک‌سازی لاگ</button>
+                    <button class="copy-pill-btn" onclick="clearLog()">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <span>پاک‌سازی لاگ</span>
+                    </button>
                 </div>
-                <div class="terminal-box" id="logContainer" style="max-height: 180px;">
+                <div class="terminal-box" id="logContainer" style="max-height: 170px;">
                     <div class="log-line info">NovaCut AI Studio Bridge (v2.0) آماده به کار است.</div>
                 </div>
             </div>
@@ -954,9 +1045,9 @@
                     </span>
                 </label>
 
-                <div style="margin-top: 10px;">
+                <div style="margin-top: 8px;">
                     <button class="dock-btn btn-launch" style="width: 100%;" onclick="saveConfig()" id="btnSaveConfig">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                         <span id="lblSaveConfig">ذخیره تنظیمات</span>
                     </button>
                 </div>
@@ -966,25 +1057,25 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtUpdateTitle">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
                         وضعیت و به‌روزرسانی (Updates)
                     </span>
                     <span class="profile-chip" id="lblCurrentVer">v2.0.0</span>
                 </div>
-                <div style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 8px;" id="txtUpdateStatusDesc">
+                <div style="font-size: 10px; color: var(--text-secondary); margin-bottom: 7px;" id="txtUpdateStatusDesc">
                     بررسی انتشار نسخه‌های جدیدتر و ارتقای ۱-کلیکه از مخزن رسمی گیت‌هاب:
                 </div>
                 <div class="actions-quad">
                     <button class="dock-btn btn-neutral" onclick="checkUpdates()" id="btnCheckUpdates">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
                         <span id="lblCheckUpdates">بررسی نسخه جدید</span>
                     </button>
                     <button class="dock-btn btn-launch" onclick="triggerAutoUpdate()" id="btnDoUpdate">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         <span id="lblDoUpdate">آپدیت ۱-کلیکه</span>
                     </button>
                 </div>
-                <div id="updateFeedback" style="display: none; margin-top: 8px; font-size: 10.5px; padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02);"></div>
+                <div id="updateFeedback" style="display: none; margin-top: 7px; font-size: 10px; padding: 6px 9px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02);"></div>
             </div>
         </section>
 

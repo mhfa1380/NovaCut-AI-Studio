@@ -1,5 +1,5 @@
 ========================================================================
-  🎬 NovaCut AI Studio — Ultra-Simple Windows Quick Start
+  NovaCut AI Studio — Ultra-Simple Windows Quick Start
   (Optimized evolution inspired by hetpatel-11/Adobe_Premiere_Pro_MCP)
 ========================================================================
 

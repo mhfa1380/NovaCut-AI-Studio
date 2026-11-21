@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (한국어)
+# NovaCut AI Studio (한국어)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@
 
 ---
 
-> 💡 **프로젝트 출처 및 감사의 글 (Attribution):**  
+> **프로젝트 출처 및 감사의 글 (Attribution):**  
 > NovaCut AI Studio는 오픈소스 프로젝트인 [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp)를 **기반으로 대폭 최적화하고 버그를 해결하여 새롭게 재설계한 버전**입니다.  
 > **NovaCut의 핵심 개선점:**
 > - **모든 AI 모델 지원:** Claude 전용 제약을 없애고 ChatGPT, Gemini, Grok, Claude, Cursor와 완벽 연동.
@@ -18,7 +18,7 @@
 
 ---
 
-## ⚡ 3단계 빠른 시작
+## 3단계 빠른 시작
 
 1. **원클릭 설치:** Windows에서 **`NovaCut-Setup.exe`** 실행 (macOS는 `scripts/install-macos.sh`).  
    *프리미어 확장 패널 설치, 레지스트리 설정, AI 클라이언트 연동이 전자동으로 완료됩니다.*
@@ -31,7 +31,7 @@
 
 ---
 
-## 📄 라이선스
+## 라이선스
 
 - **라이선스:** [MIT License](../LICENSE.md) — 100% 무료 오픈소스.
 - **개발 및 유지관리:** [mhfa1380](https://github.com/mhfa1380)

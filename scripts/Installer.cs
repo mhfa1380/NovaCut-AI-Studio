@@ -214,7 +214,7 @@ namespace NovaCut.Installer
 
             // Action Button (Primary)
             btnAction = new CustomPillButton();
-            btnAction.Text = "✨ نصب آسان و خودکار (1-Click Install)";
+            btnAction.Text = "نصب خودکار (1-Click Install)";
             btnAction.Font = fontBtn;
             btnAction.Size = new Size(230, 44);
             btnAction.Location = new Point(this.Width - 260, 445);
@@ -236,7 +236,7 @@ namespace NovaCut.Installer
 
             // Premiere Launch Button
             btnLaunchPr = new CustomPillButton();
-            btnLaunchPr.Text = "🎬 اجرای Premiere Pro";
+            btnLaunchPr.Text = "اجرای Premiere Pro";
             btnLaunchPr.Font = fontBtn;
             btnLaunchPr.Size = new Size(185, 44);
             btnLaunchPr.Location = new Point(this.Width - 455, 445);
@@ -652,11 +652,11 @@ namespace NovaCut.Installer
                     isFinished = true;
                     isInstalling = false;
                     btnAction.Enabled = true;
-                    btnAction.Text = "✓ اتمام و بستن (Done)";
+                    btnAction.Text = "اتمام و بستن (Done)";
                     btnAction.NormalGradStart = colEmerald;
                     btnAction.NormalGradEnd = Color.FromArgb(5, 150, 105);
                     btnLaunchPr.Visible = true;
-                    statusMessage = "🎉 تبریک! نصب با موفقیت انجام شد. پریمیر پرو را باز کرده و از منوی Window > Extensions استفاده کنید.";
+                    statusMessage = "نصب با موفقیت انجام شد. پریمیر پرو را باز کرده و از منوی Window > Extensions استفاده کنید.";
                     this.Invalidate();
 
                     if (autoRun)
@@ -675,7 +675,7 @@ namespace NovaCut.Installer
                     isInstalling = false;
                     btnAction.Enabled = true;
                     btnAction.Text = "تلاش مجدد (Retry)";
-                    statusMessage = "⚠️ خطا در هنگام نصب: " + ex.Message;
+                    statusMessage = "خطا در هنگام نصب: " + ex.Message;
                     this.Invalidate();
                     MessageBox.Show("خطا در هنگام نصب:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }));

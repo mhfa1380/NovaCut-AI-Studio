@@ -1,4 +1,4 @@
-# 🎬 NovaCut AI Studio (Русский)
+# NovaCut AI Studio (Русский)
 
 [English](../README.md) • [فارسی](../README.fa.md)
 
@@ -7,7 +7,7 @@
 
 ---
 
-> 💡 **Происхождение и Благодарность (Attribution):**  
+> **Происхождение и Благодарность (Attribution):**  
 > NovaCut AI Studio — это **оптимизированная, улучшенная и очищенная от багов версия**, созданная на основе открытого проекта [Adobe_Premiere_Pro_MCP от hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
 > **Ключевые преимущества NovaCut:**
 > - **Универсальная поддержка ИИ:** Работает «из коробки» с ChatGPT, Gemini, Grok, Claude и Cursor (больше нет привязки только к Claude).
@@ -18,7 +18,7 @@
 
 ---
 
-## ⚡ Быстрый старт в 3 шага
+## Быстрый старт в 3 шага
 
 1. **Установка в 1 клик:** Запустите **`NovaCut-Setup.exe`** в Windows (или `scripts/install-macos.sh` в macOS).  
    *Мастер автоматически настроит расширение Premiere Pro, реестр и конфигурации ИИ-клиентов.*
@@ -31,7 +31,7 @@
 
 ---
 
-## 📄 Лицензия
+## Лицензия
 
 - **Лицензия:** [MIT License](../LICENSE.md) — 100% бесплатно и открыто.
 - **Разработчик:** [mhfa1380](https://github.com/mhfa1380)
