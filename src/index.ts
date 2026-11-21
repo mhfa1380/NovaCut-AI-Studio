@@ -30,7 +30,7 @@ class MCPPremiereProServer {
   private telemetry: Telemetry;
 
   constructor() {
-    this.logger = new Logger('MCPPremiereProServer');
+    this.logger = new Logger('NovaCutServer');
     this.telemetry = getTelemetry();
 
     this.bridge = new PremiereProBridge();
@@ -42,9 +42,9 @@ class MCPPremiereProServer {
   private buildServer(): Server {
     const server = new Server(
       {
-        name: 'adobe-premiere-pro-mcp',
+        name: 'novacut-ai',
         version: PACKAGE_VERSION,
-        description: 'Model Context Protocol tools for Adobe Premiere Pro - AI-powered video editing'
+        description: 'NovaCut AI Studio — Universal MCP Automation Server for Adobe Premiere Pro (ChatGPT, Grok, Gemini, Claude, Cursor)'
       },
       {
         capabilities: {
@@ -107,10 +107,22 @@ class MCPPremiereProServer {
         this.recordToolCall(innerName || name, { success: false, error: errorMessage }, Date.now() - startedAt);
         this.logger.error(`Tool execution failed: ${errorMessage}`);
         
-        throw new ProtocolError(
-          ProtocolErrorCode.InternalError,
-          `Failed to execute tool '${name}': ${errorMessage}`
-        );
+        // Return a valid CallToolResult with isError: true instead of throwing ProtocolError.
+        // Throwing ProtocolError causes Claude Desktop / Anthropic API to fail with:
+        // "messages.1.content.1.tool_use.id: Field required" (GitHub Issue #123)
+        const toolResult: CallToolResult = {
+          content: [
+            {
+              type: 'text' as const,
+              text: JSON.stringify({
+                success: false,
+                error: `Failed to execute tool '${name}': ${errorMessage}`
+              }, null, 2)
+            }
+          ],
+          isError: true
+        };
+        return server.projectCallToolResult(toolResult, undefined);
       }
     });
 
@@ -219,7 +231,7 @@ class MCPPremiereProServer {
         }
       });
       
-      this.logger.info('MCP Adobe Premiere Pro Server started successfully');
+      this.logger.info('NovaCut AI Studio Server started successfully');
       this.telemetry.trackServerStarted();
       void checkForUpdate().then((status) => {
         if (status.available && !status.snoozed && status.nextStep) {
@@ -249,15 +261,24 @@ class MCPPremiereProServer {
 // Start the server
 const server = new MCPPremiereProServer();
 
+// Prevent unhandled rejections from crashing the stdio transport on Windows (GitHub Issue #122)
+process.on('unhandledRejection', (reason) => {
+  console.error('[NovaCutServer] Unhandled promise rejection:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('[NovaCutServer] Uncaught exception:', error);
+});
+
 // Handle graceful shutdown
 process.on('SIGINT', async () => {
-  console.error('\nShutting down MCP Adobe Premiere Pro Server...');
+  console.error('\nShutting down NovaCut AI Studio Server...');
   await server.stop();
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
-  console.error('\nShutting down MCP Adobe Premiere Pro Server...');
+  console.error('\nShutting down NovaCut AI Studio Server...');
   await server.stop();
   process.exit(0);
 });

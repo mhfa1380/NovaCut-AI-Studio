@@ -1,21 +1,24 @@
 <div align="center">
 
-# MCP Bridge for Adobe Premiere Pro
+# 🎬 NovaCut AI Studio (MCP for Adobe Premiere Pro)
 
-**Operate local Adobe Premiere Pro projects through MCP.**
+**Universal AI Video Editing Automation Bridge for Adobe Premiere Pro.**
 
-283 Premiere tools behind `search_tools` / `invoke_tool`, 13 context resources, and 10 guided prompts for Codex, Claude Code, Claude Desktop, and other MCP clients. CEP is the supported production bridge; UXP remains experimental.
+**Operate local Adobe Premiere Pro projects through MCP with ChatGPT, Google Gemini, xAI Grok, Claude, Cursor, and Windsurf.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-5fd3c6.svg)](LICENSE.md)
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933.svg)](https://nodejs.org/)
-[![MCP](https://img.shields.io/badge/MCP-local%20server-5fd3c6.svg)](https://modelcontextprotocol.io/)
-[![npm](https://img.shields.io/npm/v/adobe-premiere-pro-mcp.svg)](https://www.npmjs.com/package/adobe-premiere-pro-mcp)
-[![CEP](https://img.shields.io/badge/CEP-production-2ea44f.svg)](https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP#install)
-[![UXP](https://img.shields.io/badge/UXP-experimental-f2c14e.svg)](https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP#install)
-
-**Website:** [premiere-mcp.com](https://premiere-mcp.com/)
+[![MCP](https://img.shields.io/badge/MCP-Universal%20Server-5fd3c6.svg)](https://modelcontextprotocol.io/)
+[![Version](https://img.shields.io/badge/NovaCut-v2.0.0-00f2fe.svg)](#)
+[![Persian Support](https://img.shields.io/badge/Persian%20Support-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-818cf8.svg)](README.fa.md)
+[![CEP](https://img.shields.io/badge/CEP-production-2ea44f.svg)](#install)
 
 </div>
+
+> 🇮🇷 **راهنمای جامع فارسی:** برای مطالعه راهنمای کامل نصب و استفاده به زبان فارسی، به [README.fa.md](README.fa.md) مراجعه کنید.
+>
+> 🚀 **1-Click Quick Install:** Simply double-click `install.bat` on Windows! All Adobe registry keys, CEP extension files, and AI client configs are configured automatically.
+
 
 **Languages:** English | [日本語](translations/README.ja.md) | [Tiếng Việt](translations/README.vi.md) | [简体中文](translations/README.zh-CN.md) | [繁體中文](translations/README.zh-TW.md) | [한국어](translations/README.ko.md) | [Deutsch](translations/README.de.md) | [Español](translations/README.es.md) | [Français](translations/README.fr.md) | [Italiano](translations/README.it.md) | [Dansk](translations/README.da.md) | [Polski](translations/README.pl.md) | [Русский](translations/README.ru.md) | [Bosanski](translations/README.bs.md) | [العربية](translations/README.ar.md) | [Norsk](translations/README.no.md) | [Português (Brasil)](translations/README.pt-BR.md) | [ไทย](translations/README.th.md) | [Türkçe](translations/README.tr.md) | [ភាសាខ្មែរ](translations/README.km.md)
 

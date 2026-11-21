@@ -8,19 +8,149 @@ const packageRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const serverEntry = join(packageRoot, 'dist', 'index.js');
 
 function printHelp(): void {
-  console.log(`Premiere Pro MCP
+  console.log(`
+================================================================================
+  🎬 NovaCut AI Studio — Universal MCP Bridge for Adobe Premiere Pro (v2.0)
+  استودیو هوشمند نوواکات — بریج جامع هوش مصنوعی برای ادوبی پریمیر پرو
+================================================================================
+
+Description:
+  Connects Adobe Premiere Pro directly to ALL AI models:
+  ChatGPT (GPT-4o/o1/o3), Google Gemini, xAI Grok, Claude, Cursor, and Windsurf.
+  Supports English & Persian (فارسی).
 
 Usage:
-  premiere-pro-mcp                 Start the MCP stdio server
-  premiere-pro-mcp --install-cep   Install the CEP bridge and configure supported MCP clients
-  premiere-pro-mcp --doctor        Check the local server, CEP bridge, and client configuration
-  premiere-pro-mcp --version       Print the installed package version
-  premiere-pro-mcp --help          Show this help
+  novacut                       Start the MCP stdio server
+  novacut setup                 Install the CEP bridge & auto-configure AI clients
+  novacut doctor                Run diagnostic health checks (Windows / macOS)
+  novacut config [client]       Generate ready-to-use MCP configuration
+  novacut --version             Show package version
+  novacut --help                Show this help message
 
-Telemetry is on by default. Set PREMIERE_MCP_TELEMETRY=0 to opt out.
-Update checks are on by default. Set PREMIERE_MCP_UPDATE_CHECK=0 to opt out.
-Tool search is on by default (search_tools + invoke_tool). Set PREMIERE_MCP_TOOLSET=full to advertise every Premiere tool to the MCP host.
+Supported AI Clients for 'novacut config <client>':
+  chatgpt   - OpenAI / ChatGPT Desktop
+  claude    - Anthropic Claude Desktop & Claude Code
+  gemini    - Google Gemini / Antigravity
+  grok      - xAI Grok (CLI / Open-WebUI)
+  cursor    - Cursor IDE (.cursor/mcp.json)
+  windsurf  - Windsurf IDE
+  vscode    - VS Code GitHub Copilot
+  all       - Display configurations for all clients
+
+Environment Variables:
+  NOVACUT_TOOLSET=standard|full|search|essential  (Default: standard)
+  PREMIERE_TEMP_DIR=<path>                        (Bridge exchange directory)
+  PREMIERE_MCP_TELEMETRY=0                        (Disable anonymous telemetry)
 `);
+}
+
+function printClientConfigs(targetClient?: string): void {
+  const nodeBin = process.execPath;
+  const tempDir = process.platform === 'win32'
+    ? join(process.env.TEMP || 'C:\\Temp', 'novacut-bridge')
+    : '/tmp/novacut-bridge';
+
+  const stdioServerObj = {
+    command: nodeBin,
+    args: [serverEntry],
+    env: {
+      PREMIERE_TEMP_DIR: tempDir,
+      NOVACUT_TOOLSET: 'standard'
+    }
+  };
+
+  const configs: Record<string, { title: string; json: unknown; pathDesc: string }> = {
+    chatgpt: {
+      title: 'ChatGPT Desktop / OpenAI MCP',
+      pathDesc: 'Settings -> Developer -> MCP Servers (or %APPDATA%\\OpenAI\\ChatGPT\\mcp.json)',
+      json: {
+        mcpServers: {
+          'novacut-premiere': stdioServerObj
+        }
+      }
+    },
+    claude: {
+      title: 'Claude Desktop',
+      pathDesc: process.platform === 'win32'
+        ? '%APPDATA%\\Claude\\claude_desktop_config.json'
+        : '~/Library/Application Support/Claude/claude_desktop_config.json',
+      json: {
+        mcpServers: {
+          'novacut-premiere': stdioServerObj
+        }
+      }
+    },
+    gemini: {
+      title: 'Google Gemini / Antigravity',
+      pathDesc: 'Antigravity MCP config / Gemini CLI',
+      json: {
+        mcpServers: {
+          'novacut-premiere': stdioServerObj
+        }
+      }
+    },
+    grok: {
+      title: 'xAI Grok / Open-WebUI / LM Studio',
+      pathDesc: 'Grok MCP connector or Open-WebUI Tools settings',
+      json: {
+        mcpServers: {
+          'novacut-premiere': stdioServerObj
+        }
+      }
+    },
+    cursor: {
+      title: 'Cursor IDE',
+      pathDesc: '.cursor/mcp.json or Settings -> Features -> MCP',
+      json: {
+        mcpServers: {
+          'novacut-premiere': stdioServerObj
+        }
+      }
+    },
+    windsurf: {
+      title: 'Windsurf IDE',
+      pathDesc: '~/.codeium/windsurf/mcp_config.json',
+      json: {
+        mcpServers: {
+          'novacut-premiere': stdioServerObj
+        }
+      }
+    },
+    vscode: {
+      title: 'VS Code GitHub Copilot',
+      pathDesc: process.platform === 'win32'
+        ? '%APPDATA%\\Code\\User\\mcp.json'
+        : '~/Library/Application Support/Code/User/mcp.json',
+      json: {
+        servers: {
+          'novacut-premiere': {
+            type: 'stdio',
+            ...stdioServerObj
+          }
+        }
+      }
+    }
+  };
+
+  const requested = (targetClient || 'all').toLowerCase();
+
+  if (requested !== 'all' && configs[requested]) {
+    const item = configs[requested];
+    console.log(`\n--- Config for ${item.title} ---`);
+    console.log(`Location: ${item.pathDesc}`);
+    console.log(JSON.stringify(item.json, null, 2));
+    return;
+  }
+
+  console.log(`\n======================================================`);
+  console.log(`  NovaCut AI Studio — Configuration Snippets for AI Clients`);
+  console.log(`======================================================`);
+
+  for (const [key, item] of Object.entries(configs)) {
+    console.log(`\n[+] ${item.title} (${key}):`);
+    console.log(`    Location: ${item.pathDesc}`);
+    console.log(JSON.stringify(item.json, null, 2));
+  }
 }
 
 function run(command: string, args: string[]): Promise<number> {
@@ -45,14 +175,14 @@ async function runPlatformScript(macScript: string, windowsScript: string, windo
       ...windowsArgs,
     ]);
   } else {
-    throw new Error('Premiere Pro MCP setup is supported on macOS and Windows only.');
+    throw new Error('NovaCut setup is supported on macOS and Windows only.');
   }
 
   if (code !== 0) process.exitCode = code;
 }
 
 async function main(): Promise<void> {
-  const [command] = process.argv.slice(2);
+  const [command, subCommand] = process.argv.slice(2);
 
   switch (command) {
     case undefined:
@@ -62,16 +192,20 @@ async function main(): Promise<void> {
     case '--install-cep':
     case 'install-cep':
     case 'setup':
+    case '--setup':
       await runPlatformScript('install-macos.sh', 'install-windows.ps1', ['-SkipBuild']);
       return;
     case '--doctor':
     case 'doctor':
       await runPlatformScript('doctor-macos.sh', 'doctor-windows.ps1');
       return;
+    case 'config':
+      printClientConfigs(subCommand);
+      return;
     case '--version':
     case '-v': {
       const packageJson = await import('../package.json', { with: { type: 'json' } });
-      console.log(packageJson.default.version);
+      console.log(`NovaCut AI Studio v${packageJson.default.version}`);
       return;
     }
     case '--help':

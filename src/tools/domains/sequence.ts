@@ -10,10 +10,10 @@ import type { ToolContext, ToolModule } from '../context.js';
 export const sequenceTools: ToolModule[] = [
   {
     name: 'create_sequence',
-    description: 'Creates a new sequence from a specific installed .sqpreset file without opening Premiere\'s New Sequence dialog. For footage-driven edits, prefer create_sequence_from_clips; for an empty copy of an existing sequence, use duplicate_sequence with clearContents=true.',
+    description: 'Creates a new sequence without opening Premiere\'s native New Sequence modal dialog. If presetPath is omitted, NovaCut safely duplicates an existing sequence with clearContents=true or locates an installed preset automatically.',
     inputSchema: z.object({
       name: z.string().describe('The name for the new sequence'),
-      presetPath: z.string().describe('Absolute path to an installed Premiere .sqpreset sequence preset. Required so Premiere does not show the native New Sequence dialog.')
+      presetPath: z.string().optional().describe('Optional path to an installed Premiere .sqpreset file. If omitted, NovaCut uses an existing sequence template or auto-locates installed presets.')
     }),
     run: (ctx, args) => createSequence(ctx, args.name, args.presetPath),
   },
@@ -153,9 +153,9 @@ export const sequenceTools: ToolModule[] = [
   },
 ];
 
-async function createSequence(ctx: ToolContext, name: string, presetPath: string): Promise<any> {
+async function createSequence(ctx: ToolContext, name: string, presetPath?: string): Promise<any> {
   try {
-    const result: any = await ctx.bridge.createSequence(name, presetPath);
+    const result: any = await ctx.bridge.createSequence(name, presetPath || '');
     if (result?.success === false) {
       return {
         ...result,
@@ -177,7 +177,7 @@ async function createSequence(ctx: ToolContext, name: string, presetPath: string
       error: `Failed to create sequence: ${message}`,
       sequenceName: name,
       ...(timedOut ? {
-        warning: 'Premiere may still create the sequence after this timeout. Wait for the bridge to become responsive, then run list_sequences to verify before retrying. The server intentionally does not run automatic recovery after a timeout because that can wedge the CEP bridge on Windows.'
+        warning: 'Premiere may still create the sequence after this timeout. Wait for the bridge to become responsive, then run list_sequences to verify before retrying.'
       } : {})
     };
   }

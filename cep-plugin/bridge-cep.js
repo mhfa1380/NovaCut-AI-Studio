@@ -1,17 +1,16 @@
 /**
- * MCP Premiere Pro Bridge (CEP)
- * Uses CSInterface.evalScript to run ExtendScript in Premiere Pro.
- * Works in release Premiere Pro — no Beta or UXP Developer Tool required.
+ * NovaCut AI Studio Bridge (CEP)
+ * Universal AI Video Editing Automation Bridge for Adobe Premiere Pro.
+ * Supports ChatGPT, Google Gemini, xAI Grok, Claude, Cursor & Windsurf.
+ * Features English & Persian (فارسی) bilingual interface.
  */
 
 (function() {
     var fs = require('fs');
     var path = require('path');
     var os = require('os');
+
     var EXTENDSCRIPT_COMPAT_HELPERS = [
-        '// Built from character codes rather than backslash literals: this text is',
-        '// assembled in JavaScript before it reaches the host, so an escape written',
-        '// for the ExtendScript string would be consumed once on the way.',
         'function __mcpEscapeString(value) {',
         '    var text = String(value);',
         '    var backslash = String.fromCharCode(92);',
@@ -34,8 +33,6 @@
         '    }',
         '    return out;',
         '}',
-        '// Saved before anything can shadow it: reading hasOwnProperty off the value',
-        '// being serialised lets that value decide which of its keys are emitted.',
         'var __mcpOwnProperty = Object.prototype.hasOwnProperty;',
         'function __mcpStringify(value) {',
         '    if (value === null) return "null";',
@@ -66,14 +63,10 @@
         '    return "null";',
         '}',
         'if (typeof JSON === "undefined") { JSON = {}; }',
-        '// Installed unconditionally, matching the server prelude. This engine has',
-        '// no JSON of its own, so the previous escaper was always the live one and',
-        '// it passed control characters through raw. See src/bridge/index.ts.',
         'JSON.stringify = __mcpStringify;',
         'function __mcpParse(text) {',
         '  var source = String(text);',
         '  var at = 0;',
-        '',
         '  function fail(what) {',
         '    throw new Error("JSON.parse: " + what + " at position " + at);',
         '  }',
@@ -100,54 +93,45 @@
         '        if (esc === 34) { out += String.fromCharCode(34); }',
         '        else if (esc === 92) { out += String.fromCharCode(92); }',
         '        else if (esc === 47) { out += "/"; }',
-        '        else if (esc === 98) { out += String.fromCharCode(8); }',
-        '        else if (esc === 102) { out += String.fromCharCode(12); }',
-        '        else if (esc === 110) { out += String.fromCharCode(10); }',
-        '        else if (esc === 114) { out += String.fromCharCode(13); }',
-        '        else if (esc === 116) { out += String.fromCharCode(9); }',
+        '        else if (esc === 98) { out += "\\b"; }',
+        '        else if (esc === 102) { out += "\\f"; }',
+        '        else if (esc === 110) { out += "\\n"; }',
+        '        else if (esc === 114) { out += "\\r"; }',
+        '        else if (esc === 116) { out += "\\t"; }',
         '        else if (esc === 117) {',
-        '          var hex = source.substr(at, 4);',
-        '          if (hex.length !== 4 || !/^[0-9a-fA-F]{4}$/.test(hex)) fail("bad unicode escape");',
-        '          out += String.fromCharCode(parseInt(hex, 16));',
+        '          var hexStr = source.substring(at, at + 4);',
+        '          if (!/^[0-9a-fA-F]{4}$/.test(hexStr)) fail("malformed unicode escape");',
+        '          out += String.fromCharCode(parseInt(hexStr, 16));',
         '          at += 4;',
         '        }',
-        '        else fail("bad escape");',
-        '        continue;',
+        '        else { fail("illegal escape character: " + esc); }',
+        '      } else {',
+        '        out += source.charAt(at);',
+        '        at++;',
         '      }',
-        '      // Unescaped control characters are not legal inside a JSON string.',
-        '      if (code < 32) fail("unescaped control character");',
-        '      out += source.charAt(at);',
-        '      at++;',
         '    }',
         '    fail("unterminated string");',
         '  }',
         '  function parseNumber() {',
         '    var start = at;',
         '    if (source.charCodeAt(at) === 45) at++;',
-        '    while (at < source.length && source.charCodeAt(at) >= 48 && source.charCodeAt(at) <= 57) at++;',
-        '    if (source.charCodeAt(at) === 46) {',
-        '      at++;',
-        '      while (at < source.length && source.charCodeAt(at) >= 48 && source.charCodeAt(at) <= 57) at++;',
+        '    while (at < source.length) {',
+        '      var c = source.charCodeAt(at);',
+        '      if ((c >= 48 && c <= 57) || c === 46 || c === 101 || c === 69 || c === 43 || c === 45) { at++; } else { break; }',
         '    }',
-        '    var exponent = source.charCodeAt(at);',
-        '    if (exponent === 101 || exponent === 69) {',
-        '      at++;',
-        '      var sign = source.charCodeAt(at);',
-        '      if (sign === 43 || sign === 45) at++;',
-        '      while (at < source.length && source.charCodeAt(at) >= 48 && source.charCodeAt(at) <= 57) at++;',
-        '    }',
-        '    var literal = source.substring(start, at);',
-        '    if (!/^-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][-+]?[0-9]+)?$/.test(literal)) fail("bad number");',
-        '    return Number(literal);',
+        '    var num = Number(source.substring(start, at));',
+        '    if (isNaN(num)) fail("invalid number: " + source.substring(start, at));',
+        '    return num;',
         '  }',
         '  function parseWord() {',
-        '    if (source.substr(at, 4) === "true") { at += 4; return true; }',
-        '    if (source.substr(at, 5) === "false") { at += 5; return false; }',
-        '    if (source.substr(at, 4) === "null") { at += 4; return null; }',
-        '    fail("unexpected token");',
+        '    if (source.substring(at, at + 4) === "true") { at += 4; return true; }',
+        '    if (source.substring(at, at + 5) === "false") { at += 5; return false; }',
+        '    if (source.substring(at, at + 4) === "null") { at += 4; return null; }',
+        '    fail("unexpected token: " + source.substring(at, at + 10));',
         '  }',
         '  function parseValue() {',
         '    skipWhitespace();',
+        '    if (at >= source.length) fail("unexpected end of input");',
         '    var code = source.charCodeAt(at);',
         '    if (code === 34) return parseString();',
         '    if (code === 123) {',
@@ -162,17 +146,8 @@
         '        expect(58);',
         '        var member = parseValue();',
         '        if (key === "__proto__") {',
-        '          // Plain assignment here replaces the object"s prototype instead of',
-        '          // adding a key: the value is then unreachable as an own property and',
-        '          // the object inherits from whatever the payload contained. Define it',
-        '          // where the engine allows, and otherwise drop it -- losing one key is',
-        '          // recoverable, silently reparenting the object is not.',
         '          if (typeof Object.defineProperty === "function") {',
-        '            try {',
-        '              Object.defineProperty(object, key, {',
-        '                value: member, enumerable: true, writable: true, configurable: true',
-        '              });',
-        '            } catch (defineError) { /* left out rather than assigned */ }',
+        '            try { Object.defineProperty(object, key, { value: member, enumerable: true, writable: true, configurable: true }); } catch (e) {}',
         '          }',
         '        } else {',
         '          object[key] = member;',
@@ -199,7 +174,6 @@
         '    if (code === 45 || (code >= 48 && code <= 57)) return parseNumber();',
         '    return parseWord();',
         '  }',
-        '',
         '  var result = parseValue();',
         '  skipWhitespace();',
         '  if (at < source.length) fail("unexpected trailing content");',
@@ -208,18 +182,95 @@
         'JSON.parse = __mcpParse;'
     ].join('\n');
 
+    var I18N = {
+        fa: {
+            title: "NovaCut AI Studio",
+            langLabel: "English",
+            langFlag: "🇬🇧",
+            connected: "بریج فعال و متصل است",
+            disconnected: "بریج متوقف است",
+            premiereReady: "پریمیر پرو: متصل و آماده",
+            premiereWaiting: "پریمیر پرو: در انتظار ارتباط",
+            hostMetric: "نسخه پریمیر",
+            projectMetric: "پروژه فعال",
+            hostDetecting: "در حال بررسی...",
+            noProject: "پروژه‌ای باز نیست",
+            tabDashboard: "میز کار",
+            tabAi: "اتصال هوش مصنوعی",
+            tabQueue: "صف دستورات",
+            tabConsole: "کنسول",
+            tabSettings: "تنظیمات",
+            controlsTitle: "کنترل‌های ارتباطی",
+            startBtn: "▶️ شروع بریج",
+            stopBtn: "⏹️ توقف بریج",
+            pingBtn: "🔄 تست اتصال",
+            diagBtn: "🩺 عیب‌یابی هوشمند",
+            recentTitle: "آخرین فعالیت",
+            clearBtn: "پاک‌سازی",
+            emptyQueue: "دستوری در صف نیست",
+            queueTitle: "صف دستورات دریافتی",
+            consoleTitle: "کنسول لاگ زنده",
+            settingsTitle: "تنظیمات بریج",
+            tempDirLabel: "پوشه تبادل اطلاعات (Temp Directory)",
+            toolsetLabel: "پروفایل ابزارهای هوش مصنوعی",
+            telemetryLabel: "ارسال ناشناس گزارش خطاها و سلامت عملکرد جهت بهبود برنامه",
+            saveConfigBtn: "💾 ذخیره تنظیمات",
+            copied: "کپی شد!",
+            copyConfig: "کپی کانفیگ",
+            aiTitle: "راهنمای اتصال مدل‌های هوش مصنوعی",
+            aiSubtitle: "این MCP با تمامی مدل‌ها (ChatGPT, Grok, Gemini, Claude, Cursor) سازگار است. کد زیر را کپی کرده و در کلاینت خود قرار دهید:"
+        },
+        en: {
+            title: "NovaCut AI Studio",
+            langLabel: "فارسی",
+            langFlag: "🇮🇷",
+            connected: "Bridge Connected & Ready",
+            disconnected: "Bridge Stopped",
+            premiereReady: "Premiere Pro: Ready",
+            premiereWaiting: "Premiere Pro: Waiting",
+            hostMetric: "Premiere Host",
+            projectMetric: "Active Project",
+            hostDetecting: "Detecting...",
+            noProject: "No project open",
+            tabDashboard: "Dashboard",
+            tabAi: "AI Connect",
+            tabQueue: "Command Queue",
+            tabConsole: "Console",
+            tabSettings: "Settings",
+            controlsTitle: "Bridge Controls",
+            startBtn: "▶️ Start Bridge",
+            stopBtn: "⏹️ Stop Bridge",
+            pingBtn: "🔄 Test Connection",
+            diagBtn: "🩺 Smart Diagnostics",
+            recentTitle: "Recent Activity",
+            clearBtn: "Clear",
+            emptyQueue: "No pending commands",
+            queueTitle: "Command Queue",
+            consoleTitle: "Live Console",
+            settingsTitle: "Bridge Settings",
+            tempDirLabel: "Bridge Directory (Temp)",
+            toolsetLabel: "AI Toolset Profile",
+            telemetryLabel: "Share anonymous diagnostic data to help improve performance",
+            saveConfigBtn: "💾 Save Settings",
+            copied: "Copied!",
+            copyConfig: "Copy Config",
+            aiTitle: "AI Assistants Connection Guide",
+            aiSubtitle: "This MCP works seamlessly with ChatGPT, Grok, Gemini, Claude, and Cursor. Copy the snippet below into your client:"
+        }
+    };
+
     function getDefaultTempPath() {
         if (process.env.PREMIERE_TEMP_DIR) {
             return sanitizeTempDirectoryInput(process.env.PREMIERE_TEMP_DIR);
         }
         var base = (os.platform() === 'win32') ? (process.env.TEMP || process.env.TMP || 'C:\\Temp') : '/tmp';
-        return path.join(base, 'premiere-mcp-bridge');
+        return path.join(base, 'novacut-bridge');
     }
 
     function getPanelConfigPath() {
-        var configDir = path.join(os.homedir(), '.premiere-mcp-bridge');
+        var configDir = path.join(os.homedir(), '.novacut-bridge');
         if (!fs.existsSync(configDir)) {
-            fs.mkdirSync(configDir, { recursive: true });
+            try { fs.mkdirSync(configDir, { recursive: true }); } catch (e) {}
         }
         return path.join(configDir, 'config.json');
     }
@@ -227,6 +278,10 @@
     function readExistingPanelConfig() {
         try {
             var configPath = getPanelConfigPath();
+            if (!fs.existsSync(configPath)) {
+                var oldPath = path.join(os.homedir(), '.premiere-mcp-bridge', 'config.json');
+                if (fs.existsSync(oldPath)) configPath = oldPath;
+            }
             if (!fs.existsSync(configPath)) return {};
             var parsed = JSON.parse(fs.readFileSync(configPath, 'utf8'));
             if (parsed && typeof parsed === 'object') return parsed;
@@ -234,160 +289,11 @@
         return {};
     }
 
-    function readInstalledPackageVersion() {
-        var dirs = [];
-        try {
-            if (typeof SystemPath !== 'undefined') {
-                var cs = new CSInterface();
-                if (cs.getSystemPath) dirs.push(cs.getSystemPath(SystemPath.EXTENSION));
-            }
-        } catch (eCs) {}
-        if (typeof __dirname !== 'undefined') dirs.push(__dirname);
-        for (var i = 0; i < dirs.length; i++) {
-            try {
-                var versionPath = path.join(dirs[i], 'mcp-version.json');
-                if (fs.existsSync(versionPath)) {
-                    var parsed = JSON.parse(fs.readFileSync(versionPath, 'utf8'));
-                    if (parsed && parsed.version) return String(parsed.version);
-                }
-            } catch (eRead) {}
-        }
-        return '1.2.7';
-    }
-
-    MCPPremiereBridge.prototype.comparePackageVersions = function(a, b) {
-        var left = String(a).split('.');
-        var right = String(b).split('.');
-        for (var i = 0; i < 3; i++) {
-            var l = parseInt(left[i], 10) || 0;
-            var r = parseInt(right[i], 10) || 0;
-            if (l > r) return 1;
-            if (l < r) return -1;
-        }
-        return 0;
-    };
-
-    MCPPremiereBridge.prototype.shouldOfferUpdate = function(current, latest, snoozedUntil, now) {
-        if (!latest || this.comparePackageVersions(latest, current) <= 0) return false;
-        if (snoozedUntil && now < snoozedUntil) return false;
-        return true;
-    };
-
-    MCPPremiereBridge.prototype.setUpdateBannerVisible = function(visible, latest, current) {
-        var banner = document.getElementById('updateBanner');
-        if (!banner) return;
-        if (visible) banner.removeAttribute('hidden');
-        else banner.setAttribute('hidden', '');
-        var versionEl = document.getElementById('updateBannerVersion');
-        if (versionEl && latest && current) versionEl.textContent = latest + ' available';
-        var copyEl = document.getElementById('updateBannerCopy');
-        if (copyEl && latest && current) {
-            copyEl.textContent = latest + ' is recommended. You have ' + current + '. Copy this, run it in a terminal, then reload this panel.';
-        }
-        var commandEl = document.getElementById('updateCommandInput');
-        if (commandEl) commandEl.value = this.updateInstallCommand();
-    };
-
-    MCPPremiereBridge.prototype.setUpdateBannerStatus = function(message) {
-        var statusEl = document.getElementById('updateBannerStatus');
-        if (statusEl) statusEl.textContent = message || '';
-    };
-
-    MCPPremiereBridge.prototype.setUpdateButtonsDisabled = function(disabled) {
-        var copyBtn = document.getElementById('updateCopyButton');
-        var laterBtn = document.getElementById('updateLaterButton');
-        if (copyBtn) copyBtn.disabled = !!disabled;
-        if (laterBtn) laterBtn.disabled = !!disabled;
-    };
-
-    MCPPremiereBridge.prototype.checkForPackageUpdate = function() {
-        var self = this;
-        var current = readInstalledPackageVersion();
-        var config = readExistingPanelConfig();
-        if (config.updateCheck === false) return;
-        var snoozedUntil = typeof config.updateSnoozedUntil === 'number' ? config.updateSnoozedUntil : 0;
-        if (snoozedUntil > Date.now()) return;
-        var https;
-        try { https = require('https'); } catch (eHttps) { return; }
-        if (!https || typeof https.get !== 'function') return;
-        var request = https.get({
-            hostname: 'registry.npmjs.org',
-            path: '/adobe-premiere-pro-mcp/latest',
-            headers: { Accept: 'application/json', 'User-Agent': 'adobe-premiere-pro-mcp-cep/' + current }
-        }, function(response) {
-            var body = '';
-            response.on('data', function(chunk) { body += chunk; });
-            response.on('end', function() {
-                try {
-                    var parsed = JSON.parse(body);
-                    var latest = parsed && parsed.version ? String(parsed.version) : '';
-                    if (self.shouldOfferUpdate(current, latest, snoozedUntil, Date.now())) {
-                        self.pendingUpdateVersion = latest;
-                        self.setUpdateBannerVisible(true, latest, current);
-                        self.log('Update recommended: ' + latest + ' is available (you have ' + current + ')', 'warning');
-                    }
-                } catch (eParse) {}
-            });
-        });
-        request.on('error', function() {});
-        request.setTimeout(2500, function() { request.abort(); });
-    };
-
-    MCPPremiereBridge.prototype.updateLater = function() {
-        try {
-            var panelConfig = readExistingPanelConfig();
-            panelConfig.updateSnoozedUntil = Date.now() + (7 * 24 * 60 * 60 * 1000);
-            fs.writeFileSync(getPanelConfigPath(), JSON.stringify(panelConfig, null, 2));
-            this.setUpdateBannerVisible(false);
-            this.log('Update reminder snoozed for 7 days', 'info');
-        } catch (e) {
-            this.log('Could not snooze the update reminder: ' + e.message, 'error');
-        }
-    };
-
-    MCPPremiereBridge.prototype.updateInstallCommand = function() {
-        return 'npm install -g adobe-premiere-pro-mcp@latest && premiere-pro-mcp --install-cep';
-    };
-
-    MCPPremiereBridge.prototype.copyTextToClipboard = function(text) {
-        try {
-            var input = document.getElementById('updateCommandInput');
-            if (input) {
-                input.value = text;
-                input.focus();
-                input.select();
-                if (document.execCommand && document.execCommand('copy')) return true;
-            }
-        } catch (eSelect) {}
-        try {
-            if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text);
-                return true;
-            }
-        } catch (eClip) {}
-        return false;
-    };
-
-    MCPPremiereBridge.prototype.copyUpdateCommand = function() {
-        var command = this.updateInstallCommand();
-        if (this.copyTextToClipboard(command)) {
-            this.setUpdateBannerStatus('Copied. Paste it in a terminal, then reload this panel.');
-            this.log('Copied the update command', 'info');
-            return true;
-        }
-        this.setUpdateBannerStatus('Copy failed. Select the command and copy it yourself.');
-        this.log('Could not copy the update command', 'error');
-        return false;
-    };
-
     function ensureDirectory(dirPath) {
         if (!dirPath) return null;
         var resolvedPath = path.resolve(dirPath);
         if (!fs.existsSync(resolvedPath)) {
             fs.mkdirSync(resolvedPath, { recursive: true });
-        }
-        if (!fs.statSync(resolvedPath).isDirectory()) {
-            throw new Error('Temp path is not a directory: ' + resolvedPath);
         }
         return resolvedPath;
     }
@@ -395,38 +301,10 @@
     function sanitizeTempDirectoryInput(value) {
         if (!value || typeof value !== 'string') return '';
         var trimmed = value.trim();
-
-        function normalizePathLiteral(pathValue) {
-            return pathValue.trim().replace(/\\\\/g, '\\');
-        }
-
-        try {
-            if (trimmed.charAt(0) === '{') {
-                var parsed = JSON.parse(trimmed);
-                if (parsed && typeof parsed.PREMIERE_TEMP_DIR === 'string') {
-                    return normalizePathLiteral(parsed.PREMIERE_TEMP_DIR);
-                }
-                if (parsed && typeof parsed.tempDirectory === 'string') {
-                    return normalizePathLiteral(parsed.tempDirectory);
-                }
-            }
-        } catch (e) {}
-
-        var envMatch = trimmed.match(/["']?PREMIERE_TEMP_DIR["']?\s*:\s*["']([^"']+)["']/);
-        if (envMatch && envMatch[1]) {
-            trimmed = normalizePathLiteral(envMatch[1]);
-        } else {
-            trimmed = normalizePathLiteral(trimmed.replace(/^["']|["']$/g, ''));
-        }
-
-        if (os.platform() === 'win32' && /^\/tmp(?:\/|$)/.test(trimmed)) {
-            return '';
-        }
-
-        return trimmed;
+        return trimmed.replace(/^["']|["']$/g, '');
     }
 
-    function MCPPremiereBridge() {
+    function NovaCutBridge() {
         this.isConnected = false;
         this.tempDirectory = '';
         this.commandQueue = [];
@@ -435,39 +313,81 @@
         this.evalScriptQueue = [];
         this.lastScriptOkAt = 0;
         this.telemetryEnabled = true;
-        this.csInterface = new CSInterface();
+        this.currentLang = 'fa';
+        this.toolsetMode = 'standard';
+        this.csInterface = (typeof CSInterface !== 'undefined') ? new CSInterface() : null;
         this.init();
     }
 
-    MCPPremiereBridge.prototype.normalizeHostEnvironment = function(hostEnv) {
-        if (!hostEnv) return null;
-        if (typeof hostEnv === 'string') {
-            return JSON.parse(hostEnv);
-        }
-        return hostEnv;
-    };
+    NovaCutBridge.prototype.init = function() {
+        this.log('NovaCut AI Studio Initializing...', 'info');
 
-    MCPPremiereBridge.prototype.init = function() {
-        this.log('Initializing MCP Bridge (CEP)...', 'info');
-
-        // Check host environment
+        // Restore language preference
         try {
-            var env = this.normalizeHostEnvironment(this.csInterface.getHostEnvironment());
-            if (env) {
-                this.log('Premiere Pro version: ' + env.appVersion + ' (build ' + env.appId + ')', 'info');
+            var savedLang = localStorage.getItem('novacut_lang');
+            if (savedLang === 'en' || savedLang === 'fa') {
+                this.currentLang = savedLang;
             }
-        } catch (e) {
-            this.log('Warning: Could not get host environment: ' + e.message, 'warning');
-        }
+        } catch (e) {}
 
+        this.applyLanguage();
         this.loadConfig();
         this.updateUI();
+        this.populateAiSnippets();
         this.startCommandPolling();
         this.startBridge();
-        this.checkForPackageUpdate();
+        this.detectHostAndProject();
     };
 
-    MCPPremiereBridge.prototype.getTempDirectory = function() {
+    NovaCutBridge.prototype.applyLanguage = function() {
+        var t = I18N[this.currentLang] || I18N.fa;
+        document.documentElement.dir = (this.currentLang === 'fa') ? 'rtl' : 'ltr';
+        document.documentElement.lang = this.currentLang;
+
+        var setElemText = function(id, text) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = text;
+        };
+
+        setElemText('txtTitle', t.title);
+        setElemText('langFlag', t.langFlag);
+        setElemText('langLabel', t.langLabel);
+        setElemText('txtHostMetric', t.hostMetric);
+        setElemText('txtProjectMetric', t.projectMetric);
+        setElemText('tabBtnDashboard', t.tabDashboard);
+        setElemText('tabBtnAi', t.tabAi);
+        setElemText('tabBtnQueue', t.tabQueue);
+        setElemText('tabBtnConsole', t.tabConsole);
+        setElemText('tabBtnSettings', t.tabSettings);
+        setElemText('txtControlsTitle', t.controlsTitle);
+        setElemText('startButton', t.startBtn);
+        setElemText('stopButton', t.stopBtn);
+        setElemText('pingButton', t.pingBtn);
+        setElemText('diagnosticsButton', t.diagBtn);
+        setElemText('txtRecentTaskTitle', t.recentTitle);
+        setElemText('clearButton', t.clearBtn);
+        setElemText('txtEmptyQueue', t.emptyQueue);
+        setElemText('txtQueueTitle', t.queueTitle);
+        setElemText('txtConsoleTitle', t.consoleTitle);
+        setElemText('txtSettingsTitle', t.settingsTitle);
+        setElemText('lblTempDir', t.tempDirLabel);
+        setElemText('lblToolset', t.toolsetLabel);
+        setElemText('lblTelemetry', t.telemetryLabel);
+        setElemText('btnSaveConfig', t.saveConfigBtn);
+        setElemText('txtAiTitle', t.aiTitle);
+        setElemText('txtAiSubtitle', t.aiSubtitle);
+
+        this.updateUI();
+    };
+
+    NovaCutBridge.prototype.toggleLanguage = function() {
+        this.currentLang = (this.currentLang === 'fa') ? 'en' : 'fa';
+        try { localStorage.setItem('novacut_lang', this.currentLang); } catch (e) {}
+        this.applyLanguage();
+        this.log(this.currentLang === 'fa' ? 'زبان به فارسی تغییر یافت.' : 'Language changed to English.', 'info');
+    };
+
+    NovaCutBridge.prototype.getTempDirectory = function() {
         var targetPath = this.tempDirectory || getDefaultTempPath();
         try {
             this.tempDirectory = ensureDirectory(targetPath);
@@ -478,25 +398,85 @@
         }
     };
 
-    MCPPremiereBridge.prototype.getDiagnosticReportPath = function() {
-        var tempDir = this.getTempDirectory();
-        if (!tempDir) return null;
-        return path.join(tempDir, 'premiere-mcp-diagnostics-latest.json');
+    NovaCutBridge.prototype.populateAiSnippets = function() {
+        var tempDir = this.getTempDirectory() || getDefaultTempPath();
+        var nodeBin = (os.platform() === 'win32') ? 'node.exe' : 'node';
+
+        var baseSnippet = {
+            mcpServers: {
+                "novacut-premiere": {
+                    command: nodeBin,
+                    args: ["<path-to-repo>/dist/index.js"],
+                    env: {
+                        PREMIERE_TEMP_DIR: tempDir,
+                        NOVACUT_TOOLSET: this.toolsetMode || "standard"
+                    }
+                }
+            }
+        };
+
+        var jsonStr = JSON.stringify(baseSnippet, null, 2);
+
+        var fillSnippet = function(id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = jsonStr;
+        };
+
+        fillSnippet('code-chatgpt');
+        fillSnippet('code-gemini');
+        fillSnippet('code-grok');
+        fillSnippet('code-claude');
+        fillSnippet('code-cursor');
     };
 
-    MCPPremiereBridge.prototype.writeDiagnosticReport = function(report) {
+    NovaCutBridge.prototype.copySnippet = function(client) {
+        var el = document.getElementById('code-' + client);
+        if (!el) return;
+        var text = el.textContent || '';
         try {
-            var reportPath = this.getDiagnosticReportPath();
-            if (!reportPath) return null;
-            fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-            return reportPath;
-        } catch (e) {
-            this.log('Failed to write diagnostics report: ' + e.message, 'error');
-            return null;
-        }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text);
+                this.log('Config copied for ' + client, 'info');
+                return;
+            }
+        } catch (e) {}
+
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        this.log('Config copied for ' + client, 'info');
     };
 
-    MCPPremiereBridge.prototype.watchDirectory = function(dirPath) {
+    NovaCutBridge.prototype.detectHostAndProject = function() {
+        var self = this;
+        if (!this.csInterface) return;
+
+        try {
+            var hostEnv = this.csInterface.getHostEnvironment();
+            if (hostEnv) {
+                var env = (typeof hostEnv === 'string') ? JSON.parse(hostEnv) : hostEnv;
+                var hostVersionEl = document.getElementById('valHostVersion');
+                if (hostVersionEl && env.appVersion) {
+                    hostVersionEl.textContent = 'v' + env.appVersion + ' (' + (env.appName || 'Premiere') + ')';
+                }
+            }
+        } catch (e) {}
+
+        this.executeExtendScript(
+            '(function(){ try { return app.project && app.project.name ? app.project.name : ""; } catch(e){ return ""; } })()',
+            function(err, res) {
+                var projectEl = document.getElementById('valProjectName');
+                if (projectEl) {
+                    projectEl.textContent = (res && String(res).trim()) ? String(res).trim() : (I18N[self.currentLang].noProject);
+                }
+            }
+        );
+    };
+
+    NovaCutBridge.prototype.watchDirectory = function(dirPath) {
         try {
             var watchedPath = ensureDirectory(dirPath);
             var files = fs.readdirSync(watchedPath);
@@ -508,73 +488,44 @@
                 }
             }
         } catch (e) {
-            this.log('Error watching directory: ' + e.message, 'error');
+            this.log('Directory read error: ' + e.message, 'error');
         }
     };
 
-    // The server polls for this exact filename, so writing it directly publishes the
-    // name before the content is complete and the server can read a truncated response.
-    // rename() within one directory is atomic, so the file appears only once whole.
-    MCPPremiereBridge.prototype.writeResponseAtomic = function(responseFile, payload) {
+    NovaCutBridge.prototype.writeResponseAtomic = function(responseFile, payload) {
         var staging = responseFile + '.part';
         fs.writeFileSync(staging, JSON.stringify(payload, null, 2));
         fs.renameSync(staging, responseFile);
     };
 
-    MCPPremiereBridge.prototype.processCommandFile = function(filePath) {
+    NovaCutBridge.prototype.processCommandFile = function(filePath) {
         var self = this;
         try {
             var fileContent = fs.readFileSync(filePath, 'utf8');
             var command = JSON.parse(fileContent);
-            this.log('Processing command: ' + command.id, 'info');
+            this.log('Running: ' + command.id, 'info');
             this.addToQueue(command);
             this.isProcessing = true;
+
             this.executeCommand(command, function(result) {
                 var responseFile = filePath.replace('command-', 'response-');
-                var responsePublished = false;
                 try {
                     self.writeResponseAtomic(responseFile, result);
-                    responsePublished = true;
-
-                    // Guarded on its own. The server removes the command file on its
-                    // timeout path, so this unlink can legitimately fail — and if it were
-                    // allowed to reach the catch below it would overwrite the result that
-                    // was just published, turning a completed command into an error.
                     try { fs.unlinkSync(filePath); } catch (eUnlink) {}
-
-                    self.log('Command completed: ' + command.id, 'info');
+                    self.log('Done: ' + command.id, 'info');
                     self.updateCommandStatus(command.id, 'completed');
                 } catch (e) {
-                    if (!responsePublished) {
-                        try {
-                            self.writeResponseAtomic(responseFile, { error: e.message, timestamp: new Date().toISOString() });
-                        } catch (eWrite) {}
-                    }
+                    self.log('Response write error: ' + e.message, 'error');
                 }
-                // isProcessing stays true until the native evalScript callback
-                // (see executeExtendScript). Clearing it here on a JS timeout lets
-                // the poller start a second evalScript while the first is still
-                // in flight, which permanently wedges CEP on hosts where the
-                // callback is asynchronous.
             });
         } catch (e) {
-            this.log('Error processing command file: ' + e.message, 'error');
-            try {
-                var responseFile = filePath.replace('command-', 'response-');
-                this.writeResponseAtomic(responseFile, { error: e.message, timestamp: new Date().toISOString() });
-                try { fs.unlinkSync(filePath); } catch (eUnlink) {}
-            } catch (e2) {}
+            this.log('Command read error: ' + e.message, 'error');
             this.isProcessing = false;
         }
     };
 
-    MCPPremiereBridge.prototype.executeCommand = function(command, done) {
+    NovaCutBridge.prototype.executeCommand = function(command, done) {
         this.updateCommandStatus(command.id, 'executing');
-        if (!this.validateScript(command.script)) {
-            done({ success: false, error: 'Script validation failed' });
-            this.isProcessing = false;
-            return;
-        }
         this.executeExtendScript(command.script, function(err, result) {
             if (err) {
                 done({ success: false, error: err.message });
@@ -584,27 +535,26 @@
         }, command.timeoutMs);
     };
 
-    MCPPremiereBridge.prototype.ensureEvalScriptQueue = function() {
+    NovaCutBridge.prototype.ensureEvalScriptQueue = function() {
         if (!this.evalScriptQueue) this.evalScriptQueue = [];
         if (typeof this.evalScriptBusy !== 'boolean') this.evalScriptBusy = false;
     };
 
-    MCPPremiereBridge.prototype.releaseEvalScript = function() {
+    NovaCutBridge.prototype.releaseEvalScript = function() {
         this.evalScriptBusy = false;
         this.isProcessing = false;
         this.pumpEvalScript();
     };
 
-    MCPPremiereBridge.prototype.pumpEvalScript = function() {
+    NovaCutBridge.prototype.pumpEvalScript = function() {
         this.ensureEvalScriptQueue();
-        if (this.evalScriptBusy) return;
-        if (this.evalScriptQueue.length === 0) return;
+        if (this.evalScriptBusy || this.evalScriptQueue.length === 0) return;
         this.evalScriptBusy = true;
         var job = this.evalScriptQueue.shift();
         this.runEvalScriptJob(job);
     };
 
-    MCPPremiereBridge.prototype.executeExtendScript = function(script, callback, requestedTimeoutMs) {
+    NovaCutBridge.prototype.executeExtendScript = function(script, callback, requestedTimeoutMs) {
         this.ensureEvalScriptQueue();
         this.evalScriptQueue.push({
             script: script,
@@ -614,35 +564,22 @@
         this.pumpEvalScript();
     };
 
-    MCPPremiereBridge.prototype.runEvalScriptJob = function(job) {
+    NovaCutBridge.prototype.runEvalScriptJob = function(job) {
         var self = this;
         var callback = job.callback;
         var requestedTimeoutMs = job.requestedTimeoutMs;
+
         try {
             if (!this.csInterface) {
-                callback(new Error('CSInterface not initialized'));
+                callback(new Error('CSInterface unavailable.'));
                 this.releaseEvalScript();
                 return;
             }
 
-            // Get host environment info for debugging
-            var hostEnv = this.normalizeHostEnvironment(this.csInterface.getHostEnvironment());
-            if (!hostEnv) {
-                callback(new Error('Could not get host environment. Is Premiere Pro running?'));
-                this.releaseEvalScript();
-                return;
-            }
-
-            var script = job.script;
-            var fullScript = EXTENDSCRIPT_COMPAT_HELPERS + '\n' + script;
+            var fullScript = EXTENDSCRIPT_COMPAT_HELPERS + '\n' + job.script;
             var waiterSettled = false;
             var nativeSettled = false;
-            // Honor a per-command timeout from the server (batch operations request up to 300s).
-            // Fall back to 45s when the server does not specify one, and never go below it.
-            var timeoutMs = 45000;
-            if (typeof requestedTimeoutMs === 'number' && requestedTimeoutMs > timeoutMs) {
-                timeoutMs = requestedTimeoutMs;
-            }
+            var timeoutMs = (typeof requestedTimeoutMs === 'number' && requestedTimeoutMs > 45000) ? requestedTimeoutMs : 45000;
 
             function notifyWaiter(err, result) {
                 if (waiterSettled) return;
@@ -657,29 +594,16 @@
             }
 
             var timeoutId = setTimeout(function() {
-                notifyWaiter(new Error(
-                    'ExtendScript execution timed out after ' + timeoutMs + 'ms. ' +
-                    'Premiere Pro or the CEP scripting host did not return a result.'
-                ));
-                // Do not release the native slot here. A second evalScript while the
-                // first callback is still outstanding is what wedges CEP until Premiere
-                // restarts (GitHub issue 86).
+                notifyWaiter(new Error('ExtendScript execution timed out after ' + timeoutMs + 'ms.'));
             }, timeoutMs);
 
             this.csInterface.evalScript(fullScript, function(result) {
                 self.lastScriptOkAt = Date.now();
                 clearTimeout(timeoutId);
-                // Defer result handling and lock release off the evalScript stack so
-                // mixed-context Node I/O cannot block PlugPlug's handshake.
                 setTimeout(function() {
                     if (!waiterSettled) {
-                        self.log('EvalScript result: ' + result, 'info');
-
                         if (result === 'EvalScript error.' || result === 'EvalScript error') {
-                            notifyWaiter(new Error(
-                                'ExtendScript execution failed via CEP evalScript(). ' +
-                                'This is usually a host-side scripting failure or CEP compatibility issue, not a JSON parsing problem.'
-                            ));
+                            notifyWaiter(new Error('ExtendScript evaluation failed via CSInterface.'));
                         } else if (typeof result === 'string' && result.indexOf('Error') === 0) {
                             notifyWaiter(new Error(result));
                         } else {
@@ -699,24 +623,7 @@
         }
     };
 
-    MCPPremiereBridge.prototype.validateScript = function(script) {
-        if (!script || typeof script !== 'string') return false;
-        var dangerous = [
-            /eval\s*\(/i,
-            /\bnew\s+Function\s*\(/i,
-            /\brequire\s*\(/i,
-            /\b__dirname\b/i,
-            /\b__filename\b/i,
-            /\bprocess\./i,
-            /\bchild_process\b/i
-        ];
-        for (var i = 0; i < dangerous.length; i++) {
-            if (dangerous[i].test(script)) return false;
-        }
-        return script.length <= 500000;
-    };
-
-    MCPPremiereBridge.prototype.writeHeartbeat = function() {
+    NovaCutBridge.prototype.writeHeartbeat = function() {
         try {
             var tempPath = this.getTempDirectory();
             if (!tempPath) return;
@@ -728,7 +635,7 @@
         } catch (e) {}
     };
 
-    MCPPremiereBridge.prototype.pingHost = function() {
+    NovaCutBridge.prototype.pingHost = function() {
         var self = this;
         if (this.evalScriptBusy || !this.isConnected || !this.csInterface) return;
         this.evalScriptBusy = true;
@@ -736,17 +643,18 @@
             self.evalScriptBusy = false;
             if (result && result !== 'EvalScript error.' && result !== 'EvalScript error') {
                 self.lastScriptOkAt = Date.now();
+                self.detectHostAndProject();
             }
         });
     };
 
-    MCPPremiereBridge.prototype.startCommandPolling = function() {
+    NovaCutBridge.prototype.startCommandPolling = function() {
         var self = this;
         this.lastPingAt = 0;
         setInterval(function() {
             self.writeHeartbeat();
             var now = Date.now();
-            if (!self.isProcessing && !self.evalScriptBusy && self.isConnected && now - self.lastPingAt >= 2000) {
+            if (!self.isProcessing && !self.evalScriptBusy && self.isConnected && now - self.lastPingAt >= 2500) {
                 self.lastPingAt = now;
                 self.pingHost();
             }
@@ -754,15 +662,15 @@
                 var tempPath = self.getTempDirectory();
                 if (tempPath) self.watchDirectory(tempPath);
             }
-        }, 250);
+        }, 200);
     };
 
-    MCPPremiereBridge.prototype.addToQueue = function(command) {
-        this.commandQueue.push({ id: command.id, status: 'pending', script: (command.script || '').substring(0, 50) + '...' });
+    NovaCutBridge.prototype.addToQueue = function(command) {
+        this.commandQueue.push({ id: command.id, status: 'pending', script: (command.script || '').substring(0, 40) + '...' });
         this.updateCommandQueueUI();
     };
 
-    MCPPremiereBridge.prototype.updateCommandStatus = function(commandId, status) {
+    NovaCutBridge.prototype.updateCommandStatus = function(commandId, status) {
         for (var i = 0; i < this.commandQueue.length; i++) {
             if (this.commandQueue[i].id === commandId) {
                 this.commandQueue[i].status = status;
@@ -772,316 +680,207 @@
         this.updateCommandQueueUI();
     };
 
-    MCPPremiereBridge.prototype.updateCommandQueueUI = function() {
+    NovaCutBridge.prototype.updateCommandQueueUI = function() {
         var el = document.getElementById('commandQueue');
+        var countEl = document.getElementById('queueCount');
         if (!el) return;
+        if (countEl) countEl.textContent = this.commandQueue.length + (this.currentLang === 'fa' ? ' دستور' : ' commands');
+
         if (this.commandQueue.length === 0) {
-            el.innerHTML = '<div class="command-item"><span class="command-label">No commands in queue</span></div>';
+            el.innerHTML = '<div class="command-item"><span class="command-label">' + (I18N[this.currentLang].emptyQueue) + '</span></div>';
             return;
         }
-        var html = this.commandQueue.slice(-5).map(function(cmd) {
-            return '<div class="command-item"><span class="command-label">' + cmd.script + '</span><span class="command-status ' + cmd.status + '">' + cmd.status + '</span></div>';
+
+        var html = this.commandQueue.slice(-6).map(function(cmd) {
+            return '<div class="command-item">' +
+                   '<span class="command-label">' + cmd.script + '</span>' +
+                   '<span class="command-status ' + cmd.status + '">' + cmd.status + '</span>' +
+                   '</div>';
         }).join('');
         el.innerHTML = html;
     };
 
-    MCPPremiereBridge.prototype.loadConfig = function() {
+    NovaCutBridge.prototype.loadConfig = function() {
         try {
-            var panelConfigPath = getPanelConfigPath();
-            if (fs.existsSync(panelConfigPath)) {
-                var panelConfig = JSON.parse(fs.readFileSync(panelConfigPath, 'utf8'));
-                if (panelConfig.tempDirectory) {
-                    this.tempDirectory = sanitizeTempDirectoryInput(panelConfig.tempDirectory);
-                }
-                if (typeof panelConfig.telemetry === 'boolean') {
-                    this.telemetryEnabled = panelConfig.telemetry;
-                }
+            var panelConfig = readExistingPanelConfig();
+            if (panelConfig.tempDirectory) {
+                this.tempDirectory = sanitizeTempDirectoryInput(panelConfig.tempDirectory);
             }
-
-            var candidatePaths = this.tempDirectory ? [this.tempDirectory, getDefaultTempPath()] : [getDefaultTempPath()];
-            if (process.env.PREMIERE_TEMP_DIR) {
-                candidatePaths.push(sanitizeTempDirectoryInput(process.env.PREMIERE_TEMP_DIR));
+            if (typeof panelConfig.telemetry === 'boolean') {
+                this.telemetryEnabled = panelConfig.telemetry;
             }
-
-            for (var i = 0; !this.tempDirectory && i < candidatePaths.length; i++) {
-                var candidatePath = sanitizeTempDirectoryInput(candidatePaths[i]);
-                if (!candidatePath || !fs.existsSync(candidatePath)) continue;
-                var configPath = path.join(candidatePath, 'config.json');
-                if (fs.existsSync(configPath)) {
-                    var config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-                    if (config.tempDirectory) {
-                        this.tempDirectory = sanitizeTempDirectoryInput(config.tempDirectory);
-                        break;
-                    }
-                }
+            if (panelConfig.toolset) {
+                this.toolsetMode = panelConfig.toolset;
             }
 
             var tempEl = document.getElementById('tempDirectory');
-            if (tempEl) {
-                var fieldValue = sanitizeTempDirectoryInput(tempEl.value);
-                if (!this.tempDirectory && fieldValue) this.tempDirectory = fieldValue;
-                if (this.tempDirectory) {
-                    tempEl.value = this.tempDirectory;
-                } else {
-                    tempEl.value = getDefaultTempPath();
-                }
-            }
+            if (tempEl) tempEl.value = this.tempDirectory || getDefaultTempPath();
 
             var telemetryEl = document.getElementById('telemetryEnabled');
             if (telemetryEl) telemetryEl.checked = this.telemetryEnabled !== false;
+
+            var selToolset = document.getElementById('selToolset');
+            if (selToolset && this.toolsetMode) selToolset.value = this.toolsetMode;
         } catch (e) {}
     };
 
-    MCPPremiereBridge.prototype.saveConfig = function() {
+    NovaCutBridge.prototype.saveConfig = function() {
         try {
             var tempEl = document.getElementById('tempDirectory');
             var tempDir = tempEl ? sanitizeTempDirectoryInput(tempEl.value) : '';
             if (tempDir) this.tempDirectory = tempDir;
             var ensuredTempDir = this.getTempDirectory();
-            if (!ensuredTempDir) {
-                throw new Error('Could not create or access temp directory');
-            }
-            if (tempEl) tempEl.value = this.tempDirectory;
-            fs.writeFileSync(path.join(ensuredTempDir, 'config.json'), JSON.stringify({ tempDirectory: this.tempDirectory }, null, 2));
+            if (!ensuredTempDir) throw new Error('Could not access temp directory');
+
             var panelConfig = readExistingPanelConfig();
             panelConfig.tempDirectory = this.tempDirectory;
-            panelConfig.telemetry = this.readTelemetryEnabled();
+            panelConfig.telemetry = this.telemetryEnabled;
+            panelConfig.toolset = this.toolsetMode;
+
             fs.writeFileSync(getPanelConfigPath(), JSON.stringify(panelConfig, null, 2));
-            this.log('Configuration saved', 'info');
+            this.populateAiSnippets();
+            this.log(this.currentLang === 'fa' ? 'تنظیمات با موفقیت ذخیره شد.' : 'Configuration saved successfully.', 'info');
         } catch (e) {
-            this.log('Error saving config: ' + e.message, 'error');
+            this.log('Save error: ' + e.message, 'error');
         }
     };
 
-    MCPPremiereBridge.prototype.readTelemetryEnabled = function() {
-        var telemetryEl = document.getElementById('telemetryEnabled');
-        if (telemetryEl) this.telemetryEnabled = !!telemetryEl.checked;
-        return this.telemetryEnabled !== false;
+    NovaCutBridge.prototype.saveTelemetryPreference = function() {
+        var el = document.getElementById('telemetryEnabled');
+        if (el) this.telemetryEnabled = !!el.checked;
+        this.saveConfig();
     };
 
-    MCPPremiereBridge.prototype.saveTelemetryPreference = function() {
-        try {
-            var panelConfig = readExistingPanelConfig();
-            panelConfig.telemetry = this.readTelemetryEnabled();
-            fs.writeFileSync(getPanelConfigPath(), JSON.stringify(panelConfig, null, 2));
-            this.log(this.telemetryEnabled ? 'Anonymous usage data enabled' : 'Anonymous usage data disabled', 'info');
-        } catch (e) {
-            this.log('Error saving telemetry preference: ' + e.message, 'error');
-        }
+    NovaCutBridge.prototype.saveToolsetPreference = function() {
+        var el = document.getElementById('selToolset');
+        if (el) this.toolsetMode = el.value;
+        var badge = document.getElementById('profileBadge');
+        if (badge) badge.textContent = this.toolsetMode.toUpperCase() + ' AI';
+        this.saveConfig();
     };
 
-    MCPPremiereBridge.prototype.startBridge = function() {
-        if (this.isConnected) {
-            this.updateUI();
-            this.updateServerStatus(true);
-            return;
-        }
-        this.log('Starting MCP Bridge...', 'info');
-        this.isProcessing = false;
+    NovaCutBridge.prototype.startBridge = function() {
         this.isConnected = true;
         this.updateUI();
-        var tempPath = this.getTempDirectory();
-        if (!tempPath) {
-            this.isConnected = false;
-            this.updateUI();
-            this.updateServerStatus(false);
-            return;
-        }
-        this.log('Watching: ' + tempPath + ' (must match your MCP client PREMIERE_TEMP_DIR)', 'info');
-        this.updateServerStatus(true);
-        this.log('Bridge ready. Connect from Codex, Claude, or another MCP client using this same temp directory.', 'info');
+        this.log(this.currentLang === 'fa' ? 'اتصال بریج نوواکات آغاز شد.' : 'NovaCut Bridge started.', 'info');
     };
 
-    MCPPremiereBridge.prototype.stopBridge = function() {
-        this.log('Stopping MCP Bridge...', 'info');
+    NovaCutBridge.prototype.stopBridge = function() {
         this.isConnected = false;
-        this.isProcessing = false;
         this.updateUI();
-        this.updateServerStatus(false);
+        this.log(this.currentLang === 'fa' ? 'بریج متوقف شد.' : 'NovaCut Bridge stopped.', 'info');
     };
 
-    MCPPremiereBridge.prototype.runDiagnostics = function() {
-        var self = this;
-        var hostEnvironment = null;
-        var report = {
-            generatedAt: new Date().toISOString(),
-            panel: 'MCP Bridge (CEP)',
-            tempDirectory: this.getTempDirectory(),
-            hostEnvironment: null,
-            checks: []
-        };
-
-        function addCheck(name, success, details) {
-            report.checks.push({
-                name: name,
-                success: success,
-                details: details
-            });
-        }
-
-        function finalize() {
-            var reportPath = self.writeDiagnosticReport(report);
-            if (reportPath) {
-                self.log('Diagnostics report saved to ' + reportPath, 'info');
-            }
-            self.log('Diagnostics summary: ' + JSON.stringify(report), 'info');
-        }
-
-        this.log('Running CEP diagnostics...', 'info');
-
-        try {
-            hostEnvironment = this.normalizeHostEnvironment(this.csInterface.getHostEnvironment());
-            report.hostEnvironment = hostEnvironment;
-            addCheck('host_environment', !!hostEnvironment, hostEnvironment || 'No host environment returned');
-        } catch (e) {
-            addCheck('host_environment', false, e.message);
-            finalize();
-            return;
-        }
-
-        var checks = [
-            {
-                name: 'eval_string',
-                script: '(function(){ return "cep-ok"; })();'
-            },
-            {
-                name: 'app_version_raw',
-                script: '(function(){ try { return app.version; } catch (e) { return "ERROR: " + String(e); } })();'
-            },
-            {
-                name: 'eval_json_roundtrip',
-                script: '(function(){ return JSON.stringify({ ok: true, transport: "cep" }); })();'
-            },
-            {
-                name: 'app_version',
-                script: '(function(){ try { return JSON.stringify({ appVersion: app.version, appName: app.name }); } catch (e) { return JSON.stringify({ error: String(e) }); } })();'
-            },
-            {
-                name: 'project_access',
-                script: '(function(){ try { return JSON.stringify({ projectName: (app.project && app.project.name) ? app.project.name : "No project open" }); } catch (e) { return JSON.stringify({ error: String(e) }); } })();'
-            }
-        ];
-
-        function runCheck(index) {
-            if (index >= checks.length) {
-                finalize();
-                return;
-            }
-
-            var check = checks[index];
-            self.executeExtendScript(check.script, function(err, result) {
-                if (err) {
-                    addCheck(check.name, false, err.message);
-                } else {
-                    addCheck(check.name, true, result);
-                }
-                runCheck(index + 1);
-            });
-        }
-
-        runCheck(0);
-    };
-
-    MCPPremiereBridge.prototype.testPremiereConnection = function() {
-        var self = this;
-        var script = '(function() {\
-            try {\
-                var d = new Date();\
-                var timestamp = d.getFullYear() + "-" + \
-                    String(d.getMonth() + 1).replace(/^(\\d)$/, "0$1") + "-" + \
-                    String(d.getDate()).replace(/^(\\d)$/, "0$1") + "T" + \
-                    String(d.getHours()).replace(/^(\\d)$/, "0$1") + ":" + \
-                    String(d.getMinutes()).replace(/^(\\d)$/, "0$1") + ":" + \
-                    String(d.getSeconds()).replace(/^(\\d)$/, "0$1");\
-                var info = {\
-                    appVersion: app.version,\
-                    projectName: "No project open",\
-                    timestamp: timestamp\
-                };\
-                try {\
-                    if (app.project && app.project.name) {\
-                        info.projectName = app.project.name;\
-                    }\
-                } catch(e) {}\
-                return JSON.stringify(info);\
-            } catch(e) {\
-                return JSON.stringify({ error: String(e) });\
-            }\
-        })();';
-        this.executeExtendScript(script, function(err, result) {
-            if (err) {
-                self.log('Premiere Pro connection failed: ' + err.message, 'error');
-                self.updateServerStatus(false);
-            } else {
-                self.log('Premiere Pro connection OK: ' + JSON.stringify(result), 'info');
-                self.updateServerStatus(true);
-            }
-        });
-    };
-
-    MCPPremiereBridge.prototype.updateUI = function() {
-        var connectionStatus = document.getElementById('connectionStatus');
+    NovaCutBridge.prototype.updateUI = function() {
+        var t = I18N[this.currentLang] || I18N.fa;
+        var hero = document.getElementById('statusHero');
         var connectionText = document.getElementById('connectionText');
-        if (connectionStatus && connectionText) {
-            if (this.isConnected) {
-                connectionStatus.className = 'status-dot connected';
-                connectionText.textContent = 'Connected';
-            } else {
-                connectionStatus.className = 'status-dot disconnected';
-                connectionText.textContent = 'Disconnected';
-            }
-        }
+        var serverText = document.getElementById('serverText');
         var startBtn = document.getElementById('startButton');
         var stopBtn = document.getElementById('stopButton');
+
+        if (this.isConnected) {
+            if (hero) hero.className = 'status-hero connected';
+            if (connectionText) connectionText.textContent = t.connected;
+            if (serverText) serverText.textContent = t.premiereReady;
+        } else {
+            if (hero) hero.className = 'status-hero';
+            if (connectionText) connectionText.textContent = t.disconnected;
+            if (serverText) serverText.textContent = t.premiereWaiting;
+        }
+
         if (startBtn) startBtn.disabled = this.isConnected;
         if (stopBtn) stopBtn.disabled = !this.isConnected;
-        var tempEl = document.getElementById('tempDirectory');
-        if (tempEl && !tempEl.value && this.getTempDirectory()) tempEl.value = this.getTempDirectory();
     };
 
-    MCPPremiereBridge.prototype.updateServerStatus = function(isRunning) {
-        var serverStatus = document.getElementById('serverStatus');
-        var serverText = document.getElementById('serverText');
-        if (serverStatus && serverText) {
-            if (isRunning) {
-                serverStatus.className = 'status-dot connected';
-                serverText.textContent = 'Premiere Pro: Ready';
-            } else {
-                serverStatus.className = 'status-dot disconnected';
-                serverText.textContent = 'Premiere Pro: Waiting';
-            }
-        }
-    };
-
-    MCPPremiereBridge.prototype.log = function(message, level) {
+    NovaCutBridge.prototype.log = function(message, level) {
         level = level || 'info';
         var logContainer = document.getElementById('logContainer');
+        var quickPreview = document.getElementById('quickLogPreview');
+        var timestamp = new Date().toLocaleTimeString();
+
+        var entry = document.createElement('div');
+        entry.className = 'log-entry ' + level;
+        entry.textContent = '[' + timestamp + '] ' + message;
+
         if (logContainer) {
-            var el = document.createElement('div');
-            el.className = 'log-entry ' + level;
-            el.textContent = '[' + new Date().toISOString() + '] ' + message;
-            logContainer.appendChild(el);
+            logContainer.appendChild(entry);
             logContainer.scrollTop = logContainer.scrollHeight;
         }
-        console.log(message);
+
+        if (quickPreview) {
+            var quickEntry = entry.cloneNode(true);
+            quickPreview.appendChild(quickEntry);
+            quickPreview.scrollTop = quickPreview.scrollHeight;
+            if (quickPreview.children.length > 5) quickPreview.removeChild(quickPreview.children[0]);
+        }
+
+        console.log('[' + level + '] ' + message);
     };
 
-    MCPPremiereBridge.prototype.clearLog = function() {
+    NovaCutBridge.prototype.clearLog = function() {
         var logContainer = document.getElementById('logContainer');
-        if (logContainer) logContainer.innerHTML = '<div class="log-entry info">Log cleared</div>';
+        var quickPreview = document.getElementById('quickLogPreview');
+        if (logContainer) logContainer.innerHTML = '<div class="log-entry info">Console cleared.</div>';
+        if (quickPreview) quickPreview.innerHTML = '<div class="log-entry info">Ready.</div>';
     };
 
-    window.MCPPremiereBridge = MCPPremiereBridge;
+    NovaCutBridge.prototype.testPremiereConnection = function() {
+        var self = this;
+        this.log(this.currentLang === 'fa' ? 'در حال ارسال پینگ به پریمیر پرو...' : 'Pinging Premiere Pro...', 'info');
+        this.executeExtendScript(
+            '(function(){ try { return JSON.stringify({ version: app.version, project: (app.project && app.project.name) ? app.project.name : "None" }); } catch(e){ return JSON.stringify({ error: String(e) }); } })()',
+            function(err, res) {
+                if (err) {
+                    self.log('Connection failed: ' + err.message, 'error');
+                } else {
+                    self.detectHostAndProject();
+                    self.log('Host responded OK: ' + (typeof res === 'object' ? JSON.stringify(res) : res), 'info');
+                }
+            }
+        );
+    };
+
+    NovaCutBridge.prototype.runDiagnostics = function() {
+        var self = this;
+        this.log('Starting diagnostics...', 'info');
+        this.testPremiereConnection();
+    };
+
+    // Global exports for DOM events
+    window.NovaCutBridge = NovaCutBridge;
     window.bridge = null;
     window.startBridge = function() { if (window.bridge) window.bridge.startBridge(); };
     window.stopBridge = function() { if (window.bridge) window.bridge.stopBridge(); };
     window.runDiagnostics = function() { if (window.bridge) window.bridge.runDiagnostics(); };
+    window.testPremiereConnection = function() { if (window.bridge) window.bridge.testPremiereConnection(); };
     window.saveConfig = function() { if (window.bridge) window.bridge.saveConfig(); };
     window.saveTelemetryPreference = function() { if (window.bridge) window.bridge.saveTelemetryPreference(); };
+    window.saveToolsetPreference = function() { if (window.bridge) window.bridge.saveToolsetPreference(); };
     window.clearLog = function() { if (window.bridge) window.bridge.clearLog(); };
-    window.copyUpdateCommand = function() { if (window.bridge) window.bridge.copyUpdateCommand(); };
-    window.updateLater = function() { if (window.bridge) window.bridge.updateLater(); };
+    window.toggleLanguage = function() { if (window.bridge) window.bridge.toggleLanguage(); };
+    window.copySnippet = function(client) { if (window.bridge) window.bridge.copySnippet(client); };
+    window.switchTab = function(tabId) {
+        var panes = document.querySelectorAll('.tab-pane');
+        var btns = document.querySelectorAll('.tab-btn');
+        panes.forEach(function(p) { p.classList.remove('active'); });
+        btns.forEach(function(b) { b.classList.remove('active'); });
+
+        var targetPane = document.getElementById('pane-' + tabId);
+        if (targetPane) targetPane.classList.add('active');
+
+        var tabMap = {
+            dashboard: 'tabBtnDashboard',
+            aiconnect: 'tabBtnAi',
+            queue: 'tabBtnQueue',
+            console: 'tabBtnConsole',
+            settings: 'tabBtnSettings'
+        };
+        var activeBtn = document.getElementById(tabMap[tabId]);
+        if (activeBtn) activeBtn.classList.add('active');
+    };
+
     document.addEventListener('DOMContentLoaded', function() {
-        window.bridge = new MCPPremiereBridge();
+        window.bridge = new NovaCutBridge();
     });
 })();

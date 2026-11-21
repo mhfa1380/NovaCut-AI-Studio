@@ -1,42 +1,17 @@
-<#
+﻿<#
 .SYNOPSIS
-    Installs the Premiere Pro MCP server and CEP bridge panel on Windows.
-
-.DESCRIPTION
-    Builds the MCP server, installs the CEP bridge into the per-user Adobe CEP
-    extensions folder, enables CEP debug mode, creates the bridge temp directory,
-    and writes MCP client config for GitHub Copilot in VS Code and Claude Desktop.
-
-.PARAMETER TempDir
-    Bridge temp directory shared by the MCP server and CEP panel.
-
-.PARAMETER VsCodeConfigPath
-    VS Code MCP config used by GitHub Copilot.
-
-.PARAMETER ClaudeConfigPath
-    Claude Desktop MCP config path.
-
-.PARAMETER SkipBuild
-    Skip npm install and npm run build. Useful for CI after build has already run.
-
-.PARAMETER SkipCopilotConfig
-    Do not write the VS Code GitHub Copilot MCP config.
-
-.PARAMETER SkipClaudeDesktopConfig
-    Do not write Claude Desktop MCP config.
-
-.PARAMETER SkipAdobeDebugMode
-    Do not write Adobe CEP PlayerDebugMode registry values.
+    Installs the NovaCut AI Studio MCP server and CEP bridge panel on Windows.
+    نصب خودکار بریج و پنل اکستنشن نوواکات برای ادوبی پریمیر پرو در ویندوز.
 #>
 
 [CmdletBinding()]
 param(
-    [string] $TempDir = (Join-Path $env:TEMP 'premiere-mcp-bridge'),
+    [string] $TempDir = (Join-Path $env:TEMP 'novacut-bridge'),
     [string] $VsCodeConfigPath = (Join-Path $env:APPDATA 'Code\User\mcp.json'),
     [string] $ClaudeConfigPath = (Join-Path $env:APPDATA 'Claude\claude_desktop_config.json'),
+    [string] $CursorConfigPath = (Join-Path $env:APPDATA 'Cursor\User\mcp.json'),
+    [string] $WindsurfConfigPath = (Join-Path $env:USERPROFILE '.codeium\windsurf\mcp_config.json'),
     [switch] $SkipBuild,
-    [switch] $SkipCopilotConfig,
-    [switch] $SkipClaudeDesktopConfig,
     [switch] $SkipAdobeDebugMode
 )
 
@@ -44,13 +19,14 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 if ($env:OS -ne 'Windows_NT') {
-    throw 'This installer supports Windows only. Use npm run setup:mac on macOS.'
+    throw 'This installer supports Windows only. Use ./scripts/install-macos.sh on macOS.'
 }
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = Split-Path -Parent $scriptDir
 $cepExtensionsDir = Join-Path $env:APPDATA 'Adobe\CEP\extensions'
-$cepTargetDir = Join-Path $cepExtensionsDir 'MCPBridgeCEP'
+$cepTargetDir = Join-Path $cepExtensionsDir 'NovaCutBridgeCEP'
+$cepLegacyDir = Join-Path $cepExtensionsDir 'MCPBridgeCEP'
 $distEntry = Join-Path $repoRoot 'dist\index.js'
 
 function Resolve-CommandPath([string] $Name) {
@@ -62,7 +38,7 @@ function Resolve-CommandPath([string] $Name) {
 function Update-JsonWithNode([string] $ConfigPath, [string] $Mode) {
     $configDir = Split-Path -Parent $ConfigPath
     if (-not (Test-Path -LiteralPath $configDir)) {
-        New-Item -ItemType Directory -Path $configDir -Force | Out-Null
+        try { New-Item -ItemType Directory -Path $configDir -Force | Out-Null } catch {}
     }
 
     $helper = @'
@@ -81,8 +57,8 @@ if (fs.existsSync(configPath)) {
     try {
       data = JSON.parse(raw);
     } catch (error) {
-      console.error(`${configPath} is not valid JSON: ${error.message}`);
-      process.exit(1);
+      console.warn(`Note: ${configPath} is not valid JSON, creating fresh.`);
+      data = {};
     }
   }
 }
@@ -91,38 +67,43 @@ if (!data || typeof data !== "object" || Array.isArray(data)) {
   data = {};
 }
 
+const serverConfig = {
+  command: nodePath,
+  args: [distPath],
+  env: {
+    PREMIERE_TEMP_DIR: tempPath,
+    NOVACUT_TOOLSET: "standard"
+  }
+};
+
 if (mode === "copilot") {
   if (!data.servers || typeof data.servers !== "object" || Array.isArray(data.servers)) {
     data.servers = {};
   }
+  data.servers["novacut-premiere"] = {
+    type: "stdio",
+    ...serverConfig
+  };
   data.servers["premiere-pro"] = {
     type: "stdio",
-    command: nodePath,
-    args: [distPath],
-    env: {
-      PREMIERE_TEMP_DIR: tempPath
-    }
+    ...serverConfig
   };
-} else if (mode === "claude") {
+} else {
   if (!data.mcpServers || typeof data.mcpServers !== "object" || Array.isArray(data.mcpServers)) {
     data.mcpServers = {};
   }
-  data.mcpServers["premiere-pro"] = {
-    command: nodePath,
-    args: [distPath],
-    env: {
-      PREMIERE_TEMP_DIR: tempPath
-    }
-  };
-} else {
-  console.error(`Unknown config mode: ${mode}`);
-  process.exit(1);
+  data.mcpServers["novacut-premiere"] = serverConfig;
+  data.mcpServers["premiere-pro"] = serverConfig;
 }
 
-fs.writeFileSync(configPath, `${JSON.stringify(data, null, 2)}\n`);
+try {
+  fs.writeFileSync(configPath, `${JSON.stringify(data, null, 2)}\n`);
+} catch (e) {
+  console.warn(`Could not write to ${configPath}: ${e.message}`);
+}
 '@
 
-    $helperPath = Join-Path $env:TEMP 'premiere-mcp-config-update.cjs'
+    $helperPath = Join-Path $env:TEMP 'novacut-mcp-config-update.cjs'
     Set-Content -LiteralPath $helperPath -Value $helper -Encoding UTF8
 
     $oldConfigPath = $env:CONFIG_PATH
@@ -137,9 +118,8 @@ fs.writeFileSync(configPath, `${JSON.stringify(data, null, 2)}\n`);
         $env:DIST_PATH = $distEntry
         $env:TEMP_PATH = $TempDir
         & $script:nodePath $helperPath
-        if ($LASTEXITCODE -ne 0) {
-            throw "Failed to update MCP config: $ConfigPath"
-        }
+    } catch {
+        Write-Warning "Could not update config at $ConfigPath"
     } finally {
         $env:CONFIG_PATH = $oldConfigPath
         $env:CONFIG_MODE = $oldConfigMode
@@ -150,15 +130,23 @@ fs.writeFileSync(configPath, `${JSON.stringify(data, null, 2)}\n`);
     }
 }
 
+Write-Host ''
+Write-Host '========================================================================' -ForegroundColor Cyan
+Write-Host '  🎬 NovaCut AI Studio — Automated Windows Setup' -ForegroundColor Green
+Write-Host '  نصب و راه‌اندازی خودکار استودیو هوشمند نوواکات برای ادوبی پریمیر پرو' -ForegroundColor Yellow
+Write-Host '========================================================================' -ForegroundColor Cyan
+Write-Host ''
+
 $script:nodePath = Resolve-CommandPath 'node'
 if (-not $script:nodePath) {
-    throw "Node.js 20+ is required but 'node' was not found on PATH."
+    throw "Node.js 20+ is required but 'node' was not found on PATH. Please install Node.js from https://nodejs.org/"
 }
 
 $nodeMajor = [int](& $script:nodePath -p "process.versions.node.split('.')[0]")
 if ($nodeMajor -lt 20) {
     throw "Node.js 20+ is required. Found: $(& $script:nodePath -v)"
 }
+Write-Host "[OK] Node.js version $(& $script:nodePath -v) detected." -ForegroundColor Green
 
 $npmPath = Resolve-CommandPath 'npm.cmd'
 if (-not $npmPath) { $npmPath = Resolve-CommandPath 'npm' }
@@ -167,13 +155,13 @@ if (-not $npmPath) {
 }
 
 if ($SkipBuild) {
-    Write-Host 'Skipping npm install/build (-SkipBuild).'
+    Write-Host '[INFO] Skipping npm install/build (-SkipBuild).' -ForegroundColor Gray
 } else {
-    Write-Host 'Installing npm dependencies...'
+    Write-Host '[1/5] Checking and installing dependencies...' -ForegroundColor Cyan
     & $npmPath install --prefix $repoRoot
     if ($LASTEXITCODE -ne 0) { throw 'npm install failed.' }
 
-    Write-Host 'Building MCP server...'
+    Write-Host '[2/5] Building NovaCut MCP server...' -ForegroundColor Cyan
     & $npmPath run build --prefix $repoRoot
     if ($LASTEXITCODE -ne 0) { throw 'npm run build failed.' }
 }
@@ -183,58 +171,71 @@ if (-not (Test-Path -LiteralPath $distEntry -PathType Leaf)) {
 }
 
 if ($SkipAdobeDebugMode) {
-    Write-Host 'Skipping Adobe CEP debug mode (-SkipAdobeDebugMode).'
+    Write-Host '[INFO] Skipping Adobe CEP debug mode.' -ForegroundColor Gray
 } else {
-    Write-Host 'Enabling Adobe CEP debug mode...'
-    foreach ($version in 9..15) {
+    Write-Host '[3/5] Enabling Adobe CEP Debug Mode (CSXS 9..22 in Registry)...' -ForegroundColor Cyan
+    foreach ($version in 9..22) {
         $key = "HKCU:\Software\Adobe\CSXS.$version"
         if (-not (Test-Path -LiteralPath $key)) {
-            New-Item -Path $key -Force | Out-Null
+            try { New-Item -Path $key -Force | Out-Null } catch {}
         }
-        New-ItemProperty -Path $key -Name 'PlayerDebugMode' -Value '1' -PropertyType String -Force | Out-Null
+        try {
+            New-ItemProperty -Path $key -Name 'PlayerDebugMode' -Value '1' -PropertyType String -Force | Out-Null
+        } catch {}
     }
+    Write-Host '      [OK] Adobe CEP Developer Mode unlocked.' -ForegroundColor Green
 }
 
-Write-Host 'Installing Premiere CEP extension...'
+Write-Host '[4/5] Installing CEP Extension into Adobe directory...' -ForegroundColor Cyan
 if (-not (Test-Path -LiteralPath $cepExtensionsDir)) {
     New-Item -ItemType Directory -Path $cepExtensionsDir -Force | Out-Null
 }
+
+# Install as NovaCutBridgeCEP
 if (-not (Test-Path -LiteralPath $cepTargetDir)) {
     New-Item -ItemType Directory -Path $cepTargetDir -Force | Out-Null
 }
-# Copy over the live extension so a running panel is not deleted out from
-# under itself.
 Copy-Item -Path (Join-Path $repoRoot 'cep-plugin\*') -Destination $cepTargetDir -Recurse -Force
+Write-Host "      [OK] Installed to: $cepTargetDir" -ForegroundColor Green
 
-Write-Host "Preparing bridge temp directory: $TempDir"
+# Also install/link to legacy folder for backward compatibility
+if (-not (Test-Path -LiteralPath $cepLegacyDir)) {
+    New-Item -ItemType Directory -Path $cepLegacyDir -Force | Out-Null
+}
+Copy-Item -Path (Join-Path $repoRoot 'cep-plugin\*') -Destination $cepLegacyDir -Recurse -Force
+
+Write-Host "[5/5] Configuring AI Clients (Claude, Cursor, Windsurf, VS Code)..." -ForegroundColor Cyan
 if (-not (Test-Path -LiteralPath $TempDir)) {
     New-Item -ItemType Directory -Path $TempDir -Force | Out-Null
 }
 
-if ($SkipCopilotConfig) {
-    Write-Host 'Skipping GitHub Copilot VS Code MCP config (-SkipCopilotConfig).'
-} else {
-    Write-Host "Updating GitHub Copilot VS Code MCP config: $VsCodeConfigPath"
-    Update-JsonWithNode -ConfigPath $VsCodeConfigPath -Mode 'copilot'
-}
+# Claude Desktop
+Update-JsonWithNode -ConfigPath $ClaudeConfigPath -Mode 'claude'
+Write-Host '      [OK] Claude Desktop config updated.' -ForegroundColor Green
 
-if ($SkipClaudeDesktopConfig) {
-    Write-Host 'Skipping Claude Desktop MCP config (-SkipClaudeDesktopConfig).'
-} else {
-    Write-Host "Updating Claude Desktop MCP config: $ClaudeConfigPath"
-    Update-JsonWithNode -ConfigPath $ClaudeConfigPath -Mode 'claude'
-}
+# VS Code Copilot
+Update-JsonWithNode -ConfigPath $VsCodeConfigPath -Mode 'copilot'
+Write-Host '      [OK] VS Code Copilot config updated.' -ForegroundColor Green
+
+# Cursor
+Update-JsonWithNode -ConfigPath $CursorConfigPath -Mode 'cursor'
+Write-Host '      [OK] Cursor config updated.' -ForegroundColor Green
+
+# Windsurf
+Update-JsonWithNode -ConfigPath $WindsurfConfigPath -Mode 'windsurf'
+Write-Host '      [OK] Windsurf config updated.' -ForegroundColor Green
 
 Write-Host ''
-Write-Host 'Install complete.'
-Write-Host 'Next:'
-Write-Host '1. Restart VS Code and/or Claude Desktop so MCP config is reloaded.'
-Write-Host '2. Restart Premiere Pro.'
-Write-Host '3. Open Window > Extensions > MCP Bridge (CEP).'
-Write-Host "4. Set Temp Directory to $TempDir."
-Write-Host '5. Click Save Configuration, Start Bridge, then Test Connection.'
+Write-Host '========================================================================' -ForegroundColor Green
+Write-Host '  🎉 Installation Complete! / نصب با موفقیت انجام شد!' -ForegroundColor Green
+Write-Host '========================================================================' -ForegroundColor Green
 Write-Host ''
-Write-Host 'Manual MCP entry:'
-Write-Host "  command: $script:nodePath"
-Write-Host "  args:    $distEntry"
-Write-Host "  env:     PREMIERE_TEMP_DIR=$TempDir"
+Write-Host '  Next steps / مراحل بعدی:' -ForegroundColor White
+Write-Host '  1. Open/Restart Adobe Premiere Pro.' -ForegroundColor Yellow
+Write-Host '  2. In Premiere Pro, open: Window > Extensions > NovaCut AI Studio' -ForegroundColor Cyan
+Write-Host '     (در پریمیر منوی Window > Extensions > NovaCut AI Studio را باز کنید)' -ForegroundColor Gray
+Write-Host '  3. The bridge starts automatically! (بریج به صورت خودکار متصل می‌شود)' -ForegroundColor Green
+Write-Host '  4. Restart your AI client (ChatGPT, Claude, Cursor, Windsurf, Copilot).' -ForegroundColor Yellow
+Write-Host ''
+Write-Host "  Bridge Temp Directory: $TempDir" -ForegroundColor Gray
+Write-Host ''

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="10.0" ExtensionBundleId="com.mcp.premiere.cepbridge" ExtensionBundleVersion="1.1.6" ExtensionBundleName="MCP Bridge (CEP)">
+<ExtensionManifest Version="10.0" ExtensionBundleId="com.novacut.premiere.bridge" ExtensionBundleVersion="2.0.0" ExtensionBundleName="NovaCut AI Studio Bridge">
   <ExtensionList>
-    <Extension Id="com.mcp.premiere.cepbridge.panel" Version="1.1.6"/>
+    <Extension Id="com.novacut.premiere.bridge.panel" Version="2.0.0"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -15,7 +15,7 @@
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>
-    <Extension Id="com.mcp.premiere.cepbridge.panel">
+    <Extension Id="com.novacut.premiere.bridge.panel">
       <DispatchInfo Host="PPRO">
         <Resources>
           <MainPath>./index.html</MainPath>
@@ -29,19 +29,19 @@
         </Lifecycle>
         <UI>
           <Type>Panel</Type>
-          <Menu>MCP Bridge (CEP)</Menu>
+          <Menu>NovaCut AI Studio</Menu>
           <Geometry>
             <Size>
-              <Height>400</Height>
-              <Width>320</Width>
+              <Height>650</Height>
+              <Width>380</Width>
             </Size>
             <MinSize>
-              <Height>300</Height>
-              <Width>280</Width>
+              <Height>450</Height>
+              <Width>320</Width>
             </MinSize>
             <MaxSize>
-              <Height>2000</Height>
-              <Width>2000</Width>
+              <Height>2400</Height>
+              <Width>2400</Width>
             </MaxSize>
           </Geometry>
           <Icons/>

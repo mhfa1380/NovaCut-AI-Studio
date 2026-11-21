@@ -1567,22 +1567,96 @@ export class PremiereProBridge implements PremiereProTransport {
     const script = `
       try {
         var sequenceName = ${JSON.stringify(name)};
-        var presetPath = ${JSON.stringify(presetPath)};
-        var presetFile = new File(presetPath);
-        if (!presetFile.exists) {
-          return JSON.stringify({
-            success: false,
-            error: "Sequence preset file not found: " + presetPath,
-            sequenceName: sequenceName,
-            blockedBeforePremiere: true
-          });
-        }
         var beforeIds = {};
-
         if (app.project && app.project.sequences) {
           for (var i = 0; i < app.project.sequences.numSequences; i++) {
             beforeIds[app.project.sequences[i].sequenceID] = true;
           }
+        }
+
+        var presetPath = ${JSON.stringify(presetPath)};
+        var presetFile = presetPath ? new File(presetPath) : null;
+        if (!presetFile || !presetFile.exists) {
+          // Attempt to find an installed preset automatically to prevent modal dialog blocks (Issue #76)
+          var searchDirs = [
+            Folder.appPackage.fsName + "/Settings/SequencePresets",
+            Folder.appPackage.fsName + "/Settings/SequencePresets/DNxHR",
+            Folder.appPackage.fsName + "/Settings/SequencePresets/Digital SLR/1080p",
+            Folder.appPackage.fsName + "/Settings/SequencePresets/ProRes",
+            Folder.myDocuments.fsName + "/Adobe/Premiere Pro"
+          ];
+          for (var sdi = 0; sdi < searchDirs.length; sdi++) {
+            var sDir = new Folder(searchDirs[sdi]);
+            if (sDir.exists) {
+              var foundPresets = sDir.getFiles("*.sqpreset");
+              if (foundPresets && foundPresets.length > 0) {
+                presetFile = foundPresets[0];
+                break;
+              }
+            }
+          }
+        }
+
+        if (!presetFile || !presetFile.exists) {
+          // If no preset file exists on disk, clone an existing sequence with clearContents (Issue #76)
+          if (app.project && app.project.sequences && app.project.sequences.numSequences > 0) {
+            var baseSeq = app.project.sequences[0];
+            var cloneItem = baseSeq.clone();
+            if (cloneItem) {
+              if (cloneItem.name) cloneItem.name = sequenceName;
+              var newSeq = null;
+              for (var csi = 0; csi < app.project.sequences.numSequences; csi++) {
+                if (!beforeIds[app.project.sequences[csi].sequenceID]) {
+                  newSeq = app.project.sequences[csi];
+                  break;
+                }
+              }
+              if (newSeq) {
+                newSeq.name = sequenceName;
+                try {
+                  if (newSeq.videoTracks) {
+                    for (var vt = 0; vt < newSeq.videoTracks.numTracks; vt++) {
+                      var vTrack = newSeq.videoTracks[vt];
+                      if (vTrack && vTrack.clips) {
+                        for (var vc = vTrack.clips.numItems - 1; vc >= 0; vc--) {
+                          try { vTrack.clips[vc].remove(false, true); } catch (_) {}
+                        }
+                      }
+                    }
+                  }
+                  if (newSeq.audioTracks) {
+                    for (var at = 0; at < newSeq.audioTracks.numTracks; at++) {
+                      var aTrack = newSeq.audioTracks[at];
+                      if (aTrack && aTrack.clips) {
+                        for (var ac = aTrack.clips.numItems - 1; ac >= 0; ac--) {
+                          try { aTrack.clips[ac].remove(false, true); } catch (_) {}
+                        }
+                      }
+                    }
+                  }
+                } catch (_) {}
+                return JSON.stringify({
+                  success: true,
+                  id: newSeq.sequenceID,
+                  name: newSeq.name,
+                  duration: 0,
+                  frameRate: newSeq.timebase ? (254016000000 / parseInt(newSeq.timebase, 10)) : null,
+                  videoTrackCount: newSeq.videoTracks ? newSeq.videoTracks.numTracks : 0,
+                  audioTrackCount: newSeq.audioTracks ? newSeq.audioTracks.numTracks : 0,
+                  videoTracks: [],
+                  audioTracks: [],
+                  note: "Created by cloning existing project sequence without dialog modal"
+                });
+              }
+            }
+          }
+
+          return JSON.stringify({
+            success: false,
+            error: "Sequence preset file not found: " + (presetPath || "none provided") + ". Create an existing sequence or provide a valid .sqpreset path.",
+            sequenceName: sequenceName,
+            blockedBeforePremiere: true
+          });
         }
 
         var sequence = null;

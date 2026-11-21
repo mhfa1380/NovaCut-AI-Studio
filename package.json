@@ -1,9 +1,10 @@
 {
-  "name": "adobe-premiere-pro-mcp",
-  "version": "1.2.11",
-  "description": "MCP Bridge for Adobe Premiere Pro with a searchable catalog of 280 Premiere tools.",
+  "name": "novacut-premiere-mcp",
+  "version": "2.0.0",
+  "description": "NovaCut AI Studio — Universal Model Context Protocol Bridge & Automation Suite for Adobe Premiere Pro (ChatGPT, Grok, Gemini, Claude, Cursor) with English & Persian support.",
   "main": "dist/index.js",
   "bin": {
+    "novacut": "dist/cli.js",
     "premiere-pro-mcp": "dist/cli.js"
   },
   "files": [
@@ -29,6 +30,8 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/cli.js",
+    "setup": "node dist/cli.js setup",
+    "config": "node dist/cli.js config",
     "install-cep": "node dist/cli.js --install-cep",
     "doctor": "node dist/cli.js --doctor",
     "setup:mac": "bash ./scripts/install-macos.sh",
