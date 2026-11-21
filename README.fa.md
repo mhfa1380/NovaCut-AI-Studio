@@ -10,6 +10,12 @@
 [![نصب ۱-کلیکه](https://img.shields.io/badge/Installer-1--Click%20Ready-10b981.svg)](#نصب-سریع-و-آسان)
 [![ادوبی پریمیر](https://img.shields.io/badge/Adobe%20Premiere%20Pro-2020--2026%2B-ff007f.svg)](#)
 
+<br/>
+
+<p align="center">
+  <img src="images/demo.png" alt="نمای کاربری استودیو هوشمند نوواکات" width="100%" />
+</p>
+
 </div>
 
 ---

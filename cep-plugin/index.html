@@ -1,59 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaCut AI Studio (CEP)</title>
     <style>
         :root {
-            --bg-void: #07090e;
-            --bg-base: #0c1017;
-            --bg-surface: rgba(18, 25, 38, 0.72);
-            --bg-surface-elevated: rgba(26, 36, 54, 0.85);
+            --bg-void: #07080d;
+            --bg-deck: #0d1019;
+            --bg-card: rgba(19, 24, 38, 0.72);
+            --bg-card-hover: rgba(27, 34, 53, 0.85);
+            --bg-input: rgba(10, 13, 22, 0.8);
             --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(0, 242, 254, 0.25);
-            --text-primary: #f8fafc;
+            --border-bright: rgba(255, 255, 255, 0.16);
+            --text-main: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            --cyan: #00f2fe;
-            --blue: #38bdf8;
-            --violet: #818cf8;
-            --purple: #a855f7;
-            --emerald: #10b981;
-            --amber: #f59e0b;
-            --rose: #f43f5e;
-            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Vazirmatn", Roboto, Tahoma, sans-serif;
-            --panel-radius: 14px;
-            --card-radius: 10px;
+            
+            /* Luxury Studio Colorway */
+            --iris-primary: #8b5cf6;
+            --iris-glow: rgba(139, 92, 246, 0.35);
+            --iris-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            
+            --mint-primary: #10b981;
+            --mint-glow: rgba(16, 185, 129, 0.4);
+            
+            --rose-primary: #f43f5e;
+            --rose-glow: rgba(244, 63, 94, 0.35);
+            
+            --amber-primary: #f59e0b;
+            
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --font-family: "Vazirmatn", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
 
-        [dir="rtl"] {
-            --font-family: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
+        [dir="ltr"] {
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
             font-family: var(--font-family);
             background-color: var(--bg-void);
-            color: var(--text-primary);
+            color: var(--text-main);
             min-height: 100vh;
             padding: 12px;
             overflow-x: hidden;
             background-image:
-                radial-gradient(circle at 85% 10%, rgba(0, 242, 254, 0.12), transparent 35%),
-                radial-gradient(circle at 15% 90%, rgba(129, 140, 248, 0.1), transparent 30%),
-                linear-gradient(180deg, var(--bg-void) 0%, var(--bg-base) 100%);
+                radial-gradient(circle at 15% 0%, rgba(139, 92, 246, 0.16), transparent 38%),
+                radial-gradient(circle at 85% 100%, rgba(16, 185, 129, 0.12), transparent 42%),
+                linear-gradient(180deg, var(--bg-void) 0%, var(--bg-deck) 100%);
             background-attachment: fixed;
             font-size: 13px;
-            line-height: 1.45;
+            line-height: 1.5;
         }
 
-        .container {
+        .studio-layout {
             max-width: 480px;
             margin: 0 auto;
             display: flex;
@@ -61,202 +71,228 @@
             gap: 12px;
         }
 
-        /* Header / Brand */
-        .brand-header {
+        /* Top Brand Navigation */
+        .top-deck {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--bg-surface);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--border-subtle);
-            border-radius: var(--panel-radius);
+            border-radius: var(--radius-lg);
             padding: 10px 14px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
         }
 
-        .brand-info {
+        .brand-cluster {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .brand-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 9px;
-            background: linear-gradient(135deg, var(--cyan), var(--violet));
+        .brand-logo-gem {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--iris-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-            font-size: 16px;
+            box-shadow: 0 0 20px var(--iris-glow);
+            color: #ffffff;
+            font-size: 17px;
             font-weight: 900;
-            color: #07090e;
+            position: relative;
             user-select: none;
         }
 
+        .brand-title-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
         .brand-title {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 800;
             letter-spacing: -0.01em;
-            background: linear-gradient(90deg, #ffffff, #cbd5e1);
+            background: linear-gradient(90deg, #ffffff 40%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .brand-badge {
+        .brand-subtitle {
             font-size: 10px;
-            background: rgba(0, 242, 254, 0.15);
-            color: var(--cyan);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 999px;
-            padding: 1px 6px;
             font-weight: 600;
-            margin-inline-start: 6px;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.06);
+        .lang-switcher {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
-            border-radius: 8px;
-            padding: 5px 10px;
+            border-radius: var(--radius-md);
+            padding: 6px 11px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            outline: none;
+        }
+
+        .lang-switcher:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-color: var(--border-bright);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Status Deck */
+        .status-deck {
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-deck::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            inset-inline: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--iris-primary), var(--mint-primary), transparent);
+        }
+
+        .status-radar-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .radar-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .radar-beacon {
+            position: relative;
+            width: 18px;
+            height: 18px;
+        }
+
+        .radar-core {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            background: var(--rose-primary);
+            box-shadow: 0 0 12px var(--rose-glow);
+            transition: all 0.3s ease;
+        }
+
+        .radar-wave {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 2px solid var(--rose-primary);
+            opacity: 0;
+        }
+
+        .connected .radar-core {
+            background: var(--mint-primary);
+            box-shadow: 0 0 16px var(--mint-glow);
+        }
+
+        .connected .radar-wave {
+            border-color: var(--mint-primary);
+            animation: radar-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes radar-ping {
+            0% { transform: scale(0.85); opacity: 0.9; }
+            70% { transform: scale(2.4); opacity: 0; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+
+        .radar-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .radar-main-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .radar-sub-title {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .profile-chip {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Metric Tiles */
+        .metric-tiles {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .tile {
+            background: rgba(10, 14, 23, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: 9px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .tile-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
             display: flex;
             align-items: center;
             gap: 5px;
         }
 
-        .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: var(--text-primary);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Pulse Status Hero */
-        .status-hero {
-            background: var(--bg-surface);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--panel-radius);
-            padding: 14px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .status-hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            inset-inline-start: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
-        }
-
-        .status-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .status-indicator-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pulse-container {
-            position: relative;
-            width: 14px;
-            height: 14px;
-        }
-
-        .pulse-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            background: var(--rose);
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .pulse-ring {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid var(--rose);
-            opacity: 0;
-            animation: none;
-        }
-
-        .connected .pulse-dot {
-            background: var(--emerald);
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
-        }
-
-        .connected .pulse-ring {
-            border-color: var(--emerald);
-            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(2.2); opacity: 0; }
-            100% { transform: scale(2.2); opacity: 0; }
-        }
-
-        .status-label-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .status-main-text {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .status-sub-text {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .quick-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: var(--card-radius);
-            padding: 8px 10px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .metric-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .metric-name {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 2px;
-        }
-
-        .metric-val {
-            font-size: 11px;
+        .tile-value {
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-secondary);
             white-space: nowrap;
@@ -264,540 +300,583 @@
             text-overflow: ellipsis;
         }
 
-        /* Tab Navigation */
-        .tabs-nav {
+        /* Tab Segmented Control */
+        .nav-segment {
             display: flex;
-            background: var(--bg-surface);
+            background: rgba(13, 16, 26, 0.85);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            padding: 3px;
-            gap: 3px;
+            padding: 4px;
+            gap: 4px;
         }
 
-        .tab-btn {
+        .segment-btn {
             flex: 1;
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            padding: 7px 4px;
+            padding: 8px 4px;
             border-radius: 8px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
+            font-family: inherit;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             text-align: center;
+            outline: none;
         }
 
-        .tab-btn:hover {
-            color: var(--text-primary);
+        .segment-btn:hover {
+            color: var(--text-main);
             background: rgba(255, 255, 255, 0.04);
         }
 
-        .tab-btn.active {
-            color: var(--cyan);
-            background: rgba(0, 242, 254, 0.12);
-            border: 1px solid rgba(0, 242, 254, 0.25);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        .segment-btn.active {
+            color: #ffffff;
+            background: var(--iris-gradient);
+            box-shadow: 0 4px 15px var(--iris-glow);
         }
 
-        /* Tab Content */
+        /* Panes */
         .tab-pane {
             display: none;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
+            animation: fadeIn 0.25s ease forwards;
         }
 
         .tab-pane.active {
             display: flex;
         }
 
-        /* Cards & Buttons */
-        .card {
-            background: var(--bg-surface);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--panel-radius);
-            padding: 12px 14px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .card-header {
+        /* Glass Cards */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .card-title {
-            font-size: 12px;
-            font-weight: 700;
+        .card-caption {
+            font-size: 11px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .btn-grid {
+        /* Action Buttons Grid */
+        .actions-quad {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            gap: 10px;
         }
 
-        button.action-btn {
+        .dock-btn {
             appearance: none;
             border: none;
-            border-radius: var(--card-radius);
-            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            padding: 11px 13px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
+            font-family: inherit;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            font-family: inherit;
+            gap: 8px;
+            outline: none;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #00f2fe, #0ea5e9);
-            color: #041019;
-            box-shadow: 0 4px 14px rgba(0, 242, 254, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .btn-launch {
+            background: var(--iris-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 20px var(--iris-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .btn-primary:hover:enabled {
+        .btn-launch:hover:enabled {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.55);
+        }
+
+        .btn-halt {
+            background: rgba(244, 63, 94, 0.12);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .btn-halt:hover:enabled {
+            background: rgba(244, 63, 94, 0.22);
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(0, 242, 254, 0.45);
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-primary);
+        .btn-neutral {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
             border: 1px solid var(--border-subtle);
         }
 
-        .btn-secondary:hover:enabled {
+        .btn-neutral:hover:enabled {
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
-
-        .btn-danger {
-            background: rgba(244, 63, 94, 0.12);
-            color: #fb7185;
-            border: 1px solid rgba(244, 63, 94, 0.28);
-        }
-
-        .btn-danger:hover:enabled {
-            background: rgba(244, 63, 94, 0.22);
+            border-color: var(--border-bright);
+            transform: translateY(-1px);
         }
 
         button:disabled {
-            opacity: 0.35;
+            opacity: 0.3;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
         }
 
-        /* Inputs & Forms */
-        .form-group {
+        /* AI Client Snippets */
+        .ai-hub-deck {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 10px;
-        }
-
-        .form-label {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        input[type="text"], select {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--card-radius);
-            color: var(--text-primary);
-            padding: 9px 12px;
-            font-size: 12px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            width: 100%;
-        }
-
-        input[type="text"]:focus, select:focus {
-            border-color: var(--cyan);
-            box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.2);
-        }
-
-        .checkbox-row {
-            display: flex;
-            align-items: flex-start;
             gap: 10px;
-            padding: 8px 10px;
-            border-radius: var(--card-radius);
-            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hub-card {
+            background: rgba(11, 15, 24, 0.6);
             border: 1px solid var(--border-subtle);
-            cursor: pointer;
-            margin-top: 6px;
+            border-radius: var(--radius-md);
+            padding: 11px;
+            transition: border-color 0.2s;
         }
 
-        .checkbox-row input[type="checkbox"] {
-            margin-top: 3px;
-            accent-color: var(--cyan);
-            cursor: pointer;
+        .hub-card:hover {
+            border-color: var(--border-bright);
         }
 
-        .checkbox-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            line-height: 1.4;
+        .hub-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
         }
 
-        /* Queue & Console Log */
-        .command-queue, .log-container {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--card-radius);
-            padding: 8px;
-            max-height: 190px;
+        .hub-title-tag {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .code-vault {
+            background: #04060b;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-sm);
+            padding: 9px;
+            font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
+            font-size: 10.5px;
+            color: #94a3b8;
+            max-height: 85px;
             overflow-y: auto;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            white-space: pre;
+            user-select: all;
+        }
+
+        .copy-pill-btn {
+            background: rgba(139, 92, 246, 0.15);
+            color: #c084fc;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: 6px;
+            padding: 4px 9px;
+            font-size: 10.5px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-pill-btn:hover {
+            background: rgba(139, 92, 246, 0.3);
+            color: #ffffff;
+            box-shadow: 0 0 10px var(--iris-glow);
+        }
+
+        /* Terminal & Queue */
+        .terminal-box, .queue-box {
+            background: #05070c;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 9px;
+            max-height: 220px;
+            overflow-y: auto;
+            font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
             font-size: 11px;
         }
 
-        .command-item {
+        .queue-entry {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            padding: 7px 9px;
+            padding: 8px 10px;
             margin-bottom: 5px;
-            border-radius: 7px;
+            border-radius: var(--radius-sm);
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        .command-label {
+        .queue-cmd-text {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             color: var(--text-secondary);
         }
 
-        .command-status {
+        .badge-status {
             font-size: 9px;
-            font-weight: 700;
-            padding: 2px 6px;
+            font-weight: 800;
+            padding: 2px 7px;
             border-radius: 999px;
             text-transform: uppercase;
         }
 
-        .command-status.pending { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
-        .command-status.executing { background: rgba(0, 242, 254, 0.15); color: var(--cyan); }
-        .command-status.completed { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
-        .command-status.error { background: rgba(244, 63, 94, 0.15); color: var(--rose); }
+        .badge-status.pending { background: rgba(245, 158, 11, 0.18); color: var(--amber-primary); }
+        .badge-status.executing { background: rgba(139, 92, 246, 0.22); color: #c084fc; }
+        .badge-status.completed { background: rgba(16, 185, 129, 0.18); color: var(--mint-primary); }
+        .badge-status.error { background: rgba(244, 63, 94, 0.18); color: #fb7185; }
 
-        .log-entry {
+        .log-line {
             padding: 5px 8px;
             margin-bottom: 4px;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             color: var(--text-secondary);
             background: rgba(255, 255, 255, 0.02);
             word-break: break-all;
-            border-inline-start: 2px solid transparent;
+            border-inline-start: 3px solid transparent;
         }
 
-        .log-entry.info { border-inline-start-color: var(--cyan); }
-        .log-entry.warning { border-inline-start-color: var(--amber); color: #fde68a; }
-        .log-entry.error { border-inline-start-color: var(--rose); color: #fca5a5; }
+        .log-line.info { border-inline-start-color: var(--iris-primary); }
+        .log-line.warning { border-inline-start-color: var(--amber-primary); color: #fde68a; }
+        .log-line.error { border-inline-start-color: var(--rose-primary); color: #fca5a5; }
 
-        /* AI Snippets */
-        .ai-guide-card {
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--card-radius);
-            padding: 10px;
-            margin-bottom: 8px;
-        }
-
-        .ai-guide-header {
+        /* Form Inputs */
+        .form-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 6px;
-        }
-
-        .ai-guide-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 6px;
+            margin-bottom: 12px;
         }
 
-        .ai-code-box {
-            background: #04060a;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 6px;
-            padding: 8px;
-            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-            font-size: 10px;
-            color: #94a3b8;
-            max-height: 80px;
-            overflow-y: auto;
-            white-space: pre;
-            user-select: all;
+        .input-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
         }
 
-        .copy-pill {
-            background: rgba(0, 242, 254, 0.12);
-            color: var(--cyan);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 6px;
-            padding: 3px 8px;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
+        input[type="text"], select {
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            padding: 10px 12px;
+            font-size: 12px;
+            font-family: inherit;
+            outline: none;
             transition: all 0.2s;
+            width: 100%;
         }
 
-        .copy-pill:hover {
-            background: rgba(0, 242, 254, 0.25);
+        input[type="text"]:focus, select:focus {
+            border-color: var(--iris-primary);
+            box-shadow: 0 0 0 3px var(--iris-glow);
         }
 
-        /* Scrollbars */
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.25);
+        .toggle-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            background: rgba(10, 13, 22, 0.5);
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            margin-top: 6px;
         }
 
-        .footer-note {
+        .toggle-card input[type="checkbox"] {
+            margin-top: 3px;
+            accent-color: var(--iris-primary);
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .toggle-txt {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+        .studio-footer {
             text-align: center;
             font-size: 10px;
+            font-weight: 500;
             color: var(--text-muted);
-            margin-top: 4px;
+            padding: 6px 0;
+            letter-spacing: 0.02em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Top Branding & Language Switcher -->
-        <header class="brand-header">
-            <div class="brand-info">
-                <div class="brand-icon">⚡</div>
-                <div>
+    <div class="studio-layout">
+        <!-- Brand Header Deck -->
+        <header class="top-deck">
+            <div class="brand-cluster">
+                <div class="brand-logo-gem">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                </div>
+                <div class="brand-title-wrap">
                     <span class="brand-title" id="txtTitle">NovaCut AI Studio</span>
-                    <span class="brand-badge">PRO v2.0</span>
+                    <span class="brand-subtitle">PREMIERE PRO • PRO SUITE</span>
                 </div>
             </div>
-            <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">
-                <span id="langFlag">🇮🇷</span> <span id="langLabel">فارسی</span>
+            <button class="lang-switcher" id="langToggleBtn" onclick="toggleLanguage()">
+                <span id="langFlag">🇬🇧</span> <span id="langLabel">English</span>
             </button>
         </header>
 
-        <!-- Status Hero -->
-        <section class="status-hero" id="statusHero">
-            <div class="status-row">
-                <div class="status-indicator-box">
-                    <div class="pulse-container">
-                        <div class="pulse-ring"></div>
-                        <div class="pulse-dot" id="connectionDot"></div>
+        <!-- Status & Radar Hero Deck -->
+        <section class="status-deck" id="statusHero">
+            <div class="status-radar-row">
+                <div class="radar-box">
+                    <div class="radar-beacon">
+                        <div class="radar-wave"></div>
+                        <div class="radar-core" id="connectionDot"></div>
                     </div>
-                    <div class="status-label-group">
-                        <span class="status-main-text" id="connectionText">Bridge Disconnected</span>
-                        <span class="status-sub-text" id="serverText">Premiere Pro: Waiting</span>
+                    <div class="radar-text-group">
+                        <span class="radar-main-title" id="connectionText">Bridge Disconnected</span>
+                        <span class="radar-sub-title" id="serverText">Premiere Pro: Waiting</span>
                     </div>
                 </div>
                 <div>
-                    <span class="command-status" id="profileBadge" style="background: rgba(129, 140, 248, 0.18); color: var(--violet); border: 1px solid rgba(129, 140, 248, 0.3);">Standard AI</span>
+                    <span class="profile-chip" id="profileBadge">AUTO 78-TOOLS</span>
                 </div>
             </div>
 
-            <div class="quick-metrics">
-                <div class="metric-item">
-                    <span class="metric-name" id="txtHostMetric">Premiere Host</span>
-                    <span class="metric-val" id="valHostVersion">Detecting...</span>
+            <div class="metric-tiles">
+                <div class="tile">
+                    <span class="tile-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <span id="txtHostMetric">نسخه پریمیر</span>
+                    </span>
+                    <span class="tile-value" id="valHostVersion">در حال اتصال...</span>
                 </div>
-                <div class="metric-item">
-                    <span class="metric-name" id="txtProjectMetric">Active Project</span>
-                    <span class="metric-val" id="valProjectName">No project open</span>
+                <div class="tile">
+                    <span class="tile-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <span id="txtProjectMetric">پروژه فعال</span>
+                    </span>
+                    <span class="tile-value" id="valProjectName">پروژه‌ای باز نیست</span>
                 </div>
             </div>
         </section>
 
-        <!-- Tabs Navigation -->
-        <nav class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('dashboard')" id="tabBtnDashboard">میز کار</button>
-            <button class="tab-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">اتصال هوش مصنوعی</button>
-            <button class="tab-btn" onclick="switchTab('queue')" id="tabBtnQueue">صف دستورات</button>
-            <button class="tab-btn" onclick="switchTab('console')" id="tabBtnConsole">کنسول</button>
-            <button class="tab-btn" onclick="switchTab('settings')" id="tabBtnSettings">تنظیمات</button>
+        <!-- Modern Segment Navigation -->
+        <nav class="nav-segment">
+            <button class="segment-btn active" onclick="switchTab('dashboard')" id="tabBtnDashboard">میز کار</button>
+            <button class="segment-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">هوش مصنوعی</button>
+            <button class="segment-btn" onclick="switchTab('queue')" id="tabBtnQueue">صف فرامین</button>
+            <button class="segment-btn" onclick="switchTab('console')" id="tabBtnConsole">کنسول</button>
+            <button class="segment-btn" onclick="switchTab('settings')" id="tabBtnSettings">تنظیمات</button>
         </nav>
 
-        <!-- Tab 1: Dashboard -->
+        <!-- Pane 1: Studio Dashboard -->
         <main class="tab-pane active" id="pane-dashboard">
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title" id="txtControlsTitle">کنترل‌های ارتباطی</span>
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtControlsTitle">کنترل‌های ارتباطی بریج</span>
                 </div>
-                <div class="btn-grid">
-                    <button class="action-btn btn-primary" onclick="startBridge()" id="startButton">▶️ شروع بریج</button>
-                    <button class="action-btn btn-danger" onclick="stopBridge()" id="stopButton" disabled>⏹️ توقف بریج</button>
-                    <button class="action-btn btn-secondary" onclick="testPremiereConnection()" id="pingButton">🔄 تست اتصال</button>
-                    <button class="action-btn btn-secondary" onclick="runDiagnostics()" id="diagnosticsButton">🩺 عیب‌یابی هوشمند</button>
+                <div class="actions-quad">
+                    <button class="dock-btn btn-launch" onclick="startBridge()" id="startButton">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span id="lblStart">شروع بریج</span>
+                    </button>
+                    <button class="dock-btn btn-halt" onclick="stopBridge()" id="stopButton" disabled>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+                        <span id="lblStop">توقف بریج</span>
+                    </button>
+                    <button class="dock-btn btn-neutral" onclick="testPremiereConnection()" id="pingButton">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <span id="lblPing">تست اتصال</span>
+                    </button>
+                    <button class="dock-btn btn-neutral" onclick="runDiagnostics()" id="diagnosticsButton">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span id="lblDiag">عیب‌یابی</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title" id="txtRecentTaskTitle">آخرین فعالیت</span>
-                    <button class="copy-pill" onclick="clearLog()" id="clearButton">پاک‌سازی</button>
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtRecentTaskTitle">آخرین وضعیت زنده</span>
+                    <button class="copy-pill-btn" onclick="clearLog()" id="clearButton">پاک‌سازی</button>
                 </div>
-                <div class="command-queue" id="quickLogPreview" style="max-height: 90px;">
-                    <div class="log-entry info">NovaCut AI Bridge ready. Start bridge to connect.</div>
+                <div class="terminal-box" id="quickLogPreview" style="max-height: 95px;">
+                    <div class="log-line info">NovaCut AI Studio Bridge آماده دریافت دستورات تدوین است.</div>
                 </div>
             </div>
         </main>
 
-        <!-- Tab 2: AI Connect Guide -->
+        <!-- Pane 2: AI Connect Hub -->
         <section class="tab-pane" id="pane-aiconnect">
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title" id="txtAiTitle">راهنمای اتصال مدل‌های هوش مصنوعی</span>
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtAiTitle">راهنمای اتصال مدل‌های هوش مصنوعی</span>
                 </div>
-                <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px;" id="txtAiSubtitle">
-                    این MCP با تمامی مدل‌ها (ChatGPT, Grok, Gemini, Claude, Cursor) سازگار است. کد زیر را کپی کرده و در کلاینت خود قرار دهید:
+                <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px;" id="txtAiSubtitle">
+                    کانفیگ مربوط به کلاینت خود را کپی کنید و در تنظیمات MCP آن قرار دهید:
                 </p>
 
-                <!-- ChatGPT / OpenAI -->
-                <div class="ai-guide-card">
-                    <div class="ai-guide-header">
-                        <span class="ai-guide-title">🟢 ChatGPT Desktop / OpenAI MCP</span>
-                        <button class="copy-pill" onclick="copySnippet('chatgpt')">کپی کانفیگ</button>
+                <div class="ai-hub-deck">
+                    <!-- ChatGPT -->
+                    <div class="hub-card">
+                        <div class="hub-head">
+                            <span class="hub-title-tag">🟢 ChatGPT Desktop / OpenAI MCP</span>
+                            <button class="copy-pill-btn" onclick="copySnippet('chatgpt')">کپی کانفیگ</button>
+                        </div>
+                        <div class="code-vault" id="code-chatgpt"></div>
                     </div>
-                    <div class="ai-code-box" id="code-chatgpt"></div>
-                </div>
 
-                <!-- Google Gemini / Antigravity -->
-                <div class="ai-guide-card">
-                    <div class="ai-guide-header">
-                        <span class="ai-guide-title">🔵 Google Gemini & Antigravity</span>
-                        <button class="copy-pill" onclick="copySnippet('gemini')">کپی کانفیگ</button>
+                    <!-- Gemini -->
+                    <div class="hub-card">
+                        <div class="hub-head">
+                            <span class="hub-title-tag">🔵 Google Gemini & Antigravity</span>
+                            <button class="copy-pill-btn" onclick="copySnippet('gemini')">کپی کانفیگ</button>
+                        </div>
+                        <div class="code-vault" id="code-gemini"></div>
                     </div>
-                    <div class="ai-code-box" id="code-gemini"></div>
-                </div>
 
-                <!-- xAI Grok -->
-                <div class="ai-guide-card">
-                    <div class="ai-guide-header">
-                        <span class="ai-guide-title">⚫ xAI Grok (CLI / WebUI)</span>
-                        <button class="copy-pill" onclick="copySnippet('grok')">کپی کانفیگ</button>
+                    <!-- Grok -->
+                    <div class="hub-card">
+                        <div class="hub-head">
+                            <span class="hub-title-tag">⚫ xAI Grok (CLI / WebUI)</span>
+                            <button class="copy-pill-btn" onclick="copySnippet('grok')">کپی کانفیگ</button>
+                        </div>
+                        <div class="code-vault" id="code-grok"></div>
                     </div>
-                    <div class="ai-code-box" id="code-grok"></div>
-                </div>
 
-                <!-- Claude Desktop -->
-                <div class="ai-guide-card">
-                    <div class="ai-guide-header">
-                        <span class="ai-guide-title">🟣 Claude Desktop & Claude Code</span>
-                        <button class="copy-pill" onclick="copySnippet('claude')">کپی کانفیگ</button>
+                    <!-- Claude -->
+                    <div class="hub-card">
+                        <div class="hub-head">
+                            <span class="hub-title-tag">🟣 Claude Desktop & Claude Code</span>
+                            <button class="copy-pill-btn" onclick="copySnippet('claude')">کپی کانفیگ</button>
+                        </div>
+                        <div class="code-vault" id="code-claude"></div>
                     </div>
-                    <div class="ai-code-box" id="code-claude"></div>
-                </div>
 
-                <!-- Cursor / Windsurf -->
-                <div class="ai-guide-card">
-                    <div class="ai-guide-header">
-                        <span class="ai-guide-title">🔷 Cursor & Windsurf IDE</span>
-                        <button class="copy-pill" onclick="copySnippet('cursor')">کپی کانفیگ</button>
+                    <!-- Cursor / Windsurf -->
+                    <div class="hub-card">
+                        <div class="hub-head">
+                            <span class="hub-title-tag">🔷 Cursor & Windsurf IDE</span>
+                            <button class="copy-pill-btn" onclick="copySnippet('cursor')">کپی کانفیگ</button>
+                        </div>
+                        <div class="code-vault" id="code-cursor"></div>
                     </div>
-                    <div class="ai-code-box" id="code-cursor"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Tab 3: Command Queue -->
+        <!-- Pane 3: Command Queue -->
         <section class="tab-pane" id="pane-queue">
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title" id="txtQueueTitle">صف دستورات دریافتی</span>
-                    <span style="font-size: 10px; color: var(--text-muted);" id="queueCount">0 دستور</span>
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtQueueTitle">صف دستورات دریافتی</span>
+                    <span style="font-size: 10px; color: var(--text-muted); font-weight: 700;" id="queueCount">0 فرامین</span>
                 </div>
-                <div class="command-queue" id="commandQueue">
-                    <div class="command-item">
-                        <span class="command-label" id="txtEmptyQueue">دستوری در صف نیست</span>
+                <div class="queue-box" id="commandQueue">
+                    <div class="queue-entry">
+                        <span class="queue-cmd-text" id="txtEmptyQueue">دستوری در صف قرار ندارد</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tab 4: Console Log -->
+        <!-- Pane 4: Terminal Console -->
         <section class="tab-pane" id="pane-console">
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title" id="txtConsoleTitle">کنسول لاگ زنده</span>
-                    <button class="copy-pill" onclick="clearLog()">پاک‌سازی لاگ</button>
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtConsoleTitle">کنسول لاگ زنده سیستم</span>
+                    <button class="copy-pill-btn" onclick="clearLog()">پاک‌سازی لاگ</button>
                 </div>
-                <div class="log-container" id="logContainer" style="max-height: 280px;">
-                    <div class="log-entry info">NovaCut AI Studio (CEP) loaded.</div>
+                <div class="terminal-box" id="logContainer" style="max-height: 270px;">
+                    <div class="log-line info">NovaCut AI Studio Bridge (v2.0) loaded.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Tab 5: Settings -->
+        <!-- Pane 5: Settings -->
         <section class="tab-pane" id="pane-settings">
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title" id="txtSettingsTitle">تنظیمات بریج</span>
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtSettingsTitle">تنظیمات و پیکربندی بریج</span>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="tempDirectory" id="lblTempDir">پوشه تبادل اطلاعات (Temp Directory)</label>
+                <div class="form-row">
+                    <label class="input-label" for="tempDirectory" id="lblTempDir">مسیر تبادل فرامین (Temp Directory)</label>
                     <input type="text" id="tempDirectory" placeholder="C:\Temp\novacut-bridge">
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" id="lblToolset">پروفایل ابزارهای هوش مصنوعی</label>
+                <div class="form-row">
+                    <label class="input-label" id="lblToolset">پروفایل ابزارهای هوش مصنوعی (AI Toolset)</label>
                     <select id="selToolset" onchange="saveToolsetPreference()">
-                        <option value="standard">Standard (پیشنهادی - برای GPT, Grok, Gemini, Claude)</option>
-                        <option value="full">Full (تمام ۲۸۰+ ابزار پریمیر)</option>
-                        <option value="search">Dynamic Search (جستجوی پویا مخصوص Claude)</option>
+                        <option value="standard">Standard (پیشنهادی • ۷۸ ابزار مستقیم برای GPT, Grok, Gemini, Claude)</option>
+                        <option value="full">Full (تمام ۲۸۳ ابزار پریمیر پرو)</option>
+                        <option value="search">Dynamic Search (جستجوی پویا کم‌مصرف)</option>
                     </select>
                 </div>
 
-                <label class="checkbox-row" for="telemetryEnabled">
+                <label class="toggle-card" for="telemetryEnabled">
                     <input type="checkbox" id="telemetryEnabled" checked onchange="saveTelemetryPreference()">
-                    <span class="checkbox-label" id="lblTelemetry">
-                        ارسال ناشناس گزارش خطاها و سلامت عملکرد جهت بهبود برنامه
+                    <span class="toggle-txt" id="lblTelemetry">
+                        ارسال ناشناس گزارش خطاها و سلامت عملکرد جهت بهبود عملکرد افزونه
                     </span>
                 </label>
 
-                <div style="margin-top: 12px;">
-                    <button class="action-btn btn-primary" style="width: 100%;" onclick="saveConfig()" id="btnSaveConfig">
-                        💾 ذخیره تنظیمات
+                <div style="margin-top: 14px;">
+                    <button class="dock-btn btn-launch" style="width: 100%;" onclick="saveConfig()" id="btnSaveConfig">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <span id="lblSaveConfig">ذخیره تنظیمات</span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <footer class="footer-note">
-            NovaCut AI Studio • Powered by Antigravity & Universal MCP Engine
+        <footer class="studio-footer">
+            NovaCut AI Studio • Luxury Dark Edition • v2.0
         </footer>
     </div>
 

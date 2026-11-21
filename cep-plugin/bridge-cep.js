@@ -6,9 +6,17 @@
  */
 
 (function() {
-    var fs = require('fs');
-    var path = require('path');
-    var os = require('os');
+    var hasNode = typeof require !== 'undefined';
+    var fs = hasNode ? require('fs') : null;
+    var path = hasNode ? require('path') : {
+        join: function() { return Array.prototype.slice.call(arguments).join('/'); },
+        resolve: function(p) { return p; }
+    };
+    var os = hasNode ? require('os') : {
+        platform: function() { return 'win32'; },
+        homedir: function() { return 'C:/Users/User'; },
+        tmpdir: function() { return 'C:/Temp'; }
+    };
 
     var EXTENDSCRIPT_COMPAT_HELPERS = [
         'function __mcpEscapeString(value) {',
@@ -196,29 +204,29 @@
             hostDetecting: "در حال بررسی...",
             noProject: "پروژه‌ای باز نیست",
             tabDashboard: "میز کار",
-            tabAi: "اتصال هوش مصنوعی",
-            tabQueue: "صف دستورات",
+            tabAi: "هوش مصنوعی",
+            tabQueue: "صف فرامین",
             tabConsole: "کنسول",
             tabSettings: "تنظیمات",
-            controlsTitle: "کنترل‌های ارتباطی",
-            startBtn: "▶️ شروع بریج",
-            stopBtn: "⏹️ توقف بریج",
-            pingBtn: "🔄 تست اتصال",
-            diagBtn: "🩺 عیب‌یابی هوشمند",
-            recentTitle: "آخرین فعالیت",
+            controlsTitle: "کنترل‌های ارتباطی بریج",
+            startBtn: "شروع بریج",
+            stopBtn: "توقف بریج",
+            pingBtn: "تست اتصال",
+            diagBtn: "عیب‌یابی هوشمند",
+            recentTitle: "آخرین وضعیت زنده",
             clearBtn: "پاک‌سازی",
-            emptyQueue: "دستوری در صف نیست",
+            emptyQueue: "دستوری در صف قرار ندارد",
             queueTitle: "صف دستورات دریافتی",
-            consoleTitle: "کنسول لاگ زنده",
-            settingsTitle: "تنظیمات بریج",
-            tempDirLabel: "پوشه تبادل اطلاعات (Temp Directory)",
-            toolsetLabel: "پروفایل ابزارهای هوش مصنوعی",
-            telemetryLabel: "ارسال ناشناس گزارش خطاها و سلامت عملکرد جهت بهبود برنامه",
-            saveConfigBtn: "💾 ذخیره تنظیمات",
+            consoleTitle: "کنسول لاگ زنده سیستم",
+            settingsTitle: "تنظیمات و پیکربندی بریج",
+            tempDirLabel: "مسیر تبادل فرامین (Temp Directory)",
+            toolsetLabel: "پروفایل ابزارهای هوش مصنوعی (AI Toolset)",
+            telemetryLabel: "ارسال ناشناس گزارش خطاها و سلامت عملکرد جهت بهبود عملکرد افزونه",
+            saveConfigBtn: "ذخیره تنظیمات",
             copied: "کپی شد!",
             copyConfig: "کپی کانفیگ",
             aiTitle: "راهنمای اتصال مدل‌های هوش مصنوعی",
-            aiSubtitle: "این MCP با تمامی مدل‌ها (ChatGPT, Grok, Gemini, Claude, Cursor) سازگار است. کد زیر را کپی کرده و در کلاینت خود قرار دهید:"
+            aiSubtitle: "کانفیگ مربوط به کلاینت خود را کپی کنید و در تنظیمات MCP آن قرار دهید:"
         },
         en: {
             title: "NovaCut AI Studio",
@@ -233,49 +241,50 @@
             hostDetecting: "Detecting...",
             noProject: "No project open",
             tabDashboard: "Dashboard",
-            tabAi: "AI Connect",
+            tabAi: "AI Models",
             tabQueue: "Command Queue",
             tabConsole: "Console",
             tabSettings: "Settings",
-            controlsTitle: "Bridge Controls",
-            startBtn: "▶️ Start Bridge",
-            stopBtn: "⏹️ Stop Bridge",
-            pingBtn: "🔄 Test Connection",
-            diagBtn: "🩺 Smart Diagnostics",
-            recentTitle: "Recent Activity",
+            controlsTitle: "Bridge Link Controls",
+            startBtn: "Start Bridge",
+            stopBtn: "Stop Bridge",
+            pingBtn: "Test Link",
+            diagBtn: "Smart Diagnostics",
+            recentTitle: "Live Activity Status",
             clearBtn: "Clear",
             emptyQueue: "No pending commands",
-            queueTitle: "Command Queue",
-            consoleTitle: "Live Console",
-            settingsTitle: "Bridge Settings",
-            tempDirLabel: "Bridge Directory (Temp)",
-            toolsetLabel: "AI Toolset Profile",
-            telemetryLabel: "Share anonymous diagnostic data to help improve performance",
-            saveConfigBtn: "💾 Save Settings",
+            queueTitle: "Incoming Command Queue",
+            consoleTitle: "Live System Console",
+            settingsTitle: "Bridge Settings & Config",
+            tempDirLabel: "Command Exchange Path (Temp Directory)",
+            toolsetLabel: "AI Toolset Profile (Standard/Full/Search)",
+            telemetryLabel: "Share anonymous diagnostic health data to improve stability",
+            saveConfigBtn: "Save Settings",
             copied: "Copied!",
             copyConfig: "Copy Config",
             aiTitle: "AI Assistants Connection Guide",
-            aiSubtitle: "This MCP works seamlessly with ChatGPT, Grok, Gemini, Claude, and Cursor. Copy the snippet below into your client:"
+            aiSubtitle: "Copy the configuration for your client and paste it into its MCP configuration:"
         }
     };
 
     function getDefaultTempPath() {
-        if (process.env.PREMIERE_TEMP_DIR) {
+        if (typeof process !== 'undefined' && process.env && process.env.PREMIERE_TEMP_DIR) {
             return sanitizeTempDirectoryInput(process.env.PREMIERE_TEMP_DIR);
         }
-        var base = (os.platform() === 'win32') ? (process.env.TEMP || process.env.TMP || 'C:\\Temp') : '/tmp';
+        var base = (os.platform() === 'win32') ? ((typeof process !== 'undefined' && process.env && (process.env.TEMP || process.env.TMP)) || 'C:\\Temp') : '/tmp';
         return path.join(base, 'novacut-bridge');
     }
 
     function getPanelConfigPath() {
         var configDir = path.join(os.homedir(), '.novacut-bridge');
-        if (!fs.existsSync(configDir)) {
+        if (fs && !fs.existsSync(configDir)) {
             try { fs.mkdirSync(configDir, { recursive: true }); } catch (e) {}
         }
         return path.join(configDir, 'config.json');
     }
 
     function readExistingPanelConfig() {
+        if (!fs) return {};
         try {
             var configPath = getPanelConfigPath();
             if (!fs.existsSync(configPath)) {
@@ -291,6 +300,7 @@
 
     function ensureDirectory(dirPath) {
         if (!dirPath) return null;
+        if (!fs) return dirPath;
         var resolvedPath = path.resolve(dirPath);
         if (!fs.existsSync(resolvedPath)) {
             fs.mkdirSync(resolvedPath, { recursive: true });
@@ -360,10 +370,10 @@
         setElemText('tabBtnConsole', t.tabConsole);
         setElemText('tabBtnSettings', t.tabSettings);
         setElemText('txtControlsTitle', t.controlsTitle);
-        setElemText('startButton', t.startBtn);
-        setElemText('stopButton', t.stopBtn);
-        setElemText('pingButton', t.pingBtn);
-        setElemText('diagnosticsButton', t.diagBtn);
+        setElemText('lblStart', t.startBtn);
+        setElemText('lblStop', t.stopBtn);
+        setElemText('lblPing', t.pingBtn);
+        setElemText('lblDiag', t.diagBtn);
         setElemText('txtRecentTaskTitle', t.recentTitle);
         setElemText('clearButton', t.clearBtn);
         setElemText('txtEmptyQueue', t.emptyQueue);
@@ -373,7 +383,7 @@
         setElemText('lblTempDir', t.tempDirLabel);
         setElemText('lblToolset', t.toolsetLabel);
         setElemText('lblTelemetry', t.telemetryLabel);
-        setElemText('btnSaveConfig', t.saveConfigBtn);
+        setElemText('lblSaveConfig', t.saveConfigBtn);
         setElemText('txtAiTitle', t.aiTitle);
         setElemText('txtAiSubtitle', t.aiSubtitle);
 
@@ -477,6 +487,7 @@
     };
 
     NovaCutBridge.prototype.watchDirectory = function(dirPath) {
+        if (!fs) return;
         try {
             var watchedPath = ensureDirectory(dirPath);
             var files = fs.readdirSync(watchedPath);
@@ -624,6 +635,7 @@
     };
 
     NovaCutBridge.prototype.writeHeartbeat = function() {
+        if (!fs) return;
         try {
             var tempPath = this.getTempDirectory();
             if (!tempPath) return;
@@ -687,14 +699,14 @@
         if (countEl) countEl.textContent = this.commandQueue.length + (this.currentLang === 'fa' ? ' دستور' : ' commands');
 
         if (this.commandQueue.length === 0) {
-            el.innerHTML = '<div class="command-item"><span class="command-label">' + (I18N[this.currentLang].emptyQueue) + '</span></div>';
+            el.innerHTML = '<div class="queue-entry"><span class="queue-cmd-text" id="txtEmptyQueue">' + (I18N[this.currentLang].emptyQueue) + '</span></div>';
             return;
         }
 
         var html = this.commandQueue.slice(-6).map(function(cmd) {
-            return '<div class="command-item">' +
-                   '<span class="command-label">' + cmd.script + '</span>' +
-                   '<span class="command-status ' + cmd.status + '">' + cmd.status + '</span>' +
+            return '<div class="queue-entry">' +
+                   '<span class="queue-cmd-text">' + cmd.script + '</span>' +
+                   '<span class="badge-status ' + cmd.status + '">' + cmd.status + '</span>' +
                    '</div>';
         }).join('');
         el.innerHTML = html;
@@ -780,11 +792,11 @@
         var stopBtn = document.getElementById('stopButton');
 
         if (this.isConnected) {
-            if (hero) hero.className = 'status-hero connected';
+            if (hero) hero.className = 'status-deck connected';
             if (connectionText) connectionText.textContent = t.connected;
             if (serverText) serverText.textContent = t.premiereReady;
         } else {
-            if (hero) hero.className = 'status-hero';
+            if (hero) hero.className = 'status-deck';
             if (connectionText) connectionText.textContent = t.disconnected;
             if (serverText) serverText.textContent = t.premiereWaiting;
         }
@@ -800,7 +812,7 @@
         var timestamp = new Date().toLocaleTimeString();
 
         var entry = document.createElement('div');
-        entry.className = 'log-entry ' + level;
+        entry.className = 'log-line ' + level;
         entry.textContent = '[' + timestamp + '] ' + message;
 
         if (logContainer) {
@@ -821,8 +833,8 @@
     NovaCutBridge.prototype.clearLog = function() {
         var logContainer = document.getElementById('logContainer');
         var quickPreview = document.getElementById('quickLogPreview');
-        if (logContainer) logContainer.innerHTML = '<div class="log-entry info">Console cleared.</div>';
-        if (quickPreview) quickPreview.innerHTML = '<div class="log-entry info">Ready.</div>';
+        if (logContainer) logContainer.innerHTML = '<div class="log-line info">Console cleared.</div>';
+        if (quickPreview) quickPreview.innerHTML = '<div class="log-line info">Ready.</div>';
     };
 
     NovaCutBridge.prototype.testPremiereConnection = function() {
@@ -862,7 +874,7 @@
     window.copySnippet = function(client) { if (window.bridge) window.bridge.copySnippet(client); };
     window.switchTab = function(tabId) {
         var panes = document.querySelectorAll('.tab-pane');
-        var btns = document.querySelectorAll('.tab-btn');
+        var btns = document.querySelectorAll('.segment-btn');
         panes.forEach(function(p) { p.classList.remove('active'); });
         btns.forEach(function(b) { b.classList.remove('active'); });
 

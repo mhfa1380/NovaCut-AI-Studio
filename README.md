@@ -13,6 +13,12 @@
 [![Persian Support](https://img.shields.io/badge/Persian%20Support-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-818cf8.svg)](README.fa.md)
 [![CEP](https://img.shields.io/badge/CEP-production-2ea44f.svg)](#install)
 
+<br/>
+
+<p align="center">
+  <img src="images/demo.png" alt="NovaCut AI Studio Showcase" width="100%" />
+</p>
+
 </div>
 
 > 🇮🇷 **راهنمای جامع فارسی:** برای مطالعه راهنمای کامل نصب و استفاده به زبان فارسی، به [README.fa.md](README.fa.md) مراجعه کنید.
