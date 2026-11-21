@@ -10,7 +10,8 @@ param(
     [string] $VsCodeConfigPath = (Join-Path $env:APPDATA 'Code\User\mcp.json'),
     [string] $ClaudeConfigPath = (Join-Path $env:APPDATA 'Claude\claude_desktop_config.json'),
     [string] $CursorConfigPath = (Join-Path $env:APPDATA 'Cursor\User\mcp.json'),
-    [string] $WindsurfConfigPath = (Join-Path $env:USERPROFILE '.codeium\windsurf\mcp_config.json')
+    [string] $WindsurfConfigPath = (Join-Path $env:USERPROFILE '.codeium\windsurf\mcp_config.json'),
+    [string] $ChatGptConfigPath = (Join-Path $env:APPDATA 'OpenAI\ChatGPT\mcp.json')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -135,6 +136,7 @@ if ($debugOk) {
 
 Write-Host '5. AI Client Configurations:' -ForegroundColor White
 Test-JsonServer -Path $ClaudeConfigPath -RootKey 'mcpServers'
+Test-JsonServer -Path $ChatGptConfigPath -RootKey 'mcpServers'
 Test-JsonServer -Path $VsCodeConfigPath -RootKey 'servers'
 Test-JsonServer -Path $CursorConfigPath -RootKey 'mcpServers'
 Test-JsonServer -Path $WindsurfConfigPath -RootKey 'mcpServers'

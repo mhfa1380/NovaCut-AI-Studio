@@ -1,40 +1,59 @@
 @echo off
 chcp 65001 >nul
-title NovaCut AI Studio - 1-Click Installer
+title NovaCut AI Studio - 1-Click Fast Installer (نصب آسان نوواکات)
 cls
+
 echo ========================================================================
-echo   🎬 NovaCut AI Studio - Universal Premiere Pro AI Bridge (v2.0)
-echo   استودیو هوشمند نوواکات - نصب خودکار برای ادوبی پریمیر پرو
+echo   🎬 NovaCut AI Studio — Universal Premiere Pro AI Bridge (v2.0)
+echo   استودیو هوشمند نوواکات — نصب آسان و خودکار برای ادوبی پریمیر پرو
 echo ========================================================================
 echo.
-
-:: Check Node.js
-where node >nul 2>nul
-if %ERRORLEVEL% neq 0 (
-    echo [ERROR] Node.js is not installed or not in PATH!
-    echo [خطا] نود جی‌اس بر روی سیستم شما یافت نشد.
-    echo Please install Node.js 20+ from: https://nodejs.org/
-    echo.
-    pause
-    exit /b 1
-)
-
-echo [OK] Node.js is ready.
-echo [INFO] Starting automated setup via PowerShell...
+echo   در حال آماده‌سازی و شروع فرآیند نصب خودکار...
+echo   Starting automated installation wizard...
 echo.
 
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\install-windows.ps1"
 
-if %ERRORLEVEL% equ 0 (
+if %ERRORLEVEL% neq 0 (
     echo.
-    echo ========================================================================
-    echo   [SUCCESS] NovaCut AI Studio is ready to use!
-    echo   نصب با موفقیت انجام شد. پریمیر پرو را باز کنید.
-    echo ========================================================================
-) else (
+    echo [ERROR] Installation encountered an issue.
+    echo [خطا] در مراحل نصب مشکلی پیش آمد. متن خطای بالا را مطالعه کنید.
     echo.
-    echo [ERROR] Installation encountered an issue. See log above.
+    pause
+    exit /b %ERRORLEVEL%
+)
+
+:MENU
+echo.
+echo ------------------------------------------------------------------------
+echo   عملیات بعدی را انتخاب کنید (Next Action):
+echo ------------------------------------------------------------------------
+echo   [1] 🩺 اجرای تست سلامت و عیب‌یابی (Run Doctor Diagnostics)
+echo   [2] 📋 نمایش کدهای کانفیگ برای چت‌جی‌پی‌تی، جمینای، گروک و کلاد (Configs)
+echo   [3] 📁 باز کردن پوشه اکستنشن‌های ادوبی در ویندوز (Open CEP Folder)
+echo   [0] 🚪 خروج (Exit)
+echo ------------------------------------------------------------------------
+set /p ACTION="انتخاب شما [0-3] (پیش‌فرض 0): "
+
+if "%ACTION%"=="1" (
+    cls
+    call "%~dp0doctor.bat"
+    goto MENU
+)
+if "%ACTION%"=="2" (
+    cls
+    node "%~dp0dist\cli.js" config all
+    echo.
+    pause
+    goto MENU
+)
+if "%ACTION%"=="3" (
+    explorer "%APPDATA%\Adobe\CEP\extensions\NovaCutBridgeCEP"
+    goto MENU
 )
 
 echo.
-pause
+echo با تشکر از انتخاب NovaCut AI Studio! اکنون پریمیر پرو را باز کنید.
+echo Good luck with your AI video editing!
+timeout /t 3 >nul
+exit /b 0

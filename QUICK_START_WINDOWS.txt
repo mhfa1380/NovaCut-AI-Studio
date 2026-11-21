@@ -1,0 +1,37 @@
+========================================================================
+  🎬 NovaCut AI Studio — Ultra-Simple Windows Quick Start
+========================================================================
+
+Follow these 3 simple steps to connect AI to Adobe Premiere Pro:
+
+------------------------------------------------------------------------
+STEP 1:
+------------------------------------------------------------------------
+Double-click "install.bat" in this folder.
+Everything (Node checks, Adobe registry unlocking, panel installation,
+and auto-configuration for ChatGPT, Claude, Cursor, and Windsurf)
+is performed 100% automatically!
+
+------------------------------------------------------------------------
+STEP 2:
+------------------------------------------------------------------------
+Launch Adobe Premiere Pro (or restart it if already open).
+From the top menu bar, open:
+
+    Window  ──>  Extensions  ──>  NovaCut AI Studio
+
+The panel will open and the connection beacon will turn green.
+
+------------------------------------------------------------------------
+STEP 3:
+------------------------------------------------------------------------
+Open your AI assistant (ChatGPT Desktop, Claude, Cursor, etc.) and type:
+
+    "Inspect my active project and create a new 4K timeline"
+
+------------------------------------------------------------------------
+Helpful tips:
+------------------------------------------------------------------------
+• To update in the future: Double-click update.bat
+• To verify connections: Double-click doctor.bat
+========================================================================
