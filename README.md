@@ -23,7 +23,7 @@
 
 > 🇮🇷 **راهنمای جامع فارسی:** برای مطالعه راهنمای کامل نصب و استفاده به زبان فارسی، به [README.fa.md](README.fa.md) مراجعه کنید.
 >
-> 🚀 **1-Click Quick Install:** Simply double-click `install.bat` on Windows! All Adobe registry keys, CEP extension files, and AI client configs are configured automatically.
+> 🚀 **1-Click Windows Setup Executable:** Simply double-click `NovaCut-Setup.exe` (or `install.bat`) on Windows! A modern graphical setup assistant configures Adobe registry keys, CEP extension files, and AI clients automatically.
 >
 > 🔄 **1-Click Auto Update:** Simply double-click `update.bat` or run `novacut update` to pull the latest releases from GitHub and sync your installation!
 

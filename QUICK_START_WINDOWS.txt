@@ -7,7 +7,8 @@ Follow these 3 simple steps to connect AI to Adobe Premiere Pro:
 ------------------------------------------------------------------------
 STEP 1:
 ------------------------------------------------------------------------
-Double-click "install.bat" in this folder.
+Double-click "NovaCut-Setup.exe" (or "Setup.exe" or "install.bat").
+The graphical installer will appear; click "Install Now".
 Everything (Node checks, Adobe registry unlocking, panel installation,
 and auto-configuration for ChatGPT, Claude, Cursor, and Windsurf)
 is performed 100% automatically!

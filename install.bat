@@ -1,8 +1,16 @@
 @echo off
 chcp 65001 >nul
 title NovaCut AI Studio - 1-Click Fast Installer (نصب آسان نوواکات)
-cls
 
+:: If GUI executable exists and user didn't pass /cli, launch the GUI installer
+if "%1"=="" (
+    if exist "%~dp0NovaCut-Setup.exe" (
+        start "" "%~dp0NovaCut-Setup.exe"
+        exit /b 0
+    )
+)
+
+cls
 echo ========================================================================
 echo   🎬 NovaCut AI Studio — Universal Premiere Pro AI Bridge (v2.0)
 echo   استودیو هوشمند نوواکات — نصب آسان و خودکار برای ادوبی پریمیر پرو
