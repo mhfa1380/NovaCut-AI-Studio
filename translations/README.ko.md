@@ -1,27 +1,37 @@
-# Adobe Premiere Pro MCP Server
+# 🎬 NovaCut AI Studio (한국어)
 
-[English](../README.md)
+[English](../README.md) • [فارسی](../README.fa.md)
 
-Codex, Claude Code, Claude Desktop 또는 다른 MCP 클라이언트를 통해 MCP로 Adobe Premiere Pro를 제어합니다.
+**Adobe Premiere Pro를 위한 범용 AI 영상 편집 자동화 브릿지.**  
+**ChatGPT, Google Gemini, xAI Grok, Claude, Cursor, Windsurf**로 프리미어 프로를 손쉽게 제어하세요.
 
-## 빠른 시작
+---
 
-```bash
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:mac
-```
+> 💡 **프로젝트 출처 및 감사의 글 (Attribution):**  
+> NovaCut AI Studio는 오픈소스 프로젝트인 [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp)를 **기반으로 대폭 최적화하고 버그를 해결하여 새롭게 재설계한 버전**입니다.  
+> **NovaCut의 핵심 개선점:**
+> - **모든 AI 모델 지원:** Claude 전용 제약을 없애고 ChatGPT, Gemini, Grok, Claude, Cursor와 완벽 연동.
+> - **원클릭 Windows 인스톨러:** 전용 아이콘과 모던 UI가 탑재된 `NovaCut-Setup.exe` 제공 (명령어 입력 불필요).
+> - **Capzo AI 자동 자막 연동:** 음성 인식 및 단어 단위 자막 생성 후 프리미어 타임라인에 원클릭 자동 동기화.
+> - **미니멀 럭셔리 다크 UI:** 흑요석(Obsidian) 테마, 실시간 통신 레이더, 다국어 지원.
+> - **완벽한 안정성:** 시퀀스 프리셋 멈춤(#76), 툴 ID 불일치(#123), stdio 통신 충돌(#122) 문제 해결.
 
-1. Premiere Pro에서 `Window > Extensions > MCP Bridge (CEP)`를 엽니다.
-2. `Temp Directory`를 `/tmp/premiere-mcp-bridge`로 설정합니다.
-3. `Save Configuration`, `Start Bridge`, `Test Connection`을 순서대로 클릭합니다.
-4. 테스트가 실패하면 `Run Diagnostics`를 클릭하고 `/tmp/premiere-mcp-bridge/premiere-mcp-diagnostics-latest.json` 파일을 공유해 주세요.
+---
 
-## MCP 클라이언트
+## ⚡ 3단계 빠른 시작
 
-- `npm run setup:mac`는 macOS에서 Claude Desktop을 자동으로 구성합니다.
-- Codex, Claude Code 및 기타 클라이언트는 빌드된 `dist/index.js`와 `PREMIERE_TEMP_DIR=/tmp/premiere-mcp-bridge`를 사용하세요.
+1. **원클릭 설치:** Windows에서 **`NovaCut-Setup.exe`** 실행 (macOS는 `scripts/install-macos.sh`).  
+   *프리미어 확장 패널 설치, 레지스트리 설정, AI 클라이언트 연동이 전자동으로 완료됩니다.*
+2. **프리미어 프로에서 실행:**
+   ```text
+   창 (Window)  ──>  확장명 (Extensions)  ──>  NovaCut AI Studio
+   ```
+3. **AI 영상 편집 시작:** ChatGPT 또는 Claude에 한국어로 명령하세요:  
+   > *“프로젝트 폴더의 영상 클립들을 불러와서 4K 타임라인을 만들어줘.”*
 
-## 공식 문서
+---
 
-전체 최신 문서는 [README.md](../README.md)에 있습니다.
+## 📄 라이선스
+
+- **라이선스:** [MIT License](../LICENSE.md) — 100% 무료 오픈소스.
+- **개발 및 유지관리:** [mhfa1380](https://github.com/mhfa1380)

@@ -1,27 +1,37 @@
-# Adobe Premiere Pro MCP Server
+# 🎬 استوديو نوفاكات الذكي (NovaCut AI Studio)
 
-[English](../README.md)
+[English](../README.md) • [فارسی](../README.fa.md)
 
-تحكم في Adobe Premiere Pro عبر MCP باستخدام Codex أو Claude Code أو Claude Desktop أو أي عميل MCP آخر.
+**جسر أتمتة تحرير الفيديو الشامل بالذكاء الاصطناعي لبرنامج أدوبي بريمير برو (Adobe Premiere Pro).**  
+تحكم في بريمير برو عبر **ChatGPT و Google Gemini و xAI Grok و Claude و Cursor و Windsurf**.
 
-## البدء السريع
+---
 
-```bash
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:mac
-```
+> 💡 **المصدر ونموذج التحسين (Attribution):**  
+> استوديو NovaCut هو **نسخة محسنة ومطورة ومصححة بالكامل** مستوحاة ومبنية على المشروع مفتوح المصدر [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
+> **أهم مميزات NovaCut مقارنة بالنسخة الأصلية:**
+> - **دعم شامل لجميع نماذج الذكاء الاصطناعي:** يعمل مباشرة مع ChatGPT و Gemini و Grok و Claude و Cursor بدون حصر في Claude.
+> - **برنامج تثبيت بنقرة واحدة لويندوز:** تطبيق `NovaCut-Setup.exe` بواجهة عصرية وأيقونة مدمجة دون الحاجة لأوامر سطر الأوامر.
+> - **تكامل ذكي مع منصة كابزو (Capzo AI):** تحويل الصوت إلى نصوص وترجمة احترافية ومزامنة فورية بنقرة واحدة مع الخط الزمني (Timeline).
+> - **واجهة فاخرة وبسيطة (Obsidian Minimal):** ثيم داكن أنيق يدعم واجهة اليمين لليسار (RTL) وثنائية اللغة (الفارسية والإنجليزية).
+> - **إصلاح كامل للأخطاء:** معالجة مشكلات تعليق القوالب وانهيار قنوات الاتصال stdio ورموز الأدوات.
 
-1. في Premiere Pro افتح `Window > Extensions > MCP Bridge (CEP)`.
-2. اضبط `Temp Directory` على `/tmp/premiere-mcp-bridge`.
-3. اضغط `Save Configuration` ثم `Start Bridge` ثم `Test Connection`.
-4. إذا فشل الاختبار، اضغط `Run Diagnostics` وشارك الملف `/tmp/premiere-mcp-bridge/premiere-mcp-diagnostics-latest.json`.
+---
 
-## عملاء MCP
+## ⚡ التثبيت السريع في ۳ خطوات
 
-- يقوم `npm run setup:mac` بإعداد Claude Desktop تلقائيًا على macOS.
-- بالنسبة إلى Codex وClaude Code والعملاء الآخرين، استخدم `dist/index.js` بعد البناء مع `PREMIERE_TEMP_DIR=/tmp/premiere-mcp-bridge`.
+1. **التثبيت بنقرة واحدة:** انقر مرتين على **`NovaCut-Setup.exe`** في ويندوز (أو `scripts/install-macos.sh` لنظام ماك).  
+   *يقوم البرنامج تلقائياً بضبط إعدادات بريمير برو وتكوين برامج الذكاء الاصطناعي.*
+2. **الفتح داخل بريمير برو:**
+   ```text
+   Window  ──>  Extensions  ──>  NovaCut AI Studio
+   ```
+3. **بدء المونتاج بالذكاء الاصطناعي:** افتح ChatGPT أو Claude وأعطه أوامرك:  
+   > *«استورد مقاطع الفيديو من المجلد وأنشئ تسلسلاً بدقة 4K.»*
 
-## الوثائق الرسمية
+---
 
-الوثائق الكاملة والأحدث موجودة في [README.md](../README.md).
+## 📄 الترخيص
+
+- **الترخيص:** [MIT License](../LICENSE.md) — مجاني ومفتوح المصدر بالكامل.
+- **التطوير والصيانة:** [mhfa1380](https://github.com/mhfa1380)

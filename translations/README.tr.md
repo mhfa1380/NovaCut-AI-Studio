@@ -1,27 +1,37 @@
-# Adobe Premiere Pro MCP Server
+# 🎬 NovaCut AI Studio (Türkçe)
 
-[English](../README.md)
+[English](../README.md) • [فارسی](../README.fa.md)
 
-Adobe Premiere Pro'yu MCP üzerinden Codex, Claude Code, Claude Desktop veya başka bir MCP istemcisiyle kontrol edin.
+**Adobe Premiere Pro için Evrensel Yapay Zeka Video Düzenleme Otomasyon Köprüsü.**  
+Premiere Pro'yu **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor ve Windsurf** ile kontrol edin.
 
-## Hızlı başlangıç
+---
 
-```bash
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:mac
-```
+> 💡 **Proje Kaynağı ve Teşekkür (Attribution):**  
+> NovaCut AI Studio, açık kaynaklı [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp) projesinden **ilham alınarak optimize edilmiş, geliştirilmiş ve sıfır hatalı olarak yeniden tasarlanmış versiyondur**.  
+> **NovaCut ile Gelen Yenilikler:**
+> - **Evrensel Yapay Zeka Desteği:** Yalnızca Claude ile sınırlı kalmaz; ChatGPT, Gemini, Grok ve Cursor ile doğrudan çalışır.
+> - **Tek Tıkla Windows Kurulumu:** Özel simgeli ve modern arayüzlü `NovaCut-Setup.exe` ile terminal komutlarına gerek kalmadan kurulur.
+> - **Capzo AI Altyazı Entegrasyonu:** Ses tanımasıyla kelime düzeyinde hassas altyazılar üretip zaman çizelgesine tek tıkla senkronize eder.
+> - **Minimalist Lüks Arayüz:** Canlı durum radarlı Obsidian koyu tema ve çift dil desteği (Farsça RTL / İngilizce).
+> - **Hata Düzeltmeleri:** Önayar kilitlenmeleri, araç kimliği uyuşmazlıkları ve stdio iletişim çökmeleri giderildi.
 
-1. Premiere Pro içinde `Window > Extensions > MCP Bridge (CEP)` bölümünü açın.
-2. `Temp Directory` değerini `/tmp/premiere-mcp-bridge` olarak ayarlayın.
-3. `Save Configuration`, `Start Bridge` ve ardından `Test Connection` düğmelerine tıklayın.
-4. Test başarısız olursa `Run Diagnostics` düğmesine tıklayın ve `/tmp/premiere-mcp-bridge/premiere-mcp-diagnostics-latest.json` dosyasını paylaşın.
+---
 
-## MCP istemcileri
+## ⚡ 3 Adımda Hızlı Başlangıç
 
-- `npm run setup:mac`, macOS üzerinde Claude Desktop yapılandırmasını otomatik yapar.
-- Codex, Claude Code ve diğer istemciler için derlenmiş `dist/index.js` ile `PREMIERE_TEMP_DIR=/tmp/premiere-mcp-bridge` kullanın.
+1. **Tek Tıkla Kurulum:** Windows'ta **`NovaCut-Setup.exe`** dosyasını çalıştırın (macOS için `scripts/install-macos.sh`).  
+   *Premiere uzantısını, kayıt defterini ve yapay zeka istemcilerini otomatik olarak ayarlar.*
+2. **Premiere Pro'da Açın:**
+   ```text
+   Window (Pencere)  ──>  Extensions (Uzantılar)  ──>  NovaCut AI Studio
+   ```
+3. **Yapay Zeka ile Düzenleyin:** ChatGPT veya Claude'a talimat verin:  
+   > *“Klasördeki tüm videoları içe aktar ve 4K çözünürlükte bir sekans oluştur.”*
 
-## Resmi belgeler
+---
 
-Tam ve güncel belgeler [README.md](../README.md) dosyasındadır.
+## 📄 Lisans
+
+- **Lisans:** [MIT License](../LICENSE.md) — Tamamen ücretsiz ve açık kaynak.
+- **Geliştirici:** [mhfa1380](https://github.com/mhfa1380)

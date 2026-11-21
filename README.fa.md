@@ -3,234 +3,189 @@
 <img src="assets/icon.png" width="96" height="96" alt="NovaCut AI Studio Logo" />
 
 # 🎬 استودیو هوشمند نوواکات (NovaCut AI Studio)
-### بریج و اتوماسیون جامع هوش مصنوعی برای ادوبی پریمیر پرو (Adobe Premiere Pro)
+### اتوماسیون و دستیار هوش مصنوعی ادوبی پریمیر پرو
 
-**پشتیبانی کامل از تمامی مدل‌های هوش مصنوعی: ChatGPT (GPT-4o/o1/o3) • Google Gemini • xAI Grok • Claude • Cursor • Windsurf**
+**تدوین هوشمند پریمیر پرو با تمام مدل‌ها: ChatGPT • Google Gemini • xAI Grok • Claude • Cursor • Windsurf**
 
 [![نسخه ۲.۰](https://img.shields.io/badge/NovaCut-v2.0.0-00f2fe.svg)](#)
-[![پشتیبانی کامل از زبان فارسی](https://img.shields.io/badge/Language-Persian%20%7C%20English-818cf8.svg)](#)
-[![نصب ۱-کلیکه](https://img.shields.io/badge/Installer-1--Click%20Ready-10b981.svg)](#نصب-سریع-و-آسان)
+[![مجوز MIT](https://img.shields.io/badge/License-MIT-5fd3c6.svg)](LICENSE.md)
+[![نصب ۱-کلیکه](https://img.shields.io/badge/Installer-1--Click%20Ready-10b981.svg)](#-نصب-سریع-و-آسان-تنها-با-۱-کلیک)
 [![ادوبی پریمیر](https://img.shields.io/badge/Adobe%20Premiere%20Pro-2020--2026%2B-ff007f.svg)](#)
+[![پشتیبانی کامل از زبان فارسی](https://img.shields.io/badge/Language-Persian%20%7C%20English-818cf8.svg)](#)
 
 <br/>
 
 <p align="center">
-  <img src="images/demo.png" alt="نمای کاربری استودیو هوشمند نوواکات" width="100%" />
+  <a href="README.fa.md"><b>🇮🇷 فارسی</b></a> •
+  <a href="README.md">🇬🇧 English</a> •
+  <a href="translations/README.es.md">🇪🇸 Español</a> •
+  <a href="translations/README.zh-CN.md">🇨🇳 简体中文</a> •
+  <a href="translations/README.ar.md">🇸🇦 العربية</a> •
+  <a href="translations/README.de.md">🇩🇪 Deutsch</a> •
+  <a href="translations/README.fr.md">🇫🇷 Français</a> •
+  <a href="translations/README.ru.md">🇷🇺 Русский</a> •
+  <a href="translations/README.ja.md">🇯🇵 日本語</a> •
+  <a href="translations/README.tr.md">🇹🇷 Türkçe</a> •
+  <a href="#-تمام-زبان‌ها-all-languages">🌍 سایر زبان‌ها</a>
+</p>
+
+<br/>
+
+<p align="center">
+  <img src="images/demo.png" alt="نمای استودیو هوشمند نوواکات" width="100%" />
 </p>
 
 </div>
 
 ---
 
-## 🌟 معرفی پروژه
-
-**نوواکات (NovaCut AI Studio)** نسخه ارتقایافته، کاملاً بازطراحی‌شده و بدون باگ از پروتکل MCP ادوبی پریمیر است. در نسخه‌های قبلی، استفاده از این سیستم وابسته به کلاد (Claude) بود و سایر مدل‌ها مثل ChatGPT، گروک (Grok) یا جمینای گوگل (Gemini) به دلیل ساختار جستجوی ابزارها دچار خطا یا ناتوانی در ویرایش می‌شدند.
-
-در **NovaCut v2.0**:
-1. **پشتیبانی سراسری از همه مدل‌ها (Universal AI)**: ابزارهای پرکاربرد تدوین (بیش از ۷۸ ابزار اصلی) به صورت مستقیم در دسترس مدل‌ها قرار گرفته‌اند تا ChatGPT، جمینای، گروک و کلاد بدون هیچ پیش‌نیاز پیچیده‌ای بتوانند مستقیماً تایم‌لاین را ادیت کنند.
-2. **پشتیبانی کامل از زبان فارسی**: تمامی پرامپت‌ها، دستورات صوتی/متنی، موتور جستجوی ابزارها و حتی پنل داخل پریمیر پرو مجهز به زبان فارسی و چیدمان راست‌چین (RTL) شده‌اند.
-3. **طراحی مدرن و تم شیک اختصاصی (Obsidian Glassmorphic)**: پنل داخلی پریمیر پرو با ظاهری فوق‌العاده مدرن، نئونی، همراه با پالس وضعیت زنده و تب‌های مدیریتی بازطراحی شد.
-4. **نصب فوق‌العاده آسان ۱-کلیکه (دارای فایل نصبی NovaCut-Setup.exe)**: دیگر نیازی به اجرای دستورات طولانی در ترمینال نیست؛ تنها با دو بار کلیک روی فایل `NovaCut-Setup.exe` یا `install.bat`، تمامی تنظیمات رجیستری ادوبی، کپی اکستنشن و پیکربندی کلاینت‌های هوش مصنوعی به شکل خودکار انجام می‌شود!
-5. **اتصال بومی به پلتفرم زیرنویس هوش مصنوعی کپزو (Capzo AI Integration)**: هماهنگی کامل با وب‌سرویس رسمی کپزو (`https://capzo.ir/docs/api`) جهت تبدیل خودکار صوت به متن، تولید فایل زیرنویس SRT با تقطیع کلمه‌ای مناسب ریلز، و سینک مستقیم به تایم‌لاین پریمیر پرو با یک کلیک!
+> 💡 **منبع الگو و نسخه بهینه‌شده (Inspiration & Attribution):**  
+> این پروژه یک **نسخه بازنویسی‌شده، ارتقایافته و بهینه‌سازی‌شده** است که از پروژه گیت‌هاب [Adobe_Premiere_Pro_MCP اثر hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp) **الگو گرفته شده است**.  
+> **چرا نوواکات بسیار بهتر و راحت‌تر است؟**
+> - **پشتیبانی از تمامی هوش‌های مصنوعی:** برخلاف نسخه اصلی که محدود به Claude بود، نوواکات با **ChatGPT، گوگل Gemini، گروک (Grok)، کلاد، Cursor و Windsurf** به‌صورت مستقیم کار می‌کند.
+> - **فایل نصبی ۱-کلیکه ویندوز:** دارای برنامه نصبی گرافیکی و شیک (`NovaCut-Setup.exe`) با آیکون اختصاصی — بدون نیاز به حتی یک خط کد در ترمینال!
+> - **اتصال بومی به کپزو (Capzo AI):** تبدیل خودکار صوت به متن و زیرنویس دقیق فارسی با تقطیع کلمه‌ای (مخصوص ریلز/Shorts) و افزودن مستقیم به تایم‌لاین ([مستندات کپزو](https://capzo.ir/docs/api)).
+> - **رابط کاربری مدرن و لوکس:** تم تاریک شیک (Obsidian Dark) با پالس وضعیت زنده و چیدمان کاملاً راست‌چین و فارسی.
+> - **رفع تمامی باگ‌ها:** حل کامل باگ‌های گیر کردن پریست‌ها (#76)، خطای tool ID (#123)، کرش پورت ارتباطی (#122) و امضای دیجیتال ادوبی.
 
 ---
 
-## 🚀 نصب فوق‌العاده آسان در ویندوز (تنها با ۱ کلیک!)
+## ⚡ نصب سریع و آسان (تنها با ۱ کلیک!)
 
-برای نصب نوواکات در ویندوز، **هیچ نیازی به تنظیمات پیچیده یا دانش فنی ندارید**:
+بدون نیاز به هیچ دانش فنی، تنها این ۳ مرحله را طی کنید:
 
-1. **کافی است روی فایل اجرایی `NovaCut-Setup.exe` (یا `install.bat`) دو بار کلیک کنید!**
-   پنجره گرافیکی نصاب باز شده و به صورت ۱۰۰٪ اتوماتیک:
-   - پیش‌نیازها را بررسی و در صورت نیاز نصب می‌کند.
-   - قفل برنامه‌نویسی ادوبی پریمیر (`PlayerDebugMode`) را در رجیستری باز می‌کند.
-   - اکستنشن نوواکات را در پوشه ادوبی نصب می‌کند.
-   - تمامی هوش مصنوعی‌های شما (ChatGPT Desktop, Claude, Cursor, Windsurf, VS Code) را به صورت خودکار متصل و کانفیگ می‌کند.
-2. **نرم‌افزار Adobe Premiere Pro را باز کنید** (اگر باز است، آن را ری‌استارت کنید).
-3. **از منوی بالای پریمیر پرو به این مسیر بروید:**
+1. **اجرای فایل نصبی:** روی فایل **`NovaCut-Setup.exe`** (یا `install.bat`) دو بار کلیک کنید و دکمه **نصب خودکار** را بزنید.  
+   *(تمام پیش‌نیازها، تنظیمات رجیستری پریمیر پرو و اتصال هوش مصنوعی‌ها خودبه‌خود انجام می‌شود).*
+2. **باز کردن پریمیر پرو:** ادوبی پریمیر پرو را باز کنید و از منوی بالا به مسیر زیر بروید:
    ```text
    Window  ──>  Extensions  ──>  NovaCut AI Studio
    ```
-4. چراغ سبز اتصال روشن می‌شود. اکنون در ChatGPT، Claude یا هوش مصنوعی خود تایپ کنید:
-   > *«پروژه من رو بررسی کن و یه تایم‌لاین 4K بساز»*
+3. **شروع تدوین با هوش مصنوعی:** چت‌جی‌پی‌تی، کلاد یا نرم‌افزار هوش مصنوعی خود را باز کنید و به فارسی بگویید:
+   > *«تمام ویدیوهای داخل پوشه را وارد پروژه کن و یک سکانس 4K بساز.»*
+
+*(کاربران مک می‌توانند فایل `scripts/install-macos.sh` را اجرا کنند).*
 
 ---
 
-### سایر روش‌های نصب (اختیاری):
-اگر ترجیح می‌دهید از ترمینال نصب کنید:
-```bash
-novacut setup
-```
-*(یا `npm run setup`)*
+## 🤖 اتصال به انواع هوش مصنوعی
 
----
+تنها کافی است کانفیگ زیر را کپی کرده و در بخش تنظیمات MCP هوش مصنوعی خود قرار دهید:
 
-## 🔄 قابلیت به‌روزرسانی آسان (Update System)
+<details open>
+<summary><b>🟢 چت‌جی‌پی‌تی دسکتاپ (ChatGPT Desktop)</b> — مسیر: <code>%APPDATA%\OpenAI\ChatGPT\mcp.json</code></summary>
 
-استودیو نوواکات مجهز به سیستم به‌روزرسانی خودکار است تا همیشه جدیدترین قابلیت‌ها و ابزارهای پریمیر پرو را بدون زحمت دریافت کنید:
-
-### روش اول: دابل‌کلیک روی `update.bat` (در ویندوز)
-فایل **`update.bat`** را در پوشه پروژه اجرا کنید. این فایل به صورت هوشمند:
-1. آخرین تغییرات را از گیت‌هاب دریافت می‌کند (`git pull`).
-2. پکیج‌ها و کدهای تایپ‌اسکریپت را بازسازی می‌کند (`npm run build`).
-3. اکستنشن پریمیر پرو را در پوشه ادوبی به‌روزرسانی می‌کند.
-4. تست‌های سلامت سیستم را مجدداً چک می‌کند.
-
-### روش دوم: از طریق ترمینال و خط فرمان (CLI)
-```bash
-# بررسی وجود نسخه جدید در گیت‌هاب
-novacut check-update
-
-# اجرای به‌روزرسانی خودکار ۱-کلیکه
-novacut update
-```
-*(یا با `npm run update` و `npm run check-update`)*
-
-### روش سوم: مستقیماً از داخل پنل پریمیر پرو
-در پنل NovaCut در پریمیر پرو، وارد تب **تنظیمات (Settings)** شوید:
-- روی دکمه **«بررسی نسخه جدید»** کلیک کنید تا وضعیت انتشار در گیت‌هاب بررسی شود.
-- با زدن دکمه **«آپدیت ۱-کلیکه»**، فرآیند به‌روزرسانی مستقیماً اجرا می‌شود.
-
----
-
-## 🖥️ نحوه باز کردن پنل در ادوبی پریمیر پرو
-
-1. نرم‌افزار **Adobe Premiere Pro** را باز کنید (یا اگر باز است، آن را ری‌استارت کنید).
-2. یک پروژه را باز کنید یا پروژه جدید بسازید.
-3. از منوی بالای پریمیر به مسیر زیر بروید:
-   ```text
-   Window > Extensions > NovaCut AI Studio
-   ```
-4. پنل شیک نوواکات باز می‌شود و وضعیت اتصال را به رنگ سبز و فعال نمایش می‌دهد!
-5. دکمه تغییر زبان (🇮🇷 فارسی / 🇬🇧 English) در بالای پنل تعبیه شده است.
-
----
-
-## 🎙️ اتصال و استفاده از زیرنویس هوش مصنوعی کپزو (Capzo AI)
-
-استودیو نوواکات مجهز به هماهنگی بومی با **[پلتفرم هوش مصنوعی کپزو (Capzo)](https://capzo.ir)** بر اساس [مستندات رسمی API کپزو](https://capzo.ir/docs/api) است تا بتوانید به سریع‌ترین شکل ممکن، صدای ویدیوها را پیاده‌سازی و زیرنویس فارسی با تقطیع کلمه‌ای (مناسب ریلز و اینستاگرام) تولید کنید:
-
-### ۱. تنظیم و ذخیره کلید API کپزو:
-1. در پنل NovaCut در پریمیر پرو، تب **«کپزو (زیرنویس AI)»** را باز کنید.
-2. کلید اختصاصی خود را (با پیشوند `capzo_live_...`) از پنل حساب کاربری کپزو کپی کرده و در کادر مربوطه قرار دهید.
-3. روی دکمه **«ذخیره و تست کلید»** کلیک کنید.
-4. چراغ وضعیت سبز می‌شود و سهمیه و دقایق باقیمانده حساب شما نمایش داده خواهد شد!  
-*(همچنین می‌توانید کلید را در متغیر محیطی سیستم با نام `CAPZO_API_KEY` قرار دهید).*
-
-### ۲. تولید و سینک خودکار زیرنویس روی تایم‌لاین:
-- **روش اول (از داخل پنل پریمیر پرو):**  
-  کافی است فایل مدیا را انتخاب کنید یا کادر را خالی بگذارید تا از سکانس فعال استفاده شود، سپس دکمه **«تولید زیرنویس با هوش مصنوعی و افزودن به تایم‌لاین»** را بزنید. فایل صوتی مستقیماً به وب‌سرویس کپزو ارسال شده، زیرنویس دقیق فارسی با کلمات و ثانیه‌های دقیق تولید می‌شود و فایل `.srt` به صورت ۱۰۰٪ خودکار به تایم‌لاین ادوبی پریمیر پرو اضافه خواهد شد!
-- **روش دوم (از طریق گفتگو با ChatGPT، Claude، Gemini یا Cursor):**  
-  تنها کافی است در چت هوش مصنوعی دستور دهید:
-  > *«صدای سکانس فعال رو با کپزو به متن تبدیل کن و زیرنویس فارسی با تقطیع کلمه‌ای بنداز روی تایم‌لاین.»*
-
----
-
-## 🤖 راهنمای اتصال مدل‌های مختلف هوش مصنوعی
-
-برای اتصال نوواکات به هر کدام از هوش‌های مصنوعی زیر، کانفیگ مربوطه را در فایل تنظیمات MCP کلاینت خود قرار دهید:
-
-### ۱. چت‌جی‌پی‌تی (ChatGPT Desktop / OpenAI MCP)
-در نرم‌افزار دسکتاپ ChatGPT به بخش `Settings > Developer > MCP Servers` بروید (یا فایل `%APPDATA%\OpenAI\ChatGPT\mcp.json`):
 ```json
 {
   "mcpServers": {
     "novacut-premiere": {
       "command": "node",
-      "args": ["C:\\Users\\Mhfa1380\\Desktop\\adobepr\\dist\\index.js"],
+      "args": ["<مسیر-پروژه>/dist/index.js"],
       "env": {
-        "PREMIERE_TEMP_DIR": "C:\\Users\\Mhfa1380\\AppData\\Local\\Temp\\novacut-bridge",
+        "PREMIERE_TEMP_DIR": "<مسیر-تمپ>/novacut-bridge",
         "NOVACUT_TOOLSET": "standard"
       }
     }
   }
 }
 ```
+</details>
 
-### ۲. کلاد (Claude Desktop & Claude Code)
-فایل `%APPDATA%\Claude\claude_desktop_config.json` در ویندوز (یا `~/Library/Application Support/Claude/claude_desktop_config.json` در مک):
+<details>
+<summary><b>🟣 کلاد (Claude Desktop & Claude Code)</b> — مسیر: <code>%APPDATA%\Claude\claude_desktop_config.json</code></summary>
+
 ```json
 {
   "mcpServers": {
     "novacut-premiere": {
       "command": "node",
-      "args": ["C:\\Users\\Mhfa1380\\Desktop\\adobepr\\dist\\index.js"],
+      "args": ["<مسیر-پروژه>/dist/index.js"],
       "env": {
-        "PREMIERE_TEMP_DIR": "C:\\Users\\Mhfa1380\\AppData\\Local\\Temp\\novacut-bridge",
+        "PREMIERE_TEMP_DIR": "<مسیر-تمپ>/novacut-bridge",
         "NOVACUT_TOOLSET": "standard"
       }
     }
   }
 }
 ```
+</details>
 
-### ۳. کرسر و ویندسرف (Cursor & Windsurf IDE)
-در فایل `.cursor/mcp.json` یا تنظیمات MCP:
+<details>
+<summary><b>🔵 گوگل جمینای (Gemini) و گروک (xAI Grok)</b></summary>
+
+با انتخاب پروفایل `NOVACUT_TOOLSET=standard`، بیش از ۷۸ ابزار اصلی تدوین به صورت خودکار و مستقیم برای مدل بارگذاری می‌شوند و نیاز به هیچ ساختار جستجوی پیچیده‌ای نیست.
+</details>
+
+<details>
+<summary><b>🔷 کرسر و ویندسرف (Cursor & Windsurf IDE)</b> — فایل <code>.cursor/mcp.json</code></summary>
+
 ```json
 {
   "mcpServers": {
     "novacut-premiere": {
       "command": "node",
-      "args": ["C:\\Users\\Mhfa1380\\Desktop\\adobepr\\dist\\index.js"]
+      "args": ["<مسیر-پروژه>/dist/index.js"]
     }
   }
 }
 ```
-
-### ۴. گروک و گوگل جمینای (xAI Grok & Google Gemini)
-کافیست در ابزارهای متصل به MCP (مانند Open-WebUI، LM Studio، Antigravity یا رابط‌های استاندارد MCP)، دستور بالا را وارد کنید. با توجه به فعال بودن `NOVACUT_TOOLSET=standard`، تمام ابزارهای تدوین بلافاصله برای مدل بارگذاری می‌شوند.
-
-> 💡 **نکته:** برای دیدن کانفیگ آماده هر کلاینت، می‌توانید در ترمینال دستور `node dist/cli.js config <client>` را بزنید (مثلاً `node dist/cli.js config chatgpt`).
+</details>
 
 ---
 
-## 💬 نمونه دستورات کاربردی به زبان فارسی
+## 🎙️ زیرنویس هوش مصنوعی کپزو (Capzo AI)
 
-شما می‌توانید مستقیماً به هوش مصنوعی دستورات تدوین را به زبان فارسی بدهید:
-
-- **برش و تقطیع کلیپ:**
-  > «کلیپ روی ترک ویدیوی ۱ رو در ثانیه ۱۲ و نیم کات بزن و بخش اضافی رو حذف کن.»
-- **ایمپورت فوتیج و ایجاد سکانس:**
-  > «تمام ویدیوهای موجود در این پوشه رو وارد پروژه کن و یک سکانس با رزولوشن 1080x1920 بساز.»
-- **اعمال افکت و ترنزیشن:**
-  > «به تمامی کات‌های لاین ویدیوی اول ترنزیشن Cross Dissolve با طول نیم ثانیه بده.»
-  > «به کلیپ دوم افکت Gaussian Blur اعمال کن و مقدار تاری رو روی ۲۵ بذار.»
-- **اصلاح رنگ و لومتری:**
-  > «کنتراست و غلظت رنگ کلیپ اصلی رو تنظیم کن و یک لوک سینمایی بده.»
-- **صداگذاری و اتوداکینگ:**
-  > «صدای موزیک پس‌زمینه رو در زمان‌هایی که صدای گوینده وجود داره به صورت خودکار داک کن (-15dB).»
-  > «سکوت‌های طولانی‌تر از ۱ ثانیه رو شناسایی کن و حذف کن.»
-- **زیرنویس و تایتل:**
-  > «یک تایتل متنی با عنوان "محصول جدید" در ابتدای تایم‌لاین قرار بده.»
-- **خروجی گرفتن (Export):**
-  > «از سکانس فعال با پریست H.264 با فرمت MP4 خروجی بگیر.»
+نوواکات مجهز به اتصال مستقیم به وب‌سرویس ایرانی **[کپزو (Capzo.ir)](https://capzo.ir/docs/api)** است:
+- **تبدیل صوت به متن:** با دقت فوق‌العاده بالا و پشتیبانی از گویش‌ها و اصطلاحات فارسی.
+- **مخصوص ریلز و شورتز:** تقطیع کلمه‌به‌کلمه با صدم ثانیه زمان‌بندی دقیق.
+- **سینک ۱-کلیکه به تایم‌لاین:** زیرنویس مستقیماً در لایه تایتل ادوبی پریمیر پرو درج می‌شود.
+- **مشاهده سهمیه:** مانده اعتبار و دقایق خود را مستقیماً داخل پنل مشاهده کنید.
 
 ---
 
-## 🛠️ دستورات خط فرمان NovaCut CLI
+## 🔄 به‌روزرسانی ۱-کلیکه (Updates)
 
-| دستور | عملکرد |
-| :--- | :--- |
-| `novacut` / `node dist/cli.js` | اجرای سرور استاندار MCP |
-| `novacut setup` | نصب و کانفیگ خودکار اکستنشن و کلاینت‌ها |
-| `novacut doctor` | اجرای عیب‌یابی جامع و سلامت‌سنجی سیستم |
-| `novacut config all` | نمایش کانفیگ‌های آماده برای تمامی برنامه‌ها |
-| `novacut --help` | نمایش راهنمای کامل برنامه‌نویسی و پرچم‌ها |
+برای دریافت همیشگی آخرین قابلیت‌ها و رفع اشکالات:
+- **در ویندوز:** روی فایل **`update.bat`** دو بار کلیک کنید.
+- **از طریق خط فرمان:** دستور `novacut update` یا `npm run update` را بزنید.
+- **از داخل پریمیر پرو:** در تب تنظیمات پنل نوواکات، دکمه **آپدیت ۱-کلیکه** را لمس کنید.
 
 ---
 
-## 🩺 عیب‌یابی (Troubleshooting)
+## 🌍 تمام زبان‌ها (All Languages)
 
-اگر در اتصال مشکلی داشتید:
-1. فایل **`doctor.bat`** را اجرا کنید یا در خط فرمان بنویسید:
-   ```bash
-   node dist/cli.js doctor
-   ```
-   برنامه سیستم شما را تحلیل کرده و راهنمای حل مشکل را به شما نشان می‌دهد.
-2. مطمئن شوید که در پریمیر پنل از مسیر `Window > Extensions > NovaCut AI Studio` باز است.
-3. مسیر `PREMIERE_TEMP_DIR` در تنظیمات کلاینت با مسیری که داخل پنل پریمیر نمایش داده می‌شود یکسان باشد (به صورت پیش‌فرض: `%TEMP%\novacut-bridge`).
+این راهنما به زبان‌های مختلف جهان ترجمه شده است:
+
+| پرچم | زبان | خلاصه و لینک دسترسی |
+| :---: | :--- | :--- |
+| 🇮🇷 | **فارسی (Persian)** | [راهنمای فارسی](README.fa.md) — نسخه بهینه‌شده با نصب ۱-کلیکه و هوش مصنوعی |
+| 🇬🇧 | **English** | [English Guide](README.md) — Universal AI automation for Premiere Pro |
+| 🇪🇸 | **Español (Spanish)** | [Guía en Español](translations/README.es.md) — Edición de video con IA |
+| 🇨🇳 | **简体中文 (Chinese)** | [简体中文文档](translations/README.zh-CN.md) — Premiere Pro 全模型通用 AI 剪辑自动化 |
+| 🇸🇦 | **العربية (Arabic)** | [الدليل بالعربية](translations/README.ar.md) — أتمتة تحرير الفيديو بالذكاء الاصطناعي |
+| 🇩🇪 | **Deutsch (German)** | [Deutsche Anleitung](translations/README.de.md) — Universelle KI-Automatisierung |
+| 🇫🇷 | **Français (French)** | [Guide en Français](translations/README.fr.md) — Automatisation IA pour Premiere Pro |
+| 🇷🇺 | **Русский (Russian)** | [Руководство](translations/README.ru.md) — Автоматизация монтажа в Premiere Pro через ИИ |
+| 🇯🇵 | **日本語 (Japanese)** | [日本語ガイド](translations/README.ja.md) — Premiere Pro 向け万能 AI 自動化ブリッジ |
+| 🇹🇷 | **Türkçe (Turkish)** | [Türkçe Kılavuz](translations/README.tr.md) — Premiere Pro için Evrensel Yapay Zeka Otomasyonu |
+| 🇰🇷 | **한국어 (Korean)** | [한국어 가이드](translations/README.ko.md) — 프리미어 프로를 위한 범용 AI 자동화 브릿지 |
+| 🇧🇷 | **Português (BR)** | [Guia em Português](translations/README.pt-BR.md) — Automação de edição com IA |
+| 🇮🇹 | **Italiano (Italian)** | [Guida in Italiano](translations/README.it.md) — Automazione AI per Adobe Premiere Pro |
+| 🇵🇱 | **Polski (Polish)** | [Przewodnik Polski](translations/README.pl.md) — Automatyzacja montażu wideo z AI |
+| 🇻🇳 | **Tiếng Việt (Vietnamese)**| [Hướng dẫn tiếng Việt](translations/README.vi.md) — Tự động hóa dựng video bằng AI |
+| 🇹🇭 | **ไทย (Thai)** | [คู่มือภาษาไทย](translations/README.th.md) — ระบบอัตโนمัติ AI สำหรับ Premiere Pro |
+| 🇩🇰 | **Dansk (Danish)** | [Dansk Vejledning](translations/README.da.md) — Universel AI-automatisering |
+| 🇳🇴 | **Norsk (Norwegian)** | [Norsk Veiledning](translations/README.no.md) — Universell AI-automatisering |
+| 🇧🇦 | **Bosanski (Bosnian)** | [Vodič na bosanskom](translations/README.bs.md) — Univerzalna AI automatizacija |
+| 🇰🇭 | **ភាសាខ្មែរ (Khmer)** | [ការណែនាំជាភាសាខ្មែរ](translations/README.km.md) — ស្វ័យប្រវត្តិកម្ម AI សម្រាប់ Premiere Pro |
 
 ---
+
+## 📄 مجوز و منبع الگو
+
+- **مجوز نرم‌افزار:** [مجوز آزاد MIT](LICENSE.md) — کاملاً رایگان و متن‌باز برای تمام کاربران.
+- **منبع الگو:** الگوبرداری و ارتقایافته از پروژه متن‌باز [hetpatel-11/adobe_premiere_pro_mcp](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).
+- **توسعه و بازنویسی:** [mhfa1380](https://github.com/mhfa1380)
 
 <div align="center">
-طراحی و بهینه‌سازی شده با افتخار برای شما ⚡ • نوواکات v2.0
+<b>NovaCut AI Studio</b> • طراحی‌شده با عشق و دقت برای تدوین‌گران و تولیدکنندگان محتوا ⚡
 </div>

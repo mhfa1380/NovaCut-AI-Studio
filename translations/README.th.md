@@ -1,27 +1,36 @@
-# Adobe Premiere Pro MCP Server
+# 🎬 NovaCut AI Studio (ภาษาไทย)
 
-[English](../README.md)
+[English](../README.md) • [فارسی](../README.fa.md)
 
-ควบคุม Adobe Premiere Pro ผ่าน MCP ด้วย Codex, Claude Code, Claude Desktop หรือ MCP client อื่น ๆ
+**ระบบเชื่อมต่ออัตโนมัติอัจฉริยะ (AI Automation Bridge) สำหรับ Adobe Premiere Pro**  
+ควบคุม Premiere Pro ได้อย่างง่ายดายผ่าน **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor และ Windsurf**
 
-## เริ่มต้นอย่างรวดเร็ว
+---
 
-```bash
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:mac
-```
+> 💡 **ที่มาและข้อความแสดงความขอบคุณ (Attribution):**  
+> NovaCut AI Studio เป็น **เวอร์ชันที่ได้รับการพัฒนา ปรับปรุงประสิทธิภาพ และแก้ไขข้อผิดพลาดทั้งหมด โดยได้รับแรงบันดาลใจจาก** โครงการโอเพนซอร์ส [Adobe_Premiere_Pro_MCP โดย hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp)  
+> **จุดเด่นที่พัฒนาขึ้นใน NovaCut:**
+> - **รองรับ AI ทุกโมเดล:** ใช้งานร่วมกับ ChatGPT, Gemini, Grok, Claude, Cursor ได้โดยตรง (ไม่จำกัดเฉพาะ Claude อีกต่อไป)
+> - **ตัวติดตั้ง Windows 1-Click:** โปรแกรม `NovaCut-Setup.exe` พร้อมหน้าต่างกราฟิกและไอคอนสวยงาม ไม่ต้องพิมพ์คำสั่งใน Terminal
+> - **ระบบซับไตเติล AI Capzo:** แปลงเสียงเป็นข้อความอย่างแม่นยำ พร้อมซิงก์ลงไทม์ไลน์ Premiere Pro อัตโนมัติในคลิกเดียว
+> - **หน้าตาโปรแกรมมินิมอลหรูหรา:** ธีม Obsidian Dark พร้อมสัญญาณเรดาร์สถานะแบบเรียลไทม์
+> - **แก้ปัญหาบักเดิมทั้งหมด:** ปัญหาหน้าต่างค้าง, ข้อผิดพลาดของ Tool ID และการหลุดของการเชื่อมต่อ stdio
 
-1. ใน Premiere Pro เปิด `Window > Extensions > MCP Bridge (CEP)`.
-2. ตั้งค่า `Temp Directory` เป็น `/tmp/premiere-mcp-bridge`.
-3. กด `Save Configuration`, `Start Bridge` และ `Test Connection`.
-4. หากการทดสอบล้มเหลว ให้กด `Run Diagnostics` และส่งไฟล์ `/tmp/premiere-mcp-bridge/premiere-mcp-diagnostics-latest.json`.
+---
 
-## MCP Clients
+## ⚡ เริ่มต้นใช้งานง่ายๆ ใน 3 ขั้นตอน
 
-- `npm run setup:mac` จะตั้งค่า Claude Desktop บน macOS ให้อัตโนมัติ
-- สำหรับ Codex, Claude Code และ client อื่น ๆ ให้ใช้ `dist/index.js` ที่ build แล้ว พร้อม `PREMIERE_TEMP_DIR=/tmp/premiere-mcp-bridge`
+1. **ติดตั้งในคลิกเดียว:** ดับเบิลคลิกไฟล์ **`NovaCut-Setup.exe`** บน Windows (หรือ `scripts/install-macos.sh` บน Mac)
+2. **เปิดใน Premiere Pro:**
+   ```text
+   Window  ──>  Extensions  ──>  NovaCut AI Studio
+   ```
+3. **สั่งงานตัดต่อด้วย AI:** เปิด ChatGPT หรือ Claude แล้วสั่งการได้ทันที:  
+   > *“นำเข้าไฟล์วิดีโอทั้งหมดจากโฟลเดอร์แล้วสร้างไทม์ไลน์ความละเอียด 4K ให้หน่อย”*
 
-## เอกสารหลัก
+---
 
-เอกสารฉบับเต็มและล่าสุดอยู่ที่ [README.md](../README.md)
+## 📄 สัญญาอนุญาต
+
+- **ใบอนุญาต:** [MIT License](../LICENSE.md) — ใช้งานได้ฟรีและเป็นโอเพนซอร์ส 100%
+- **ผู้พัฒนา:** [mhfa1380](https://github.com/mhfa1380)

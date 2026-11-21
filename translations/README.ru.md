@@ -1,27 +1,37 @@
-# Adobe Premiere Pro MCP Server
+# 🎬 NovaCut AI Studio (Русский)
 
-[English](../README.md)
+[English](../README.md) • [فارسی](../README.fa.md)
 
-Управляйте Adobe Premiere Pro через MCP с помощью Codex, Claude Code, Claude Desktop или любого другого MCP-клиента.
+**Универсальный мост ИИ-автоматизации монтажа для Adobe Premiere Pro.**  
+Управляйте Premiere Pro через **ChatGPT, Google Gemini, xAI Grok, Claude, Cursor и Windsurf**.
 
-## Быстрый старт
+---
 
-```bash
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:mac
-```
+> 💡 **Происхождение и Благодарность (Attribution):**  
+> NovaCut AI Studio — это **оптимизированная, улучшенная и очищенная от багов версия**, созданная на основе открытого проекта [Adobe_Premiere_Pro_MCP от hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).  
+> **Ключевые преимущества NovaCut:**
+> - **Универсальная поддержка ИИ:** Работает «из коробки» с ChatGPT, Gemini, Grok, Claude и Cursor (больше нет привязки только к Claude).
+> - **Установщик в 1 клик для Windows:** Программа `NovaCut-Setup.exe` с современной графической оболочкой и иконкой — без ввода консольных команд.
+> - **Интеграция ИИ-субтитров Capzo AI:** Распознавание речи с точностью до слова и мгновенная вставка субтитров на таймлайн Premiere.
+> - **Минималистичный люксовый интерфейс:** Тёмная обсидиановая тема с живым индикатором связи и двуязычной поддержкой.
+> - **Исправление критических ошибок:** Решены проблемы зависания диалогов пресетов, конфликтов идентификаторов инструментов и сбоев stdio.
 
-1. В Premiere Pro откройте `Window > Extensions > MCP Bridge (CEP)`.
-2. Установите `Temp Directory` в `/tmp/premiere-mcp-bridge`.
-3. Нажмите `Save Configuration`, затем `Start Bridge`, затем `Test Connection`.
-4. Если тест не пройдет, нажмите `Run Diagnostics` и отправьте `/tmp/premiere-mcp-bridge/premiere-mcp-diagnostics-latest.json`.
+---
 
-## MCP-клиенты
+## ⚡ Быстрый старт в 3 шага
 
-- `npm run setup:mac` автоматически настраивает Claude Desktop на macOS.
-- Для Codex, Claude Code и других клиентов используйте собранный `dist/index.js` и `PREMIERE_TEMP_DIR=/tmp/premiere-mcp-bridge`.
+1. **Установка в 1 клик:** Запустите **`NovaCut-Setup.exe`** в Windows (или `scripts/install-macos.sh` в macOS).  
+   *Мастер автоматически настроит расширение Premiere Pro, реестр и конфигурации ИИ-клиентов.*
+2. **Открытие в Premiere Pro:**
+   ```text
+   Окно (Window)  ──>  Расширения (Extensions)  ──>  NovaCut AI Studio
+   ```
+3. **Монтаж с ИИ:** Откройте ChatGPT или Claude и отправьте запрос:  
+   > *«Импортируй видеофайлы из папки проекта и создай 4K-секвенцию.»*
 
-## Основная документация
+---
 
-Полная и актуальная документация находится в [README.md](../README.md).
+## 📄 Лицензия
+
+- **Лицензия:** [MIT License](../LICENSE.md) — 100% бесплатно и открыто.
+- **Разработчик:** [mhfa1380](https://github.com/mhfa1380)

@@ -1,126 +1,36 @@
-# Quick Start
+# ⚡ NovaCut AI Studio — Quick Start Guide
 
-This is the shortest path to a working install.
+> 💡 **Attribution & Inspiration:**  
+> NovaCut AI Studio is an **optimized, enhanced, and bug-free evolution inspired by** the open-source project [Adobe_Premiere_Pro_MCP by hetpatel-11](https://github.com/hetpatel-11/adobe_premiere_pro_mcp).
 
-## Claude Desktop (macOS)
+---
 
-```bash
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:mac
-```
+## 🪟 Windows (1-Click Setup)
 
-Then do this once inside Premiere Pro:
+1. **Run the Installer:** Double-click **`NovaCut-Setup.exe`** (or `install.bat`).
+2. **Open Premiere Pro:** Go to `Window > Extensions > NovaCut AI Studio`.
+3. **Start Editing:** Open ChatGPT, Claude, or Cursor and tell it:
+   > *"Import my media files and create a 4K sequence."*
 
-1. Open `Premiere Pro > Preferences > Plugins` and enable **UXP Plugins > Enable developer mode**.
-2. Restart Premiere Pro if the setting was changed.
-3. Open `Window > Extensions > MCP Bridge (CEP)`.
-4. Set `Temp Directory` to `/tmp/premiere-mcp-bridge`.
-5. Click `Save Configuration`.
-6. Click `Start Bridge`.
-7. Click `Test Connection`.
-8. If it fails, click `Run Diagnostics` and send back `/tmp/premiere-mcp-bridge/premiere-mcp-diagnostics-latest.json`.
+---
 
-Visual reference:
+## 🍎 macOS Setup
 
-![Enable UXP developer mode in Premiere Pro](images/uxp-developer-mode.png)
+1. **Clone repository:**
+   ```bash
+   git clone https://github.com/mhfa1380/NovaCut-AI-Studio.git
+   cd NovaCut-AI-Studio
+   ```
+2. **Run setup script:**
+   ```bash
+   ./scripts/install-macos.sh
+   # Or run: npm run setup:mac
+   ```
+3. **Open Premiere Pro:** Open `Window > Extensions > NovaCut AI Studio` and click **Start Bridge**.
 
-Then restart Claude Desktop and ask:
+---
 
-```text
-What's my current Premiere Pro project info?
-```
+## 🔄 Updates
 
-For better editing behavior, attach `premiere://config/get_instructions` before asking the model to change a project.
-
-## GitHub Copilot / Claude Desktop (Windows)
-
-```powershell
-git clone https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP.git
-cd Adobe_Premiere_Pro_MCP
-npm run setup:win
-```
-
-Then do this once inside Premiere Pro:
-
-1. Open `Window > Extensions > MCP Bridge (CEP)`.
-2. Set `Temp Directory` to `%TEMP%\premiere-mcp-bridge`.
-3. Click `Save Configuration`.
-4. Click `Start Bridge`.
-5. Click `Test Connection`.
-
-Then restart VS Code and/or Claude Desktop. The Windows installer writes MCP config for GitHub Copilot in VS Code and Claude Desktop.
-
-## Codex / Claude Code
-
-Build the server:
-
-```bash
-npm install
-npm run build
-```
-
-Add the MCP entry on one line:
-
-```bash
-codex mcp add premiere_pro --env PREMIERE_TEMP_DIR=/tmp/premiere-mcp-bridge -- node /absolute/path/to/Adobe_Premiere_Pro_MCP/dist/index.js
-```
-
-Then:
-
-1. Restart the client.
-2. Open the Premiere CEP panel.
-3. Confirm the temp directory is `/tmp/premiere-mcp-bridge`.
-4. Click `Start Bridge`.
-
-## Sanity Checks
-
-Run:
-
-```bash
-npm run setup:doctor
-```
-
-On Windows, run:
-
-```powershell
-npm run setup:doctor:win
-```
-
-For a real end-to-end verification, use a scratch project and run:
-
-```bash
-node scripts/live-tool-sweep.mjs
-```
-
-That sweep creates disposable `Sweep ...` sequences so the live bridge is actually exercised.
-
-## Common Failure Cases
-
-### The client sees the MCP server but tool calls fail
-
-- Premiere is not open
-- no project is open
-- the CEP panel is not started
-- the temp directory in the panel is not `/tmp/premiere-mcp-bridge`
-- the panel needs a right-click `Reload` after bridge updates
-- diagnostics are available from the CEP panel via `Run Diagnostics`
-
-### `codex mcp add` fails
-
-- the command was split across lines
-- the path to `dist/index.js` is wrong
-- the client was not restarted after config changes
-
-### `setup:doctor` fails
-
-- the CEP extension is not installed
-- `dist/index.js` was not built
-- Adobe CEP debug mode is disabled
-- the Claude Desktop config entry points to the wrong path
-
-For the full release notes and current limits, see `README.md` and `KNOWN_ISSUES.md`.
-
-## Telemetry
-
-Anonymous usage telemetry is on by default. It does not include project names, paths, or tool arguments. Uncheck **Share anonymous usage data** in the CEP panel, or set `PREMIERE_MCP_TELEMETRY=0`. See `PRIVACY.md`.
+- **Windows:** Double-click `update.bat`.
+- **macOS / Linux:** Run `npm run update`.
