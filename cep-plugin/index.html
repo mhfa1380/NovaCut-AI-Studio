@@ -6,32 +6,36 @@
     <title>NovaCut AI Studio (CEP)</title>
     <style>
         :root {
-            --bg-void: #07080d;
-            --bg-deck: #0d1019;
-            --bg-card: rgba(19, 24, 38, 0.72);
-            --bg-card-hover: rgba(27, 34, 53, 0.85);
-            --bg-input: rgba(10, 13, 22, 0.8);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-bright: rgba(255, 255, 255, 0.16);
+            --bg-void: #080a10;
+            --bg-deck: #0d111a;
+            --bg-card: rgba(16, 21, 33, 0.72);
+            --bg-card-hover: rgba(24, 31, 48, 0.85);
+            --bg-input: rgba(10, 13, 22, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.07);
+            --border-bright: rgba(255, 255, 255, 0.14);
             --text-main: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            
-            /* Luxury Studio Colorway */
+
+            /* Luxury Modern Accent System */
             --iris-primary: #8b5cf6;
             --iris-glow: rgba(139, 92, 246, 0.35);
             --iris-gradient: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
-            
+
+            --cyan-primary: #06b6d4;
+            --cyan-glow: rgba(6, 182, 212, 0.35);
+
             --mint-primary: #10b981;
-            --mint-glow: rgba(16, 185, 129, 0.4);
-            
+            --mint-glow: rgba(16, 185, 129, 0.35);
+
             --rose-primary: #f43f5e;
             --rose-glow: rgba(244, 63, 94, 0.35);
-            
+
             --amber-primary: #f59e0b;
-            
-            --radius-lg: 16px;
-            --radius-md: 10px;
+
+            --radius-xl: 14px;
+            --radius-lg: 10px;
+            --radius-md: 8px;
             --radius-sm: 6px;
             --font-family: "Vazirmatn", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
@@ -52,59 +56,57 @@
             background-color: var(--bg-void);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 12px;
+            padding: 10px;
             overflow-x: hidden;
             background-image:
-                radial-gradient(circle at 15% 0%, rgba(139, 92, 246, 0.16), transparent 38%),
-                radial-gradient(circle at 85% 100%, rgba(16, 185, 129, 0.12), transparent 42%),
+                radial-gradient(circle at 10% 0%, rgba(139, 92, 246, 0.12), transparent 40%),
+                radial-gradient(circle at 90% 100%, rgba(6, 182, 212, 0.08), transparent 45%),
                 linear-gradient(180deg, var(--bg-void) 0%, var(--bg-deck) 100%);
             background-attachment: fixed;
-            font-size: 13px;
+            font-size: 12.5px;
             line-height: 1.5;
         }
 
         .studio-layout {
-            max-width: 480px;
+            max-width: 440px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
-        /* Top Brand Navigation */
+        /* Top Brand Navigation Deck */
         .top-deck {
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: var(--bg-card);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 10px 14px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+            border-radius: var(--radius-xl);
+            padding: 8px 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
         .brand-cluster {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 9px;
         }
 
         .brand-logo-gem {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             background: var(--iris-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px var(--iris-glow);
+            box-shadow: 0 0 16px var(--iris-glow);
             color: #ffffff;
-            font-size: 17px;
-            font-weight: 900;
-            position: relative;
             user-select: none;
+            flex-shrink: 0;
         }
 
         .brand-title-wrap {
@@ -113,7 +115,7 @@
         }
 
         .brand-title {
-            font-size: 15px;
+            font-size: 13.5px;
             font-weight: 800;
             letter-spacing: -0.01em;
             background: linear-gradient(90deg, #ffffff 40%, #c084fc 100%);
@@ -122,47 +124,49 @@
         }
 
         .brand-subtitle {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
             text-transform: uppercase;
         }
 
         .lang-switcher {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
             border-radius: var(--radius-md);
-            padding: 6px 11px;
+            padding: 5px 9px;
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             outline: none;
         }
 
         .lang-switcher:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: var(--text-main);
             border-color: var(--border-bright);
-            transform: translateY(-1px);
         }
 
-        /* Hero Status Deck */
+        /* Minimal Status Hero Deck */
         .status-deck {
             background: var(--bg-card);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+            border-radius: var(--radius-xl);
+            padding: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .status-deck::after {
@@ -171,43 +175,43 @@
             top: 0;
             inset-inline: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--iris-primary), var(--mint-primary), transparent);
+            background: linear-gradient(90deg, transparent, var(--iris-primary), var(--cyan-primary), transparent);
         }
 
         .status-radar-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 14px;
         }
 
         .radar-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .radar-beacon {
             position: relative;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
         }
 
         .radar-core {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             position: absolute;
             top: 3px;
             left: 3px;
             background: var(--rose-primary);
-            box-shadow: 0 0 12px var(--rose-glow);
+            box-shadow: 0 0 10px var(--rose-glow);
             transition: all 0.3s ease;
         }
 
         .radar-wave {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             position: absolute;
             top: 0;
@@ -218,7 +222,7 @@
 
         .connected .radar-core {
             background: var(--mint-primary);
-            box-shadow: 0 0 16px var(--mint-glow);
+            box-shadow: 0 0 14px var(--mint-glow);
         }
 
         .connected .radar-wave {
@@ -238,61 +242,60 @@
         }
 
         .radar-main-title {
-            font-size: 13.5px;
+            font-size: 12.5px;
             font-weight: 800;
             color: var(--text-main);
-            letter-spacing: -0.01em;
         }
 
         .radar-sub-title {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 500;
-            color: var(--text-secondary);
+            color: var(--text-muted);
         }
 
         .profile-chip {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
             text-transform: uppercase;
-            padding: 4px 9px;
+            padding: 3px 8px;
             border-radius: 999px;
-            background: rgba(139, 92, 246, 0.15);
+            background: rgba(139, 92, 246, 0.12);
             color: #c084fc;
-            border: 1px solid rgba(139, 92, 246, 0.35);
-            box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            white-space: nowrap;
         }
 
-        /* Metric Tiles */
+        /* Metric Mini Strip */
         .metric-tiles {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            gap: 6px;
         }
 
         .tile {
-            background: rgba(10, 14, 23, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: var(--radius-md);
-            padding: 9px 12px;
+            padding: 7px 10px;
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 2px;
         }
 
         .tile-label {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-muted);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.04em;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
 
         .tile-value {
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
             color: var(--text-secondary);
             white-space: nowrap;
@@ -300,30 +303,33 @@
             text-overflow: ellipsis;
         }
 
-        /* Tab Segmented Control */
+        /* Modern Segment Navigation */
         .nav-segment {
             display: flex;
-            background: rgba(13, 16, 26, 0.85);
+            background: rgba(12, 16, 26, 0.85);
             border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 4px;
-            gap: 4px;
+            border-radius: var(--radius-lg);
+            padding: 3px;
+            gap: 3px;
+            overflow-x: auto;
         }
 
         .segment-btn {
             flex: 1;
+            min-width: 60px;
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            padding: 8px 4px;
-            border-radius: 8px;
-            font-size: 11px;
+            padding: 6px 3px;
+            border-radius: var(--radius-md);
+            font-size: 10.5px;
             font-weight: 700;
             font-family: inherit;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             text-align: center;
             outline: none;
+            white-space: nowrap;
         }
 
         .segment-btn:hover {
@@ -334,15 +340,15 @@
         .segment-btn.active {
             color: #ffffff;
             background: var(--iris-gradient);
-            box-shadow: 0 4px 15px var(--iris-glow);
+            box-shadow: 0 3px 12px var(--iris-glow);
         }
 
         /* Panes */
         .tab-pane {
             display: none;
             flex-direction: column;
-            gap: 12px;
-            animation: fadeIn 0.25s ease forwards;
+            gap: 10px;
+            animation: fadeIn 0.22s ease forwards;
         }
 
         .tab-pane.active {
@@ -350,52 +356,52 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
+            from { opacity: 0; transform: translateY(3px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Glass Cards */
         .glass-card {
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 14px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+            border-radius: var(--radius-xl);
+            padding: 12px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
         }
 
         .card-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .card-caption {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
-        /* Action Buttons Grid */
+        /* Action Buttons */
         .actions-quad {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 8px;
         }
 
         .dock-btn {
             appearance: none;
             border: none;
             border-radius: var(--radius-md);
-            padding: 11px 13px;
-            font-size: 12px;
+            padding: 9px 11px;
+            font-size: 11.5px;
             font-weight: 700;
             font-family: inherit;
             cursor: pointer;
@@ -403,64 +409,62 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             outline: none;
         }
 
         .btn-launch {
             background: var(--iris-gradient);
             color: #ffffff;
-            box-shadow: 0 4px 20px var(--iris-glow);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 3px 16px var(--iris-glow);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .btn-launch:hover:enabled {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.55);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.5);
         }
 
         .btn-halt {
             background: rgba(244, 63, 94, 0.12);
             color: #fb7185;
-            border: 1px solid rgba(244, 63, 94, 0.3);
+            border: 1px solid rgba(244, 63, 94, 0.25);
         }
 
         .btn-halt:hover:enabled {
-            background: rgba(244, 63, 94, 0.22);
-            transform: translateY(-1px);
+            background: rgba(244, 63, 94, 0.2);
         }
 
         .btn-neutral {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-main);
             border: 1px solid var(--border-subtle);
         }
 
         .btn-neutral:hover:enabled {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border-color: var(--border-bright);
-            transform: translateY(-1px);
         }
 
         button:disabled {
-            opacity: 0.3;
+            opacity: 0.35;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
         }
 
-        /* AI Client Snippets */
+        /* AI Client Hub */
         .ai-hub-deck {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .hub-card {
-            background: rgba(11, 15, 24, 0.6);
+            background: rgba(10, 14, 23, 0.55);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 11px;
+            padding: 9px;
             transition: border-color 0.2s;
         }
 
@@ -472,39 +476,39 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .hub-title-tag {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .code-vault {
-            background: #04060b;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #04060a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: var(--radius-sm);
-            padding: 9px;
+            padding: 7px;
             font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
-            font-size: 10.5px;
+            font-size: 10px;
             color: #94a3b8;
-            max-height: 85px;
+            max-height: 75px;
             overflow-y: auto;
             white-space: pre;
             user-select: all;
         }
 
         .copy-pill-btn {
-            background: rgba(139, 92, 246, 0.15);
+            background: rgba(139, 92, 246, 0.12);
             color: #c084fc;
-            border: 1px solid rgba(139, 92, 246, 0.35);
-            border-radius: 6px;
-            padding: 4px 9px;
-            font-size: 10.5px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 10px;
             font-weight: 700;
             font-family: inherit;
             cursor: pointer;
@@ -512,33 +516,32 @@
         }
 
         .copy-pill-btn:hover {
-            background: rgba(139, 92, 246, 0.3);
+            background: rgba(139, 92, 246, 0.25);
             color: #ffffff;
-            box-shadow: 0 0 10px var(--iris-glow);
         }
 
         /* Terminal & Queue */
         .terminal-box, .queue-box {
-            background: #05070c;
+            background: #04060a;
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 9px;
-            max-height: 220px;
+            padding: 8px;
+            max-height: 200px;
             overflow-y: auto;
             font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
-            font-size: 11px;
+            font-size: 10.5px;
         }
 
         .queue-entry {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
-            padding: 8px 10px;
-            margin-bottom: 5px;
+            gap: 6px;
+            padding: 6px 8px;
+            margin-bottom: 4px;
             border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .queue-cmd-text {
@@ -549,9 +552,9 @@
         }
 
         .badge-status {
-            font-size: 9px;
+            font-size: 8.5px;
             font-weight: 800;
-            padding: 2px 7px;
+            padding: 2px 6px;
             border-radius: 999px;
             text-transform: uppercase;
         }
@@ -562,8 +565,8 @@
         .badge-status.error { background: rgba(244, 63, 94, 0.18); color: #fb7185; }
 
         .log-line {
-            padding: 5px 8px;
-            margin-bottom: 4px;
+            padding: 4px 7px;
+            margin-bottom: 3px;
             border-radius: var(--radius-sm);
             color: var(--text-secondary);
             background: rgba(255, 255, 255, 0.02);
@@ -575,93 +578,93 @@
         .log-line.warning { border-inline-start-color: var(--amber-primary); color: #fde68a; }
         .log-line.error { border-inline-start-color: var(--rose-primary); color: #fca5a5; }
 
-        /* Form Inputs */
+        /* Form Controls */
         .form-row {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 5px;
+            margin-bottom: 10px;
         }
 
         .input-label {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 700;
             color: var(--text-secondary);
         }
 
-        input[type="text"], select {
+        input[type="text"], input[type="password"], select {
             background: var(--bg-input);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
             color: var(--text-main);
-            padding: 10px 12px;
-            font-size: 12px;
+            padding: 8px 10px;
+            font-size: 11.5px;
             font-family: inherit;
             outline: none;
             transition: all 0.2s;
             width: 100%;
         }
 
-        input[type="text"]:focus, select:focus {
+        input[type="text"]:focus, input[type="password"]:focus, select:focus {
             border-color: var(--iris-primary);
-            box-shadow: 0 0 0 3px var(--iris-glow);
+            box-shadow: 0 0 0 2px var(--iris-glow);
         }
 
         .toggle-card {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
+            gap: 8px;
+            padding: 8px 10px;
             border-radius: var(--radius-md);
-            background: rgba(10, 13, 22, 0.5);
+            background: rgba(10, 13, 22, 0.45);
             border: 1px solid var(--border-subtle);
             cursor: pointer;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         .toggle-card input[type="checkbox"] {
-            margin-top: 3px;
+            margin-top: 2px;
             accent-color: var(--iris-primary);
-            width: 15px;
-            height: 15px;
+            width: 14px;
+            height: 14px;
             cursor: pointer;
         }
 
         .toggle-txt {
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--text-secondary);
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        /* Custom Minimal Scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 999px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
         .studio-footer {
             text-align: center;
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 500;
             color: var(--text-muted);
-            padding: 6px 0;
+            padding: 4px 0;
             letter-spacing: 0.02em;
         }
     </style>
 </head>
 <body>
     <div class="studio-layout">
-        <!-- Brand Header Deck -->
+        <!-- Top Brand Header Deck -->
         <header class="top-deck">
             <div class="brand-cluster">
                 <div class="brand-logo-gem">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                     </svg>
                 </div>
                 <div class="brand-title-wrap">
                     <span class="brand-title" id="txtTitle">NovaCut AI Studio</span>
-                    <span class="brand-subtitle">PREMIERE PRO • PRO SUITE</span>
+                    <span class="brand-subtitle">Premiere Pro • Ultra-Minimal</span>
                 </div>
             </div>
             <button class="lang-switcher" id="langToggleBtn" onclick="toggleLanguage()">
@@ -690,14 +693,14 @@
             <div class="metric-tiles">
                 <div class="tile">
                     <span class="tile-label">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                         <span id="txtHostMetric">نسخه پریمیر</span>
                     </span>
                     <span class="tile-value" id="valHostVersion">در حال اتصال...</span>
                 </div>
                 <div class="tile">
                     <span class="tile-label">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                         <span id="txtProjectMetric">پروژه فعال</span>
                     </span>
                     <span class="tile-value" id="valProjectName">پروژه‌ای باز نیست</span>
@@ -708,10 +711,9 @@
         <!-- Modern Segment Navigation -->
         <nav class="nav-segment">
             <button class="segment-btn active" onclick="switchTab('dashboard')" id="tabBtnDashboard">میز کار</button>
-            <button class="segment-btn" onclick="switchTab('capzo')" id="tabBtnCapzo">کپزو (زیرنویس AI)</button>
+            <button class="segment-btn" onclick="switchTab('capzo')" id="tabBtnCapzo">کپزو AI</button>
             <button class="segment-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">هوش مصنوعی</button>
-            <button class="segment-btn" onclick="switchTab('queue')" id="tabBtnQueue">صف فرامین</button>
-            <button class="segment-btn" onclick="switchTab('console')" id="tabBtnConsole">کنسول</button>
+            <button class="segment-btn" onclick="switchTab('queue')" id="tabBtnQueue">صف و لاگ</button>
             <button class="segment-btn" onclick="switchTab('settings')" id="tabBtnSettings">تنظیمات</button>
         </nav>
 
@@ -723,19 +725,19 @@
                 </div>
                 <div class="actions-quad">
                     <button class="dock-btn btn-launch" onclick="startBridge()" id="startButton">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         <span id="lblStart">شروع بریج</span>
                     </button>
                     <button class="dock-btn btn-halt" onclick="stopBridge()" id="stopButton" disabled>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
                         <span id="lblStop">توقف بریج</span>
                     </button>
                     <button class="dock-btn btn-neutral" onclick="testPremiereConnection()" id="pingButton">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                         <span id="lblPing">تست اتصال</span>
                     </button>
                     <button class="dock-btn btn-neutral" onclick="runDiagnostics()" id="diagnosticsButton">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                         <span id="lblDiag">عیب‌یابی</span>
                     </button>
                 </div>
@@ -746,54 +748,53 @@
                     <span class="card-caption" id="txtRecentTaskTitle">آخرین وضعیت زنده</span>
                     <button class="copy-pill-btn" onclick="clearLog()" id="clearButton">پاک‌سازی</button>
                 </div>
-                <div class="terminal-box" id="quickLogPreview" style="max-height: 95px;">
+                <div class="terminal-box" id="quickLogPreview" style="max-height: 85px;">
                     <div class="log-line info">NovaCut AI Studio Bridge آماده دریافت دستورات تدوین است.</div>
                 </div>
             </div>
         </main>
 
-        <!-- Pane: Capzo AI Persian Subtitles -->
+        <!-- Pane 2: Capzo AI Persian Subtitles -->
         <section class="tab-pane" id="pane-capzo">
-            <!-- Capzo Header Deck -->
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtCapzoTitle">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                        اتصال به پلتفرم زیرنویس هوش مصنوعی کپزو (Capzo AI)
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        زیرنویس هوش مصنوعی کپزو (Capzo AI)
                     </span>
                     <span class="profile-chip" id="capzoStatusBadge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; border-color: rgba(244, 63, 94, 0.3);">🔴 متصل نیست</span>
                 </div>
-                <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;" id="txtCapzoDesc">
-                    تبدیل خودکار صوت به متن و تولید زیرنویس دقیق فارسی با تقطیع کلمه‌ای و تایم‌استمپ صدم‌ثانیه‌ای (مستندات رسمی: capzo.ir/docs/api).
+                <p style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.45;" id="txtCapzoDesc">
+                    تولید دقیق زیرنویس فارسی با تقطیع کلمه‌ای صدم‌ثانیه‌ای (مستندات: capzo.ir/docs/api).
                 </p>
 
                 <!-- API Key Config -->
                 <div class="form-row">
                     <label class="input-label" for="capzoApiKeyInput" id="lblCapzoKey">کلید اختصاصی API کپزو (پیشوند capzo_live_...):</label>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 6px;">
                         <input type="password" id="capzoApiKeyInput" placeholder="capzo_live_xxxxxxxxxxxxxxxxxxxxxxxx" style="flex: 1;" />
-                        <button class="dock-btn btn-neutral" onclick="toggleCapzoKeyVisibility()" style="padding: 0 12px;" title="نمایش/مخفی‌سازی">👁️</button>
+                        <button class="dock-btn btn-neutral" onclick="toggleCapzoKeyVisibility()" style="padding: 0 10px;" title="نمایش/مخفی‌سازی">👁️</button>
                     </div>
                 </div>
 
-                <div class="actions-quad" style="margin-top: 10px;">
+                <div class="actions-quad" style="margin-top: 8px;">
                     <button class="dock-btn btn-launch" onclick="saveCapzoApiKey()" id="btnSaveCapzoKey">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                         <span id="lblSaveCapzo">ذخیره و تست کلید</span>
                     </button>
                     <button class="dock-btn btn-neutral" onclick="checkCapzoAccount()" id="btnCheckCapzo">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         <span id="lblCheckCapzo">استعلام مانده سهمیه</span>
                     </button>
                 </div>
 
                 <!-- Capzo Account Feedback Card -->
-                <div id="capzoAccountCard" style="display: none; margin-top: 12px; padding: 10px 12px; border-radius: var(--radius-md); background: rgba(8, 12, 22, 0.7); border: 1px solid var(--border-subtle);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+                <div id="capzoAccountCard" style="display: none; margin-top: 10px; padding: 8px 10px; border-radius: var(--radius-md); background: rgba(8, 12, 22, 0.7); border: 1px solid var(--border-subtle);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px;">
                         <span style="color: var(--text-muted);">پلن حساب:</span>
                         <span id="capzoPlanName" style="color: #c084fc; font-weight: 700;">-</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-top: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; margin-top: 3px;">
                         <span style="color: var(--text-muted);">اعتبار دقایق باقیمانده:</span>
                         <span id="capzoCreditsRem" style="color: #34d399; font-weight: 800;">- دقیقه</span>
                     </div>
@@ -804,21 +805,21 @@
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtCapzoSyncTitle">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                        تولید زیرنویس و سینک خودکار به تایم‌لاین
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        تولید زیرنویس و سینک به تایم‌لاین
                     </span>
                 </div>
 
                 <div class="form-row">
                     <label class="input-label" for="capzoMediaInput" id="lblCapzoMedia">مسیر فایل ویدیو یا صوت (یا خالی برای سکانس فعال):</label>
-                    <input type="text" id="capzoMediaInput" placeholder="C:\Videos\MyClip.mp4 (یا مسیر فایل صوتی)" />
+                    <input type="text" id="capzoMediaInput" placeholder="خالی بگذارید تا از سکانس فعال خروجی گرفته شود" />
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px;">
                     <div class="form-row" style="margin-bottom: 0;">
                         <label class="input-label" id="lblCapzoSeg">حالت تقطیع:</label>
                         <select id="capzoSegmentMode">
-                            <option value="word">کلمه‌ای (مخصوص ریلز/Shorts)</option>
+                            <option value="word">کلمه‌ای (ریلز/Shorts)</option>
                             <option value="sentence">جمله‌ای استاندارد</option>
                         </select>
                     </div>
@@ -833,22 +834,22 @@
                 </div>
 
                 <button class="dock-btn btn-launch" style="width: 100%;" onclick="runCapzoTimelineSync()" id="btnSyncCapzo">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                     <span id="lblBtnSyncCapzo">تولید زیرنویس با هوش مصنوعی و افزودن به تایم‌لاین</span>
                 </button>
 
-                <div id="capzoProcessLog" style="display: none; margin-top: 10px; font-size: 11px; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03); max-height: 110px; overflow-y: auto; font-family: monospace;"></div>
+                <div id="capzoProcessLog" style="display: none; margin-top: 8px; font-size: 10.5px; padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); max-height: 100px; overflow-y: auto; font-family: monospace;"></div>
             </div>
         </section>
 
-        <!-- Pane 2: AI Connect Hub -->
+        <!-- Pane 3: AI Connect Hub -->
         <section class="tab-pane" id="pane-aiconnect">
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtAiTitle">راهنمای اتصال مدل‌های هوش مصنوعی</span>
                 </div>
-                <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px;" id="txtAiSubtitle">
-                    کانفیگ مربوط به کلاینت خود را کپی کنید و در تنظیمات MCP آن قرار دهید:
+                <p style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 10px;" id="txtAiSubtitle">
+                    کانفیگ مربوط به هوش مصنوعی مورد نظر را کپی کنید و در تنظیمات MCP آن قرار دهید:
                 </p>
 
                 <div class="ai-hub-deck">
@@ -900,12 +901,12 @@
             </div>
         </section>
 
-        <!-- Pane 3: Command Queue -->
+        <!-- Pane 4: Command Queue & Live Console -->
         <section class="tab-pane" id="pane-queue">
             <div class="glass-card">
                 <div class="card-head">
-                    <span class="card-caption" id="txtQueueTitle">صف دستورات دریافتی</span>
-                    <span style="font-size: 10px; color: var(--text-muted); font-weight: 700;" id="queueCount">0 فرامین</span>
+                    <span class="card-caption" id="txtQueueTitle">صف فرامین دریافتی</span>
+                    <span style="font-size: 9.5px; color: var(--text-muted); font-weight: 700;" id="queueCount">0 فرامین</span>
                 </div>
                 <div class="queue-box" id="commandQueue">
                     <div class="queue-entry">
@@ -913,22 +914,19 @@
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Pane 4: Terminal Console -->
-        <section class="tab-pane" id="pane-console">
             <div class="glass-card">
                 <div class="card-head">
                     <span class="card-caption" id="txtConsoleTitle">کنسول لاگ زنده سیستم</span>
                     <button class="copy-pill-btn" onclick="clearLog()">پاک‌سازی لاگ</button>
                 </div>
-                <div class="terminal-box" id="logContainer" style="max-height: 270px;">
-                    <div class="log-line info">NovaCut AI Studio Bridge (v2.0) loaded.</div>
+                <div class="terminal-box" id="logContainer" style="max-height: 180px;">
+                    <div class="log-line info">NovaCut AI Studio Bridge (v2.0) آماده به کار است.</div>
                 </div>
             </div>
         </section>
 
-        <!-- Pane 5: Settings -->
+        <!-- Pane 5: Settings & Updates -->
         <section class="tab-pane" id="pane-settings">
             <div class="glass-card">
                 <div class="card-head">
@@ -956,9 +954,9 @@
                     </span>
                 </label>
 
-                <div style="margin-top: 14px;">
+                <div style="margin-top: 10px;">
                     <button class="dock-btn btn-launch" style="width: 100%;" onclick="saveConfig()" id="btnSaveConfig">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
                         <span id="lblSaveConfig">ذخیره تنظیمات</span>
                     </button>
                 </div>
@@ -973,20 +971,20 @@
                     </span>
                     <span class="profile-chip" id="lblCurrentVer">v2.0.0</span>
                 </div>
-                <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px;" id="txtUpdateStatusDesc">
+                <div style="font-size: 10.5px; color: var(--text-secondary); margin-bottom: 8px;" id="txtUpdateStatusDesc">
                     بررسی انتشار نسخه‌های جدیدتر و ارتقای ۱-کلیکه از مخزن رسمی گیت‌هاب:
                 </div>
                 <div class="actions-quad">
                     <button class="dock-btn btn-neutral" onclick="checkUpdates()" id="btnCheckUpdates">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
                         <span id="lblCheckUpdates">بررسی نسخه جدید</span>
                     </button>
                     <button class="dock-btn btn-launch" onclick="triggerAutoUpdate()" id="btnDoUpdate">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         <span id="lblDoUpdate">آپدیت ۱-کلیکه</span>
                     </button>
                 </div>
-                <div id="updateFeedback" style="display: none; margin-top: 10px; font-size: 11px; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03);"></div>
+                <div id="updateFeedback" style="display: none; margin-top: 8px; font-size: 10.5px; padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02);"></div>
             </div>
         </section>
 

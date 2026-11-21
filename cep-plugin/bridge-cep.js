@@ -205,8 +205,9 @@
             hostDetecting: "در حال بررسی...",
             noProject: "پروژه‌ای باز نیست",
             tabDashboard: "میز کار",
+            tabCapzo: "کپزو AI",
             tabAi: "هوش مصنوعی",
-            tabQueue: "صف فرامین",
+            tabQueue: "صف و لاگ",
             tabConsole: "کنسول",
             tabSettings: "تنظیمات",
             controlsTitle: "کنترل‌های ارتباطی بریج",
@@ -250,8 +251,9 @@
             hostDetecting: "Detecting...",
             noProject: "No project open",
             tabDashboard: "Dashboard",
+            tabCapzo: "Capzo AI",
             tabAi: "AI Models",
-            tabQueue: "Command Queue",
+            tabQueue: "Queue & Logs",
             tabConsole: "Console",
             tabSettings: "Settings",
             controlsTitle: "Bridge Link Controls",
@@ -382,6 +384,7 @@
         setElemText('txtHostMetric', t.hostMetric);
         setElemText('txtProjectMetric', t.projectMetric);
         setElemText('tabBtnDashboard', t.tabDashboard);
+        setElemText('tabBtnCapzo', t.tabCapzo);
         setElemText('tabBtnAi', t.tabAi);
         setElemText('tabBtnQueue', t.tabQueue);
         setElemText('tabBtnConsole', t.tabConsole);

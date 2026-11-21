@@ -1,5 +1,7 @@
 <div align="center" dir="rtl">
 
+<img src="assets/icon.png" width="96" height="96" alt="NovaCut AI Studio Logo" />
+
 # 🎬 استودیو هوشمند نوواکات (NovaCut AI Studio)
 ### بریج و اتوماسیون جامع هوش مصنوعی برای ادوبی پریمیر پرو (Adobe Premiere Pro)
 

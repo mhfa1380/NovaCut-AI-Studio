@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/icon.png" width="96" height="96" alt="NovaCut AI Studio Logo" />
+
 # 🎬 NovaCut AI Studio (MCP for Adobe Premiere Pro)
 
 **Universal AI Video Editing Automation Bridge for Adobe Premiere Pro.**
