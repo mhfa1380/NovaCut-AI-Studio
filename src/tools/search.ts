@@ -130,6 +130,11 @@ export const STANDARD_ADVERTISED_TOOL_NAMES = [
   'import_mogrt',
   'create_caption_track',
   'read_sequence_captions',
+  // Capzo Persian AI Subtitles (https://capzo.ir)
+  'capzo_get_account',
+  'capzo_transcribe_file',
+  'capzo_sync_subtitles_to_timeline',
+  'capzo_get_job',
   // Markers
   'add_marker',
   'delete_marker',
@@ -234,6 +239,9 @@ const CATEGORY_RULES: Array<{ category: ToolCategory; pattern: RegExp }> = [
 ];
 
 const TOOL_ALIASES: Record<string, string> = {
+  capzo_sync_subtitles_to_timeline: 'capzo subtitles srt captions persian speech to text transcription کپزو زیرنویس کپشن پیاده سازی متن صوت به متن فارسی ساخت زیرنویس خودکار تایم لاین ریلز اینستاگرام سینک زیرنویس',
+  capzo_transcribe_file: 'capzo speech to text transcribe audio srt words timestamps کپزو پیاده سازی صوت به متن فایل صوتی زیرنویس تایم استمپ کلمات ترنسکرایب',
+  capzo_get_account: 'capzo account balance credits plan minutes اعتبار باقیمانده کپزو استعلام حساب سهمیه دقایق پلن',
   trim_clip: 'shorten extend duration outpoint inpoint out point in point length برش کوتاه تنظیم مدت زمان این‌پوینت اوت‌پوینت تریم',
   replace_clip: 'swap media preserve effects motion scale enabled جایگزینی تعویض کلیپ مدیا',
   move_clip_to_track: 'relocate occupancy overwrite destination track انتقال جابجایی ترک لاین کلیپ',

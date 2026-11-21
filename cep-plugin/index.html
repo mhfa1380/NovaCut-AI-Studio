@@ -708,6 +708,7 @@
         <!-- Modern Segment Navigation -->
         <nav class="nav-segment">
             <button class="segment-btn active" onclick="switchTab('dashboard')" id="tabBtnDashboard">میز کار</button>
+            <button class="segment-btn" onclick="switchTab('capzo')" id="tabBtnCapzo">کپزو (زیرنویس AI)</button>
             <button class="segment-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">هوش مصنوعی</button>
             <button class="segment-btn" onclick="switchTab('queue')" id="tabBtnQueue">صف فرامین</button>
             <button class="segment-btn" onclick="switchTab('console')" id="tabBtnConsole">کنسول</button>
@@ -750,6 +751,95 @@
                 </div>
             </div>
         </main>
+
+        <!-- Pane: Capzo AI Persian Subtitles -->
+        <section class="tab-pane" id="pane-capzo">
+            <!-- Capzo Header Deck -->
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtCapzoTitle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        اتصال به پلتفرم زیرنویس هوش مصنوعی کپزو (Capzo AI)
+                    </span>
+                    <span class="profile-chip" id="capzoStatusBadge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185; border-color: rgba(244, 63, 94, 0.3);">🔴 متصل نیست</span>
+                </div>
+                <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;" id="txtCapzoDesc">
+                    تبدیل خودکار صوت به متن و تولید زیرنویس دقیق فارسی با تقطیع کلمه‌ای و تایم‌استمپ صدم‌ثانیه‌ای (مستندات رسمی: capzo.ir/docs/api).
+                </p>
+
+                <!-- API Key Config -->
+                <div class="form-row">
+                    <label class="input-label" for="capzoApiKeyInput" id="lblCapzoKey">کلید اختصاصی API کپزو (پیشوند capzo_live_...):</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="password" id="capzoApiKeyInput" placeholder="capzo_live_xxxxxxxxxxxxxxxxxxxxxxxx" style="flex: 1;" />
+                        <button class="dock-btn btn-neutral" onclick="toggleCapzoKeyVisibility()" style="padding: 0 12px;" title="نمایش/مخفی‌سازی">👁️</button>
+                    </div>
+                </div>
+
+                <div class="actions-quad" style="margin-top: 10px;">
+                    <button class="dock-btn btn-launch" onclick="saveCapzoApiKey()" id="btnSaveCapzoKey">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <span id="lblSaveCapzo">ذخیره و تست کلید</span>
+                    </button>
+                    <button class="dock-btn btn-neutral" onclick="checkCapzoAccount()" id="btnCheckCapzo">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span id="lblCheckCapzo">استعلام مانده سهمیه</span>
+                    </button>
+                </div>
+
+                <!-- Capzo Account Feedback Card -->
+                <div id="capzoAccountCard" style="display: none; margin-top: 12px; padding: 10px 12px; border-radius: var(--radius-md); background: rgba(8, 12, 22, 0.7); border: 1px solid var(--border-subtle);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+                        <span style="color: var(--text-muted);">پلن حساب:</span>
+                        <span id="capzoPlanName" style="color: #c084fc; font-weight: 700;">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; margin-top: 4px;">
+                        <span style="color: var(--text-muted);">اعتبار دقایق باقیمانده:</span>
+                        <span id="capzoCreditsRem" style="color: #34d399; font-weight: 800;">- دقیقه</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subtitle Generation & Sync Card -->
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtCapzoSyncTitle">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        تولید زیرنویس و سینک خودکار به تایم‌لاین
+                    </span>
+                </div>
+
+                <div class="form-row">
+                    <label class="input-label" for="capzoMediaInput" id="lblCapzoMedia">مسیر فایل ویدیو یا صوت (یا خالی برای سکانس فعال):</label>
+                    <input type="text" id="capzoMediaInput" placeholder="C:\Videos\MyClip.mp4 (یا مسیر فایل صوتی)" />
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label class="input-label" id="lblCapzoSeg">حالت تقطیع:</label>
+                        <select id="capzoSegmentMode">
+                            <option value="word">کلمه‌ای (مخصوص ریلز/Shorts)</option>
+                            <option value="sentence">جمله‌ای استاندارد</option>
+                        </select>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label class="input-label" id="lblCapzoLang">زبان گفتار:</label>
+                        <select id="capzoLanguage">
+                            <option value="fa">فارسی (fa)</option>
+                            <option value="en">انگلیسی (en)</option>
+                            <option value="auto">تشخیص خودکار</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="dock-btn btn-launch" style="width: 100%;" onclick="runCapzoTimelineSync()" id="btnSyncCapzo">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <span id="lblBtnSyncCapzo">تولید زیرنویس با هوش مصنوعی و افزودن به تایم‌لاین</span>
+                </button>
+
+                <div id="capzoProcessLog" style="display: none; margin-top: 10px; font-size: 11px; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03); max-height: 110px; overflow-y: auto; font-family: monospace;"></div>
+            </div>
+        </section>
 
         <!-- Pane 2: AI Connect Hub -->
         <section class="tab-pane" id="pane-aiconnect">

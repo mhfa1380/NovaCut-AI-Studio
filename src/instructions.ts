@@ -18,4 +18,5 @@ export const MCP_SERVER_INSTRUCTIONS = [
   '- For specialized or advanced operations not immediately listed, call search_tools (supports English & Persian keywords like "برش", "صدا", "خروجی", "افکت") and invoke_tool.',
   '- Always inspect active project state first (e.g. get_active_sequence, list_sequence_tracks, list_project_items) before modifying clips.',
   '- When the user speaks Persian (e.g., "کلیپ اول را ثانیه ۵ کات بزن", "یک افکت بلر بده", "خروجی MP4 بگیر"), understand their creative intent and execute the appropriate Premiere tools directly, replying in natural Persian.',
+  '- Persian AI Subtitling with Capzo (کپزو): When the user asks for captions or subtitle generation (زیرنویس فارسی، پیاده‌سازی صوت به متن، کپشن ریلز), use Capzo tools: capzo_sync_subtitles_to_timeline to automatically transcribe and import .srt directly to the Premiere Pro timeline, capzo_transcribe_file, and capzo_get_account.',
 ].join('\n');

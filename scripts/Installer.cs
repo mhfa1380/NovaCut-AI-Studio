@@ -132,7 +132,7 @@ namespace NovaCut.Installer
                 "۱. بررسی و تأیید محیط اجرای Node.js (Node Environment)",
                 "۲. فعال‌سازی قفل برنامه‌نویسی ادوبی پریمیر (PlayerDebugMode CSXS 9..22)",
                 "۳. نصب پنل فارسی/انگلیسی نوواکات در پوشه رسمی ادوبی پریمیر پرو",
-                "۴. اتصال خودکار به ChatGPT Desktop, Claude, Cursor, Windsurf, VS Code",
+                "۴. اتصال خودکار به ChatGPT, Claude, Cursor, Windsurf و پلتفرم کپزو (Capzo AI)",
                 "۵. تست اتصالات و فعال‌سازی پروتکل ارتباطی زنده (Live MCP Link)"
             };
 

@@ -745,6 +745,15 @@
             if (panelConfig.toolset) {
                 this.toolsetMode = panelConfig.toolset;
             }
+            if (panelConfig.capzoApiKey) {
+                this.capzoApiKey = panelConfig.capzoApiKey;
+            }
+            if (!this.capzoApiKey) {
+                try { this.capzoApiKey = localStorage.getItem('capzo_api_key') || ''; } catch(e) {}
+            }
+            if (!this.capzoApiKey && typeof process !== 'undefined' && process.env && process.env.CAPZO_API_KEY) {
+                this.capzoApiKey = process.env.CAPZO_API_KEY;
+            }
 
             var tempEl = document.getElementById('tempDirectory');
             if (tempEl) tempEl.value = this.tempDirectory || getDefaultTempPath();
@@ -754,6 +763,18 @@
 
             var selToolset = document.getElementById('selToolset');
             if (selToolset && this.toolsetMode) selToolset.value = this.toolsetMode;
+
+            var capzoInput = document.getElementById('capzoApiKeyInput');
+            if (capzoInput && this.capzoApiKey) {
+                capzoInput.value = this.capzoApiKey;
+                var badge = document.getElementById('capzoStatusBadge');
+                if (badge) {
+                    badge.textContent = '🟢 کلید ذخیره شده';
+                    badge.style.background = 'rgba(16, 185, 129, 0.15)';
+                    badge.style.color = '#34d399';
+                    badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                }
+            }
         } catch (e) {}
     };
 
@@ -769,6 +790,7 @@
             panelConfig.tempDirectory = this.tempDirectory;
             panelConfig.telemetry = this.telemetryEnabled;
             panelConfig.toolset = this.toolsetMode;
+            if (this.capzoApiKey) panelConfig.capzoApiKey = this.capzoApiKey;
 
             fs.writeFileSync(getPanelConfigPath(), JSON.stringify(panelConfig, null, 2));
             this.populateAiSnippets();
@@ -970,6 +992,184 @@
         } catch (e) {}
     };
 
+    // Capzo AI Integration Methods
+    NovaCutBridge.prototype.toggleCapzoKeyVisibility = function() {
+        var el = document.getElementById('capzoApiKeyInput');
+        if (el) {
+            el.type = (el.type === 'password') ? 'text' : 'password';
+        }
+    };
+
+    NovaCutBridge.prototype.saveCapzoApiKey = function() {
+        var el = document.getElementById('capzoApiKeyInput');
+        var key = el ? el.value.trim() : '';
+        this.capzoApiKey = key;
+        try { localStorage.setItem('capzo_api_key', key); } catch(e) {}
+        this.saveConfig();
+        this.log(this.currentLang === 'fa' ? 'کلید کپزو ذخیره شد. در حال استعلام حساب...' : 'Capzo API Key saved. Verifying account...', 'info');
+        this.checkCapzoAccount();
+    };
+
+    NovaCutBridge.prototype.checkCapzoAccount = function() {
+        var self = this;
+        var key = this.capzoApiKey;
+        var badge = document.getElementById('capzoStatusBadge');
+        var card = document.getElementById('capzoAccountCard');
+        var planEl = document.getElementById('capzoPlanName');
+        var credEl = document.getElementById('capzoCreditsRem');
+
+        if (!key) {
+            if (badge) {
+                badge.textContent = '🔴 کلید وارد نشده';
+                badge.style.background = 'rgba(244, 63, 94, 0.15)';
+                badge.style.color = '#fb7185';
+            }
+            if (card) card.style.display = 'none';
+            return;
+        }
+
+        if (badge) {
+            badge.textContent = '⏳ در حال بررسی...';
+            badge.style.background = 'rgba(139, 92, 246, 0.15)';
+            badge.style.color = '#c084fc';
+        }
+
+        fetch('https://capzo.ir/api/v1/user/me', {
+            headers: {
+                'Authorization': 'Bearer ' + key,
+                'Accept': 'application/json'
+            }
+        })
+        .then(function(res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
+        .then(function(data) {
+            if (badge) {
+                badge.textContent = '🟢 متصل شد';
+                badge.style.background = 'rgba(16, 185, 129, 0.15)';
+                badge.style.color = '#34d399';
+                badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+            }
+            if (card) card.style.display = 'block';
+            if (planEl) planEl.textContent = data.plan_name || data.plan || 'اشتراک ویژه (Pro)';
+            if (credEl) {
+                var rem = data.credits_remaining !== undefined ? data.credits_remaining : (data.remaining_minutes || data.credits || 'نامحدود');
+                credEl.textContent = rem + ' دقیقه';
+            }
+            self.log('Capzo API Connected: ' + JSON.stringify(data), 'info');
+        })
+        .catch(function(err) {
+            if (badge) {
+                badge.textContent = '🔴 خطا در اتصال به کپزو';
+                badge.style.background = 'rgba(244, 63, 94, 0.15)';
+                badge.style.color = '#fb7185';
+            }
+            if (card) card.style.display = 'none';
+            self.log('Capzo Connection Error: ' + err.message, 'error');
+        });
+    };
+
+    NovaCutBridge.prototype.runCapzoTimelineSync = function() {
+        var self = this;
+        var key = this.capzoApiKey;
+        var logBox = document.getElementById('capzoProcessLog');
+        var mediaInput = document.getElementById('capzoMediaInput');
+        var segMode = document.getElementById('capzoSegmentMode') ? document.getElementById('capzoSegmentMode').value : 'word';
+        var lang = document.getElementById('capzoLanguage') ? document.getElementById('capzoLanguage').value : 'fa';
+
+        if (!key) {
+            alert(this.currentLang === 'fa' ? 'لطفاً ابتدا کلید API کپزو را وارد و ذخیره کنید.' : 'Please enter and save your Capzo API Key first.');
+            return;
+        }
+
+        if (logBox) {
+            logBox.style.display = 'block';
+            logBox.innerHTML = '<div style="color: #c084fc;">⏳ در حال آماده‌سازی فایل و ارسال به موتور هوش مصنوعی کپزو...</div>';
+        }
+
+        var mediaPath = mediaInput ? mediaInput.value.trim() : '';
+
+        if (!mediaPath) {
+            this.executeExtendScript(
+                '(function(){ try { if (!app.project || !app.project.activeSequence) return ""; var s = app.project.activeSequence; for (var t=0; t<s.videoTracks.numTracks; t++) { if (s.videoTracks[t].clips.numItems > 0) { var p = s.videoTracks[t].clips[0].projectItem; if (p && p.getMediaPath) return p.getMediaPath(); } } return ""; } catch(e){ return ""; } })()',
+                function(err, res) {
+                    var foundPath = res && String(res).trim();
+                    if (!foundPath) {
+                        if (logBox) logBox.innerHTML += '<div style="color: #fb7185;">لطفاً مسیر یک فایل ویدیویی یا صوتی را در کادر بالا وارد کنید.</div>';
+                        return;
+                    }
+                    self.executeCapzoTranscription(foundPath, key, segMode, lang);
+                }
+            );
+        } else {
+            this.executeCapzoTranscription(mediaPath, key, segMode, lang);
+        }
+    };
+
+    NovaCutBridge.prototype.executeCapzoTranscription = function(filePath, apiKey, segMode, lang) {
+        var self = this;
+        var logBox = document.getElementById('capzoProcessLog');
+        if (!fs || !fs.existsSync(filePath)) {
+            if (logBox) logBox.innerHTML += '<div style="color: #fb7185;">فایل در مسیر یافت نشد: ' + filePath + '</div>';
+            return;
+        }
+
+        if (logBox) logBox.innerHTML += '<div style="color: #38bdf8;">فایل با موفقیت شناسایی شد: ' + path.basename(filePath) + '</div>';
+        if (logBox) logBox.innerHTML += '<div style="color: #94a3b8;">در حال ارسال به کپزو (https://capzo.ir/api/v1/transcribe)...</div>';
+
+        try {
+            var fileBuffer = fs.readFileSync(filePath);
+            var blob = new Blob([fileBuffer]);
+            var formData = new FormData();
+            formData.append('file', blob, path.basename(filePath));
+            formData.append('language', lang || 'fa');
+            formData.append('segment_mode', segMode || 'word');
+
+            fetch('https://capzo.ir/api/v1/transcribe', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey
+                },
+                body: formData
+            })
+            .then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            })
+            .then(function(data) {
+                if (logBox) {
+                    logBox.innerHTML += '<div style="color: #34d399;">✓ متن دریافت شد: ' + (data.transcript ? data.transcript.substring(0, 60) + '...' : 'موفق') + '</div>';
+                }
+
+                if (data.srt) {
+                    var srtPath = filePath.replace(/\.[^/.]+$/, '') + '_Capzo.srt';
+                    fs.writeFileSync(srtPath, data.srt, 'utf8');
+                    if (logBox) logBox.innerHTML += '<div style="color: #34d399;">✓ فایل زیرنویس ذخیره شد: ' + path.basename(srtPath) + '</div>';
+
+                    // Import into Premiere Pro
+                    var escaped = srtPath.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+                    self.executeExtendScript(
+                        '(function(){ try { if (app.project) { app.project.importFiles(["' + escaped + '"], true, app.project.rootItem, false); return "IMPORTED_OK"; } return "NO_PROJECT"; } catch(e){ return String(e); } })()',
+                        function(err, prRes) {
+                            if (logBox) {
+                                logBox.innerHTML += '<div style="color: #c084fc; font-weight: bold;">🎉 فایل زیرنویس با موفقیت به پروژه ادوبی پریمیر پرو اضافه شد!</div>';
+                            }
+                            self.log('Capzo SRT synced to Premiere: ' + srtPath, 'info');
+                            self.checkCapzoAccount();
+                        }
+                    );
+                }
+            })
+            .catch(function(err) {
+                if (logBox) logBox.innerHTML += '<div style="color: #fb7185;">خطا در ارسال به کپزو: ' + err.message + '</div>';
+                self.log('Capzo Transcription error: ' + err.message, 'error');
+            });
+        } catch(e) {
+            if (logBox) logBox.innerHTML += '<div style="color: #fb7185;">خطای سیستم: ' + e.message + '</div>';
+        }
+    };
+
     // Global exports for DOM events
     window.NovaCutBridge = NovaCutBridge;
     window.bridge = null;
@@ -985,6 +1185,10 @@
     window.clearLog = function() { if (window.bridge) window.bridge.clearLog(); };
     window.toggleLanguage = function() { if (window.bridge) window.bridge.toggleLanguage(); };
     window.copySnippet = function(client) { if (window.bridge) window.bridge.copySnippet(client); };
+    window.toggleCapzoKeyVisibility = function() { if (window.bridge) window.bridge.toggleCapzoKeyVisibility(); };
+    window.saveCapzoApiKey = function() { if (window.bridge) window.bridge.saveCapzoApiKey(); };
+    window.checkCapzoAccount = function() { if (window.bridge) window.bridge.checkCapzoAccount(); };
+    window.runCapzoTimelineSync = function() { if (window.bridge) window.bridge.runCapzoTimelineSync(); };
     window.switchTab = function(tabId) {
         var panes = document.querySelectorAll('.tab-pane');
         var btns = document.querySelectorAll('.segment-btn');
@@ -996,6 +1200,7 @@
 
         var tabMap = {
             dashboard: 'tabBtnDashboard',
+            capzo: 'tabBtnCapzo',
             aiconnect: 'tabBtnAi',
             queue: 'tabBtnQueue',
             console: 'tabBtnConsole',

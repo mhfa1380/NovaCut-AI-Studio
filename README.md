@@ -26,6 +26,8 @@
 > 🚀 **1-Click Windows Setup Executable:** Simply double-click `NovaCut-Setup.exe` (or `install.bat`) on Windows! A modern graphical setup assistant configures Adobe registry keys, CEP extension files, and AI clients automatically.
 >
 > 🔄 **1-Click Auto Update:** Simply double-click `update.bat` or run `novacut update` to pull the latest releases from GitHub and sync your installation!
+>
+> 🎙️ **Capzo Persian AI Subtitles:** Native integration with [Capzo API](https://capzo.ir/docs/api) for automatic Persian speech-to-text, word-level timestamps, and instant timeline subtitle sync.
 
 
 **Languages:** English | [日本語](translations/README.ja.md) | [Tiếng Việt](translations/README.vi.md) | [简体中文](translations/README.zh-CN.md) | [繁體中文](translations/README.zh-TW.md) | [한국어](translations/README.ko.md) | [Deutsch](translations/README.de.md) | [Español](translations/README.es.md) | [Français](translations/README.fr.md) | [Italiano](translations/README.it.md) | [Dansk](translations/README.da.md) | [Polski](translations/README.pl.md) | [Русский](translations/README.ru.md) | [Bosanski](translations/README.bs.md) | [العربية](translations/README.ar.md) | [Norsk](translations/README.no.md) | [Português (Brasil)](translations/README.pt-BR.md) | [ไทย](translations/README.th.md) | [Türkçe](translations/README.tr.md) | [ភាសាខ្មែរ](translations/README.km.md)
