@@ -6,15 +6,16 @@
     <title>NovaCut AI Studio — Showcase Banner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-canvas: #06080e;
-            --bg-card: rgba(14, 18, 28, 0.78);
-            --bg-card-hover: rgba(22, 28, 44, 0.9);
+            --bg-card: rgba(14, 19, 30, 0.82);
+            --bg-card-hover: rgba(22, 30, 48, 0.92);
             --bg-input: rgba(8, 11, 18, 0.85);
             --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(139, 92, 246, 0.4);
+            --border-bright: rgba(255, 255, 255, 0.16);
+            --border-glow: rgba(139, 92, 246, 0.35);
             --text-main: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
@@ -26,16 +27,17 @@
             --amber-primary: #f59e0b;
             --rose-primary: #f43f5e;
             --cyan-primary: #06b6d4;
-            --radius-xl: 18px;
-            --radius-lg: 14px;
-            --radius-md: 10px;
-            --radius-sm: 6px;
+            --radius-xl: 14px;
+            --radius-lg: 10px;
+            --radius-md: 8px;
+            --radius-sm: 5px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
@@ -50,9 +52,9 @@
             justify-content: center;
             position: relative;
             background-image: 
-                radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 55%);
+                radial-gradient(circle at 12% 18%, rgba(139, 92, 246, 0.18) 0%, transparent 42%),
+                radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.14) 0%, transparent 42%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.07) 0%, transparent 55%);
         }
 
         /* High-tech Grid Pattern */
@@ -68,14 +70,14 @@
 
         /* Studio Showcase Container */
         .showcase-window {
-            width: 1320px;
-            height: 740px;
-            background: rgba(10, 13, 22, 0.82);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            width: 1340px;
+            height: 752px;
+            background: rgba(10, 14, 23, 0.88);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(139, 92, 246, 0.15);
+            border-radius: 18px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 50px rgba(139, 92, 246, 0.12);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -86,13 +88,13 @@
 
         /* Window Titlebar */
         .window-bar {
-            height: 44px;
-            background: rgba(7, 9, 15, 0.9);
+            height: 42px;
+            background: rgba(7, 9, 15, 0.95);
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 18px;
+            padding: 0 16px;
             user-select: none;
             direction: ltr;
         }
@@ -103,8 +105,8 @@
         }
 
         .bar-dot {
-            width: 11px;
-            height: 11px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
         }
 
@@ -116,28 +118,31 @@
             font-size: 12px;
             font-weight: 600;
             color: var(--text-secondary);
-            letter-spacing: 0.03em;
+            letter-spacing: 0.02em;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .window-badge {
-            background: rgba(139, 92, 246, 0.2);
+            background: rgba(139, 92, 246, 0.18);
             color: #c084fc;
-            padding: 2px 8px;
+            padding: 2px 9px;
             border-radius: 999px;
             font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.05em;
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         /* Window Body Columns */
         .window-body {
             flex: 1;
             display: grid;
-            grid-template-columns: 480px 1fr;
+            grid-template-columns: 460px 1fr;
             overflow: hidden;
             gap: 1px;
             background: rgba(255, 255, 255, 0.04);
@@ -146,11 +151,11 @@
 
         /* ================= LEFT COLUMN: CEP EXTENSION ================= */
         .panel-column {
-            background: #090c14;
-            padding: 16px;
+            background: #080c14;
+            padding: 13px 14px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 9px;
             overflow: hidden;
             direction: rtl;
         }
@@ -162,51 +167,53 @@
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
-            padding: 10px 14px;
+            padding: 7px 11px;
         }
 
         .brand-cluster {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .brand-logo-gem {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
             background: var(--iris-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 16px var(--iris-glow);
+            box-shadow: 0 0 12px var(--iris-glow);
             color: #ffffff;
+            flex-shrink: 0;
         }
 
         .brand-title {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 800;
             background: linear-gradient(90deg, #ffffff 40%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
         .brand-subtitle {
-            font-size: 9px;
+            font-size: 8.5px;
             font-weight: 700;
             color: var(--text-muted);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
             direction: ltr;
             text-align: right;
         }
 
         .lang-switcher {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
             border-radius: var(--radius-md);
-            padding: 5px 10px;
-            font-size: 11px;
+            padding: 4px 8px;
+            font-size: 10.5px;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -218,11 +225,11 @@
             background: var(--bg-card);
             border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: var(--radius-lg);
-            padding: 12px 14px;
+            padding: 9px 11px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.12);
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.09);
         }
 
         .status-radar-row {
@@ -234,12 +241,12 @@
         .radar-box {
             display: flex;
             align-items: center;
-            gap: 11px;
+            gap: 8px;
         }
 
         .radar-beacon {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             position: relative;
             display: flex;
             align-items: center;
@@ -251,33 +258,33 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: var(--mint-primary);
-            opacity: 0.4;
+            border: 1.5px solid var(--mint-primary);
+            opacity: 0.5;
             animation: radarPulse 2s infinite ease-out;
         }
 
         .radar-core {
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #10b981;
-            box-shadow: 0 0 10px #10b981;
+            box-shadow: 0 0 8px #10b981;
         }
 
         @keyframes radarPulse {
-            0% { transform: scale(0.6); opacity: 0.8; }
+            0% { transform: scale(0.7); opacity: 0.9; }
             100% { transform: scale(2.2); opacity: 0; }
         }
 
         .radar-main-title {
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 800;
             color: #34d399;
             display: block;
         }
 
         .radar-sub-title {
-            font-size: 10px;
+            font-size: 9.5px;
             color: var(--text-muted);
             direction: ltr;
             text-align: right;
@@ -288,39 +295,39 @@
             background: rgba(139, 92, 246, 0.15);
             border: 1px solid rgba(139, 92, 246, 0.35);
             color: #d8b4fe;
-            padding: 3px 8px;
+            padding: 2px 7px;
             border-radius: 999px;
-            font-size: 9px;
+            font-size: 8.5px;
             font-weight: 800;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
             direction: ltr;
         }
 
         .metric-tiles {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 6px;
         }
 
         .tile {
-            background: rgba(8, 11, 18, 0.6);
+            background: rgba(7, 10, 17, 0.7);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 8px 10px;
+            padding: 5px 8px;
         }
 
         .tile-label {
-            font-size: 9px;
+            font-size: 8.5px;
             font-weight: 700;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             margin-bottom: 2px;
         }
 
         .tile-value {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: var(--text-main);
             white-space: nowrap;
@@ -333,11 +340,11 @@
         /* Segment Nav */
         .nav-segment {
             display: flex;
-            background: rgba(12, 16, 26, 0.7);
+            background: rgba(10, 14, 23, 0.85);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 3px;
-            gap: 3px;
+            padding: 2px;
+            gap: 2px;
         }
 
         .segment-btn {
@@ -345,53 +352,140 @@
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            padding: 6px 0;
+            padding: 5px 2px;
             border-radius: var(--radius-sm);
             font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .segment-btn.active {
             background: var(--iris-gradient);
             color: #ffffff;
-            box-shadow: 0 2px 10px var(--iris-glow);
+            box-shadow: 0 2px 8px var(--iris-glow);
+        }
+
+        /* Capzo Subtitles Feature Card */
+        .capzo-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: var(--radius-lg);
+            padding: 9px 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            box-shadow: 0 0 16px rgba(139, 92, 246, 0.08);
+        }
+
+        .capzo-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .capzo-brand {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #c084fc;
+        }
+
+        .capzo-status-chip {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+            font-size: 8.5px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .capzo-account-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            background: rgba(6, 9, 15, 0.7);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 6px 8px;
+        }
+
+        .capzo-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .capzo-stat-label {
+            font-size: 8px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .capzo-stat-val {
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .capzo-btn {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 6px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.25);
         }
 
         /* Actions Quad */
         .actions-quad {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            gap: 6px;
         }
 
         .dock-btn {
             border: none;
             border-radius: var(--radius-md);
-            padding: 8px 10px;
-            font-size: 11px;
+            padding: 6px 8px;
+            font-size: 10px;
             font-weight: 700;
             font-family: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .btn-launch {
             background: var(--iris-gradient);
             color: #ffffff;
-            box-shadow: 0 2px 12px var(--iris-glow);
+            box-shadow: 0 2px 8px var(--iris-glow);
         }
 
         .btn-halt {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             color: var(--text-muted);
             border: 1px solid var(--border-subtle);
         }
 
         .btn-neutral {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-secondary);
             border: 1px solid var(--border-subtle);
         }
@@ -401,10 +495,10 @@
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
-            padding: 12px;
+            padding: 8px 10px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .card-head {
@@ -414,34 +508,34 @@
         }
 
         .card-caption {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
             color: var(--text-muted);
         }
 
         .queue-box {
-            background: #05070c;
+            background: #04060a;
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 7px;
+            padding: 5px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
+            font-size: 9px;
         }
 
         .queue-entry {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
-            padding: 6px 8px;
+            gap: 6px;
+            padding: 4px 6px;
             border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             direction: ltr;
         }
 
@@ -453,44 +547,46 @@
         }
 
         .badge-status {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 800;
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 999px;
             text-transform: uppercase;
+            flex-shrink: 0;
         }
 
         .badge-status.completed { background: rgba(16, 185, 129, 0.18); color: var(--mint-primary); }
-        .badge-status.executing { background: rgba(139, 92, 246, 0.25); color: #c084fc; box-shadow: 0 0 8px var(--iris-glow); }
-        .badge-status.pending { background: rgba(245, 158, 11, 0.18); color: var(--amber-primary); }
+        .badge-status.executing { background: rgba(139, 92, 246, 0.25); color: #c084fc; }
 
         /* Terminal Preview */
         .terminal-box {
-            background: #05070c;
+            background: #04060a;
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 7px;
+            padding: 5px 8px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
+            font-size: 9px;
             direction: ltr;
         }
 
         .log-line {
-            padding: 3px 6px;
-            margin-bottom: 2px;
-            border-radius: 4px;
+            padding: 2px 4px;
+            border-radius: 3px;
             color: var(--text-secondary);
-            border-inline-start: 3px solid var(--iris-primary);
-            background: rgba(255, 255, 255, 0.02);
+            border-inline-start: 2px solid var(--iris-primary);
+            background: rgba(255, 255, 255, 0.015);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* ================= RIGHT COLUMN: MULTI-MODEL ECOSYSTEM ================= */
         .showcase-right {
-            background: #0b0f1a;
-            padding: 24px;
+            background: #0a0e18;
+            padding: 20px 22px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 13px;
             overflow: hidden;
             direction: rtl;
         }
@@ -498,7 +594,7 @@
         .hero-banner-head {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
         .hero-tag {
@@ -506,9 +602,9 @@
             background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
             border: 1px solid rgba(139, 92, 246, 0.4);
             color: #d8b4fe;
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 999px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.05em;
             display: flex;
@@ -517,7 +613,7 @@
         }
 
         .hero-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
             letter-spacing: -0.02em;
             line-height: 1.25;
@@ -527,150 +623,163 @@
         }
 
         .hero-description {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.55;
         }
 
         /* Multi-Model Pill Deck */
         .models-deck {
             display: flex;
-            gap: 8px;
+            gap: 7px;
             flex-wrap: wrap;
             direction: ltr;
         }
 
         .model-badge {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.035);
             border: 1px solid var(--border-subtle);
             border-radius: 999px;
-            padding: 6px 14px;
-            font-size: 12px;
+            padding: 5px 12px;
+            font-size: 11px;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             color: var(--text-main);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
         }
 
         .model-badge.active-chatgpt {
-            border-color: rgba(16, 185, 129, 0.5);
-            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.45);
+            background: rgba(16, 185, 129, 0.08);
             color: #6ee7b7;
         }
 
         .model-badge.active-gemini {
-            border-color: rgba(56, 189, 248, 0.5);
-            background: rgba(56, 189, 248, 0.1);
+            border-color: rgba(56, 189, 248, 0.45);
+            background: rgba(56, 189, 248, 0.08);
             color: #7dd3fc;
         }
 
         .model-badge.active-claude {
-            border-color: rgba(192, 132, 252, 0.5);
-            background: rgba(192, 132, 252, 0.1);
+            border-color: rgba(192, 132, 252, 0.45);
+            background: rgba(192, 132, 252, 0.08);
             color: #d8b4fe;
         }
 
         .model-badge.active-grok {
-            border-color: rgba(244, 63, 94, 0.5);
-            background: rgba(244, 63, 94, 0.1);
+            border-color: rgba(244, 63, 94, 0.45);
+            background: rgba(244, 63, 94, 0.08);
             color: #fda4af;
         }
 
+        .model-badge.active-capzo {
+            border-color: rgba(6, 182, 212, 0.45);
+            background: rgba(6, 182, 212, 0.08);
+            color: #67e8f9;
+        }
+
         .model-badge.active-cursor {
-            border-color: rgba(139, 92, 246, 0.5);
-            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.45);
+            background: rgba(139, 92, 246, 0.08);
             color: #c084fc;
         }
 
         /* Chat Interaction Simulation */
         .chat-simulation {
-            background: rgba(8, 11, 20, 0.7);
+            background: rgba(7, 10, 18, 0.75);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
-            padding: 16px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 9px;
             position: relative;
         }
 
         .chat-bubble {
             border-radius: var(--radius-md);
-            padding: 12px 14px;
-            font-size: 12px;
-            line-height: 1.6;
+            padding: 9px 12px;
+            font-size: 11.5px;
+            line-height: 1.55;
         }
 
         .chat-user {
-            background: rgba(139, 92, 246, 0.15);
-            border: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.28);
             color: #f1f5f9;
             align-self: flex-start;
-            max-width: 90%;
+            max-width: 95%;
         }
 
         .chat-user-label {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 800;
             color: #c084fc;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .chat-ai {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
             color: #e2e8f0;
             align-self: flex-start;
             width: 100%;
         }
 
         .chat-ai-label {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 800;
             color: #34d399;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .action-step {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 4px;
-            font-size: 11px;
+            gap: 7px;
+            margin-top: 3px;
+            font-size: 10.5px;
             color: #94a3b8;
         }
 
         .action-step.done { color: #34d399; }
         .action-step.in-progress { color: #c084fc; }
 
+        .step-icon-svg {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
         /* Feature Matrix */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 8px;
             margin-top: auto;
         }
 
         .feature-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.025);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 10px 12px;
+            padding: 9px 11px;
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
 
         .feature-title {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
             color: var(--text-main);
             display: flex;
@@ -679,9 +788,9 @@
         }
 
         .feature-desc {
-            font-size: 10px;
+            font-size: 9.5px;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.45;
         }
     </style>
 </head>
@@ -702,7 +811,10 @@
                 <span>Adobe Premiere Pro AI Automation Bridge (v2.0)</span>
             </div>
             <div>
-                <span class="window-badge">MCP LIVE LINK</span>
+                <span class="window-badge">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    MCP LIVE LINK
+                </span>
             </div>
         </header>
 
@@ -714,7 +826,7 @@
                 <div class="top-deck">
                     <div class="brand-cluster">
                         <div class="brand-logo-gem">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                             </svg>
                         </div>
@@ -724,7 +836,11 @@
                         </div>
                     </div>
                     <div class="lang-switcher">
-                        <span>🇬🇧</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
                         <span>English</span>
                     </div>
                 </div>
@@ -748,14 +864,14 @@
                     <div class="metric-tiles">
                         <div class="tile">
                             <div class="tile-label">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                                 نسخه پریمیر
                             </div>
                             <div class="tile-value">v25.0 (Premiere)</div>
                         </div>
                         <div class="tile">
                             <div class="tile-label">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                                 پروژه فعال
                             </div>
                             <div class="tile-value">Cyber_Teaser_Final.prproj</div>
@@ -765,29 +881,82 @@
 
                 <!-- Navigation Tabs -->
                 <div class="nav-segment">
-                    <button class="segment-btn active">میز کار</button>
-                    <button class="segment-btn">هوش مصنوعی</button>
-                    <button class="segment-btn">صف فرامین</button>
-                    <button class="segment-btn">کنسول</button>
-                    <button class="segment-btn">تنظیمات</button>
+                    <button class="segment-btn active">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        <span>میز کار</span>
+                    </button>
+                    <button class="segment-btn">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span>کپزو AI</span>
+                    </button>
+                    <button class="segment-btn">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <span>هوش مصنوعی</span>
+                    </button>
+                    <button class="segment-btn">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                        <span>صف و لاگ</span>
+                    </button>
+                    <button class="segment-btn">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <span>تنظیمات</span>
+                    </button>
+                </div>
+
+                <!-- Capzo AI Persian Subtitles Card -->
+                <div class="capzo-card">
+                    <div class="capzo-head">
+                        <span class="capzo-brand">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            زیرنویس هوش مصنوعی کپزو (Capzo AI)
+                        </span>
+                        <span class="capzo-status-chip">
+                            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"></circle></svg>
+                            متصل و همگام
+                        </span>
+                    </div>
+
+                    <div class="capzo-account-grid">
+                        <div class="capzo-stat">
+                            <span class="capzo-stat-label">پلن حساب کاربری:</span>
+                            <span class="capzo-stat-val" style="color: #c084fc;">Pro Studio</span>
+                        </div>
+                        <div class="capzo-stat">
+                            <span class="capzo-stat-label">حساب:</span>
+                            <span class="capzo-stat-val" style="color: #cbd5e1; direction: ltr; text-align: right;">editor@studio.ir</span>
+                        </div>
+                        <div class="capzo-stat">
+                            <span class="capzo-stat-label">اعتبار باقیمانده:</span>
+                            <span class="capzo-stat-val" style="color: #34d399;">۱۲۰ دقیقه</span>
+                        </div>
+                        <div class="capzo-stat">
+                            <span class="capzo-stat-label">میزان مصرف‌شده:</span>
+                            <span class="capzo-stat-val" style="color: #38bdf8;">۴۵ دقیقه</span>
+                        </div>
+                    </div>
+
+                    <button class="capzo-btn">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        تولید زیرنویس کلمه‌ای دقیق و سینک به تایم‌لاین
+                    </button>
                 </div>
 
                 <!-- Controls Quad -->
                 <div class="actions-quad">
                     <button class="dock-btn btn-launch">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         شروع بریج
                     </button>
                     <button class="dock-btn btn-halt">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
                         توقف بریج
                     </button>
                     <button class="dock-btn btn-neutral">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
                         تست اتصال
                     </button>
                     <button class="dock-btn btn-neutral">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                         عیب‌یابی
                     </button>
                 </div>
@@ -796,32 +965,28 @@
                 <div class="glass-card">
                     <div class="card-head">
                         <span class="card-caption">صف دستورات فعال (Command Queue)</span>
-                        <span style="font-size: 10px; color: var(--text-muted); font-weight: 700; direction: ltr;">4 commands</span>
+                        <span style="font-size: 9px; color: var(--text-muted); font-weight: 700; direction: ltr;">3 active</span>
                     </div>
                     <div class="queue-box">
                         <div class="queue-entry">
-                            <span class="queue-cmd-text">create_sequence("4K Master", 3840, 2160)</span>
-                            <span class="badge-status completed">completed</span>
-                        </div>
-                        <div class="queue-entry">
-                            <span class="queue-cmd-text">import_media(["B-Roll_Tokyo_4K.mov"])</span>
+                            <span class="queue-cmd-text">capzo_sync_subtitles(mode: "word", lang: "fa")</span>
                             <span class="badge-status completed">completed</span>
                         </div>
                         <div class="queue-entry">
                             <span class="queue-cmd-text">auto_cut_silence(track: 1, -32dB)</span>
-                            <span class="badge-status executing">executing</span>
+                            <span class="badge-status completed">completed</span>
                         </div>
                         <div class="queue-entry">
                             <span class="queue-cmd-text">apply_lumetri_preset("Cyberpunk_LUT")</span>
-                            <span class="badge-status pending">pending</span>
+                            <span class="badge-status executing">executing</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Terminal -->
                 <div class="terminal-box">
-                    <div class="log-line">[10:32:14] Host responded OK: Premiere Pro v25.0</div>
-                    <div class="log-line">[10:32:15] Running cmd-81a2: auto_cut_silence</div>
+                    <div class="log-line">[14:20:12] Capzo AI API: 247 words synced to timeline</div>
+                    <div class="log-line">[14:20:14] Running cmd-81a2: apply_lumetri_preset</div>
                 </div>
             </div>
 
@@ -829,35 +994,39 @@
             <div class="showcase-right">
                 <div class="hero-banner-head">
                     <div class="hero-tag">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                         UNIVERSAL AI VIDEO EDITING PLATFORM
                     </div>
                     <h1 class="hero-title">تدوین خودکار با تمام مدل‌های هوش مصنوعی</h1>
                     <p class="hero-description">
-                        دیگر نیازی به کلاینت کلاد انحصاری نیست! با پروتکل مستقیم NovaCut، تمام مدل‌های روز دنیا قادرند پروژه پریمیر پرو شما را همانند یک تدوین‌گر حرفه‌ای هدایت کنند.
+                        دیگر نیازی به کلاینت انحصاری نیست! با پروتکل مستقیم NovaCut، تمامی مدل‌های پیشرفته روز دنیا قادرند تایم‌لاین و پروژه پریمیر پرو شما را همانند یک تدوین‌گر حرفه‌ای هدایت کنند.
                     </p>
                 </div>
 
-                <!-- Model Badges -->
+                <!-- Model Badges with Sleek SVG Icons -->
                 <div class="models-deck">
                     <div class="model-badge active-chatgpt">
-                        <span>🟢</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>
                         <span>ChatGPT Desktop / OpenAI</span>
                     </div>
                     <div class="model-badge active-gemini">
-                        <span>🔵</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"></polygon></svg>
                         <span>Google Gemini & Antigravity</span>
                     </div>
-                    <div class="model-badge active-grok">
-                        <span>⚫</span>
-                        <span>xAI Grok (CLI / Web)</span>
+                    <div class="model-badge active-capzo">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span>Capzo AI Subtitles</span>
                     </div>
                     <div class="model-badge active-claude">
-                        <span>🟣</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"></path></svg>
                         <span>Claude 3.5 Sonnet</span>
                     </div>
+                    <div class="model-badge active-grok">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <span>xAI Grok (CLI / Web)</span>
+                    </div>
                     <div class="model-badge active-cursor">
-                        <span>🔷</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                         <span>Cursor & Windsurf IDE</span>
                     </div>
                 </div>
@@ -869,26 +1038,38 @@
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             دستور کاربر (فارسی / English)
                         </div>
-                        "ویدیوهای پوشه B-Roll رو وارد کن، یه تایم‌لاین 4K بساز، سکوت‌های وویس رو ببر و لوک سایبرپانک روش بنداز."
+                        "ویدیوهای مصاحبه رو وارد کن، یه تایم‌لاین 4K بساز، سکوت‌های وویس رو ببر و با هوش مصنوعی کپزو زیرنویس کلمه‌ای دقیق فارسی روی تصویر بنداز."
                     </div>
 
                     <div class="chat-bubble chat-ai">
                         <div class="chat-ai-label">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                            پاسخ دستیار هوش مصنوعی (ChatGPT / Gemini / Grok / Claude)
+                            پاسخ دستیار هوش مصنوعی (ChatGPT / Gemini / Grok / Claude / Capzo)
                         </div>
-                        <div style="font-weight: 700; margin-bottom: 4px;">در حال اجرای دستورات تدوین در Adobe Premiere Pro از طریق NovaCut MCP:</div>
+                        <div style="font-weight: 700; margin-bottom: 5px; color: #f8fafc;">در حال اجرای هوشمند زنجیره فرامین در Adobe Premiere Pro از طریق NovaCut MCP:</div>
                         <div class="action-step done">
-                            <span>✓</span>
+                            <span class="step-icon-svg">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </span>
                             <span>توالی جدید با ابعاد 3840x2160 با موفقیت ساخته شد (Sequence ID: 104)</span>
                         </div>
                         <div class="action-step done">
-                            <span>✓</span>
-                            <span>کلیپ‌های B-Roll_Tokyo_4K با موفقیت ایمپورت و روی ترک ویدیویی قرار گرفتند</span>
+                            <span class="step-icon-svg">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </span>
+                            <span>آنالیز فرکانس و برش خودکار سکوت‌های ترک صوتی Audio 1 (-32dB) اعمال شد</span>
+                        </div>
+                        <div class="action-step done">
+                            <span class="step-icon-svg">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </span>
+                            <span>سرویس Capzo AI: ۲۴۷ کلمه با تقطیع صدم‌ثانیه‌ای دریافت و روی ترک Essential Graphics تایم‌لاین سینک شد</span>
                         </div>
                         <div class="action-step in-progress">
-                            <span>⚡</span>
-                            <span>در حال آنالیز فرکانس و برش خودکار سکوت‌های ترک صوتی Audio 1 (-32dB)...</span>
+                            <span class="step-icon-svg">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </span>
+                            <span>در حال اعمال لوک رنگی سینمایی و به‌روزرسانی پیش‌نمایش در پنجره Program...</span>
                         </div>
                     </div>
                 </div>
@@ -897,24 +1078,24 @@
                 <div class="features-grid">
                     <div class="feature-box">
                         <div class="feature-title">
-                            <span>🌍</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                             <span>دو زبانه و RTL کامل</span>
                         </div>
                         <div class="feature-desc">پشتیبانی عمیق از پرامپت‌ها و کلیدواژه‌های فارسی تدوین با رابط کاربری راست‌چین</div>
                     </div>
                     <div class="feature-box">
                         <div class="feature-title">
-                            <span>🛡️</span>
-                            <span>رفع تمامی باگ‌ها</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>هوش مصنوعی کپزو (Capzo)</span>
                         </div>
-                        <div class="feature-desc">حل باگ‌های کرش stdio، خطای Field required #123، و امضای CEP پریمیر ۲۰۲۵/۲۰۲۶</div>
+                        <div class="feature-desc">اتصال مستقیم API برای تولید زیرنویس فارسی با تقطیع کلمه‌ای و نمایش زنده مصرف</div>
                     </div>
                     <div class="feature-box">
                         <div class="feature-title">
-                            <span>🚀</span>
-                            <span>نصب آسان ۱ کلیکه</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span>نصب آسان ۱-کلیکه</span>
                         </div>
-                        <div class="feature-desc">دارای install.bat برای نصب خودکار، رجیستری و کانفیگ کلاینت‌ها بدون دردسر</div>
+                        <div class="feature-desc">دارای NovaCut-Setup.exe مدرن برای رجیستری و کانفیگ خودکار کلاینت‌ها بدون باگ</div>
                     </div>
                 </div>
             </div>
