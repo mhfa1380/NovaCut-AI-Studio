@@ -24,6 +24,8 @@
 > 🇮🇷 **راهنمای جامع فارسی:** برای مطالعه راهنمای کامل نصب و استفاده به زبان فارسی، به [README.fa.md](README.fa.md) مراجعه کنید.
 >
 > 🚀 **1-Click Quick Install:** Simply double-click `install.bat` on Windows! All Adobe registry keys, CEP extension files, and AI client configs are configured automatically.
+>
+> 🔄 **1-Click Auto Update:** Simply double-click `update.bat` or run `novacut update` to pull the latest releases from GitHub and sync your installation!
 
 
 **Languages:** English | [日本語](translations/README.ja.md) | [Tiếng Việt](translations/README.vi.md) | [简体中文](translations/README.zh-CN.md) | [繁體中文](translations/README.zh-TW.md) | [한국어](translations/README.ko.md) | [Deutsch](translations/README.de.md) | [Español](translations/README.es.md) | [Français](translations/README.fr.md) | [Italiano](translations/README.it.md) | [Dansk](translations/README.da.md) | [Polski](translations/README.pl.md) | [Русский](translations/README.ru.md) | [Bosanski](translations/README.bs.md) | [العربية](translations/README.ar.md) | [Norsk](translations/README.no.md) | [Português (Brasil)](translations/README.pt-BR.md) | [ไทย](translations/README.th.md) | [Türkçe](translations/README.tr.md) | [ភាសាខ្មែរ](translations/README.km.md)
@@ -53,6 +55,19 @@ Requirements:
 - Premiere Pro, the MCP client, and this package on the same computer
 
 The bundled `uxp-plugin` is an **experimental preview**. It is shipped for evaluation but is not a replacement for the validated CEP bridge and is not installed by the CLI.
+
+## Update
+
+Keep NovaCut AI Studio up to date with the latest features, tools, and bug fixes:
+
+- **1-Click on Windows:** Double-click **`update.bat`** in the root directory.
+- **Via CLI:**
+  ```bash
+  novacut check-update    # Check if a newer release exists on GitHub
+  novacut update          # Pull latest changes, rebuild, and re-sync CEP extension
+  ```
+  *(or `npm run update` / `npm run check-update`)*
+- **From Premiere Pro Panel:** Open the NovaCut panel, switch to the **Settings** tab, and click **Check for Updates** or **1-Click Update**.
 
 ### Codex plugin
 

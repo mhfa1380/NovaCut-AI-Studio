@@ -31,6 +31,8 @@
     "dev": "tsc --watch",
     "start": "node dist/cli.js",
     "setup": "node dist/cli.js setup",
+    "update": "node dist/cli.js update",
+    "check-update": "node dist/cli.js check-update",
     "config": "node dist/cli.js config",
     "install-cep": "node dist/cli.js --install-cep",
     "doctor": "node dist/cli.js --doctor",

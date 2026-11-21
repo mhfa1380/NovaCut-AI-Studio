@@ -873,6 +873,31 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Update Management Glass Card -->
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption" id="txtUpdateTitle">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                        وضعیت و به‌روزرسانی (Updates)
+                    </span>
+                    <span class="profile-chip" id="lblCurrentVer">v2.0.0</span>
+                </div>
+                <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px;" id="txtUpdateStatusDesc">
+                    بررسی انتشار نسخه‌های جدیدتر و ارتقای ۱-کلیکه از مخزن رسمی گیت‌هاب:
+                </div>
+                <div class="actions-quad">
+                    <button class="dock-btn btn-neutral" onclick="checkUpdates()" id="btnCheckUpdates">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        <span id="lblCheckUpdates">بررسی نسخه جدید</span>
+                    </button>
+                    <button class="dock-btn btn-launch" onclick="triggerAutoUpdate()" id="btnDoUpdate">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span id="lblDoUpdate">آپدیت ۱-کلیکه</span>
+                    </button>
+                </div>
+                <div id="updateFeedback" style="display: none; margin-top: 10px; font-size: 11px; padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.03);"></div>
+            </div>
         </section>
 
         <footer class="studio-footer">

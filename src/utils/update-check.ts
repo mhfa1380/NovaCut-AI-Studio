@@ -3,12 +3,13 @@ import { homedir as osHomedir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { PACKAGE_VERSION } from '../version.js';
 
-export const NPM_LATEST_URL = 'https://registry.npmjs.org/adobe-premiere-pro-mcp/latest';
+export const GITHUB_LATEST_RELEASE_URL =
+  'https://api.github.com/repos/mhfa1380/NovaCut-AI-Studio/releases/latest';
 export const INSTALL_COMMAND =
-  'npm install -g adobe-premiere-pro-mcp@latest && premiere-pro-mcp --install-cep';
+  'novacut update (or double-click update.bat)';
 export const UPDATE_SNOOZE_MS = 7 * 24 * 60 * 60 * 1000;
 export const UPDATE_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
-const UPDATE_FETCH_TIMEOUT_MS = 2500;
+const UPDATE_FETCH_TIMEOUT_MS = 3000;
 
 export type UpdateEnv = NodeJS.Dict<string | undefined>;
 
@@ -61,7 +62,9 @@ function writeJson(path: string, value: Record<string, unknown>): void {
 }
 
 function configDir(homedirPath: string): string {
-  return join(homedirPath, '.premiere-mcp-bridge');
+  const novaPath = join(homedirPath, '.novacut-bridge');
+  const legacyPath = join(homedirPath, '.premiere-mcp-bridge');
+  return existsSync(novaPath) ? novaPath : (existsSync(legacyPath) ? legacyPath : novaPath);
 }
 
 function configPath(homedirPath: string): string {
@@ -120,7 +123,7 @@ function cachedLatest(homedirPath: string, now: number): string | undefined {
 function statusFor(current: string, latest: string | undefined, snoozed: boolean): UpdateStatus {
   const available = Boolean(latest && compareSemver(latest, current) > 0);
   const nextStep = available && !snoozed
-    ? `Update recommended: ${latest} is available (you have ${current}). Give the user this command, or later: ${INSTALL_COMMAND}. Then reload Window > Extensions > MCP Bridge and restart the MCP client.`
+    ? `Update available: NovaCut AI Studio v${latest} is ready (current: v${current}). Run "${INSTALL_COMMAND}" or click update.bat to update. (نسخه جدید نوواکات در دسترس است: ${INSTALL_COMMAND})`
     : undefined;
   return {
     current,
@@ -137,16 +140,20 @@ async function fetchLatestVersion(
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPDATE_FETCH_TIMEOUT_MS);
   try {
-    const response = await fetchFn(NPM_LATEST_URL, {
+    const response = await fetchFn(GITHUB_LATEST_RELEASE_URL, {
       signal: controller.signal,
       headers: {
-        Accept: 'application/json',
-        'User-Agent': `adobe-premiere-pro-mcp/${PACKAGE_VERSION}`,
+        Accept: 'application/vnd.github.v3+json',
+        'User-Agent': `novacut-premiere-mcp/${PACKAGE_VERSION}`,
       },
     });
     if (!response.ok) return undefined;
-    const body = (await response.json()) as { version?: unknown };
-    return typeof body.version === 'string' ? body.version : undefined;
+    const body = (await response.json()) as { tag_name?: unknown; name?: unknown };
+    const rawTag = typeof body.tag_name === 'string' ? body.tag_name : (typeof body.name === 'string' ? body.name : undefined);
+    if (rawTag) {
+      return rawTag.replace(/^v/i, '');
+    }
+    return undefined;
   } catch {
     return undefined;
   } finally {

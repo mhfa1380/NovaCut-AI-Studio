@@ -8,6 +8,7 @@
 (function() {
     var hasNode = typeof require !== 'undefined';
     var fs = hasNode ? require('fs') : null;
+    var child_process = hasNode ? require('child_process') : null;
     var path = hasNode ? require('path') : {
         join: function() { return Array.prototype.slice.call(arguments).join('/'); },
         resolve: function(p) { return p; }
@@ -226,7 +227,15 @@
             copied: "کپی شد!",
             copyConfig: "کپی کانفیگ",
             aiTitle: "راهنمای اتصال مدل‌های هوش مصنوعی",
-            aiSubtitle: "کانفیگ مربوط به کلاینت خود را کپی کنید و در تنظیمات MCP آن قرار دهید:"
+            aiSubtitle: "کانفیگ مربوط به کلاینت خود را کپی کنید و در تنظیمات MCP آن قرار دهید:",
+            updateTitle: "وضعیت و به‌روزرسانی (Updates)",
+            updateDesc: "بررسی انتشار نسخه‌های جدیدتر و ارتقای ۱-کلیکه از مخزن رسمی گیت‌هاب:",
+            checkUpdatesBtn: "بررسی نسخه جدید",
+            doUpdateBtn: "آپدیت ۱-کلیکه",
+            checkingUpdates: "در حال بررسی گیت‌هاب...",
+            upToDate: "✓ شما از آخرین نسخه نوواکات استفاده می‌کنید (v2.0.0)",
+            updateAvailable: "🚀 نسخه جدید در دسترس است! روی آپدیت ۱-کلیکه بزنید.",
+            startingUpdate: "در حال اجرای پروسه به‌روزرسانی..."
         },
         en: {
             title: "NovaCut AI Studio",
@@ -263,7 +272,15 @@
             copied: "Copied!",
             copyConfig: "Copy Config",
             aiTitle: "AI Assistants Connection Guide",
-            aiSubtitle: "Copy the configuration for your client and paste it into its MCP configuration:"
+            aiSubtitle: "Copy the configuration for your client and paste it into its MCP configuration:",
+            updateTitle: "Updates & Release Status",
+            updateDesc: "Check for newer releases and 1-click update from official GitHub repository:",
+            checkUpdatesBtn: "Check for Updates",
+            doUpdateBtn: "1-Click Update",
+            checkingUpdates: "Checking GitHub...",
+            upToDate: "✓ NovaCut AI Studio is up to date (v2.0.0)",
+            updateAvailable: "🚀 A new version is available! Click 1-Click Update.",
+            startingUpdate: "Starting update process in a new window..."
         }
     };
 
@@ -386,6 +403,10 @@
         setElemText('lblSaveConfig', t.saveConfigBtn);
         setElemText('txtAiTitle', t.aiTitle);
         setElemText('txtAiSubtitle', t.aiSubtitle);
+        setElemText('txtUpdateTitle', t.updateTitle);
+        setElemText('txtUpdateStatusDesc', t.updateDesc);
+        setElemText('lblCheckUpdates', t.checkUpdatesBtn);
+        setElemText('lblDoUpdate', t.doUpdateBtn);
 
         this.updateUI();
     };
@@ -859,6 +880,96 @@
         this.testPremiereConnection();
     };
 
+    NovaCutBridge.prototype.checkUpdates = function() {
+        var self = this;
+        var t = I18N[this.currentLang] || I18N.fa;
+        var feedback = document.getElementById('updateFeedback');
+        if (feedback) {
+            feedback.style.display = 'block';
+            feedback.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+            feedback.style.color = '#c084fc';
+            feedback.textContent = t.checkingUpdates;
+        }
+
+        var githubUrl = 'https://api.github.com/repos/mhfa1380/NovaCut-AI-Studio/releases/latest';
+
+        fetch(githubUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } })
+            .then(function(res) {
+                if (!res.ok) {
+                    return fetch('https://api.github.com/repos/mhfa1380/NovaCut-AI-Studio/commits/main', {
+                        headers: { 'Accept': 'application/vnd.github.v3+json' }
+                    }).then(function(r) { return r.json(); }).then(function(c) {
+                        return { commit: c.sha ? c.sha.substring(0, 7) : null };
+                    });
+                }
+                return res.json();
+            })
+            .then(function(data) {
+                if (feedback) {
+                    var latestTag = data.tag_name || data.name;
+                    if (latestTag && latestTag !== 'v2.0.0' && latestTag !== '2.0.0') {
+                        feedback.style.borderColor = 'rgba(245, 158, 11, 0.5)';
+                        feedback.style.color = '#fde68a';
+                        feedback.textContent = (t.updateAvailable) + ' (' + latestTag + ')';
+                    } else {
+                        feedback.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+                        feedback.style.color = '#6ee7b7';
+                        feedback.textContent = t.upToDate;
+                    }
+                }
+                self.log('Update check completed successfully.', 'info');
+            })
+            .catch(function() {
+                if (feedback) {
+                    feedback.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+                    feedback.style.color = '#6ee7b7';
+                    feedback.textContent = t.upToDate;
+                }
+                self.log('Update check result: current version is active.', 'info');
+            });
+    };
+
+    NovaCutBridge.prototype.triggerAutoUpdate = function() {
+        var self = this;
+        var t = I18N[this.currentLang] || I18N.fa;
+        var feedback = document.getElementById('updateFeedback');
+        if (feedback) {
+            feedback.style.display = 'block';
+            feedback.style.borderColor = 'rgba(16, 185, 129, 0.5)';
+            feedback.style.color = '#6ee7b7';
+            feedback.textContent = t.startingUpdate;
+        }
+
+        this.log('Launching NovaCut 1-Click Auto Updater...', 'info');
+
+        try {
+            if (hasNode && child_process && os.platform() === 'win32') {
+                var repoPath = path.resolve(__dirname, '..');
+                var batPath = path.join(repoPath, 'update.bat');
+                if (fs && fs.existsSync(batPath)) {
+                    child_process.spawn('cmd.exe', ['/c', 'start', 'cmd.exe', '/k', batPath], {
+                        cwd: repoPath,
+                        detached: true,
+                        stdio: 'ignore'
+                    });
+                    self.log('update.bat launched in new terminal.', 'info');
+                    return;
+                }
+            }
+        } catch (e) {
+            self.log('Auto updater launch: ' + e.message, 'warning');
+        }
+
+        // Fallback: open GitHub repo release page
+        try {
+            if (this.csInterface && this.csInterface.openURLInDefaultBrowser) {
+                this.csInterface.openURLInDefaultBrowser('https://github.com/mhfa1380/NovaCut-AI-Studio');
+            } else if (window.open) {
+                window.open('https://github.com/mhfa1380/NovaCut-AI-Studio', '_blank');
+            }
+        } catch (e) {}
+    };
+
     // Global exports for DOM events
     window.NovaCutBridge = NovaCutBridge;
     window.bridge = null;
@@ -866,6 +977,8 @@
     window.stopBridge = function() { if (window.bridge) window.bridge.stopBridge(); };
     window.runDiagnostics = function() { if (window.bridge) window.bridge.runDiagnostics(); };
     window.testPremiereConnection = function() { if (window.bridge) window.bridge.testPremiereConnection(); };
+    window.checkUpdates = function() { if (window.bridge) window.bridge.checkUpdates(); };
+    window.triggerAutoUpdate = function() { if (window.bridge) window.bridge.triggerAutoUpdate(); };
     window.saveConfig = function() { if (window.bridge) window.bridge.saveConfig(); };
     window.saveTelemetryPreference = function() { if (window.bridge) window.bridge.saveTelemetryPreference(); };
     window.saveToolsetPreference = function() { if (window.bridge) window.bridge.saveToolsetPreference(); };

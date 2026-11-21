@@ -3,6 +3,7 @@
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { checkForUpdate } from './utils/update-check.js';
 
 const packageRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const serverEntry = join(packageRoot, 'dist', 'index.js');
@@ -22,6 +23,8 @@ Description:
 Usage:
   novacut                       Start the MCP stdio server
   novacut setup                 Install the CEP bridge & auto-configure AI clients
+  novacut update                1-Click auto-update to latest version from GitHub
+  novacut check-update          Check if a newer version is available
   novacut doctor                Run diagnostic health checks (Windows / macOS)
   novacut config [client]       Generate ready-to-use MCP configuration
   novacut --version             Show package version
@@ -199,6 +202,26 @@ async function main(): Promise<void> {
     case 'doctor':
       await runPlatformScript('doctor-macos.sh', 'doctor-windows.ps1');
       return;
+    case '--update':
+    case 'update':
+      await runPlatformScript('update-macos.sh', 'update-windows.ps1');
+      return;
+    case '--check-update':
+    case 'check-update': {
+      console.log('🔍 Checking for NovaCut AI Studio updates from GitHub...');
+      console.log('در حال بررسی نسخه جدید استودیو نوواکات در گیت‌هاب...');
+      const status = await checkForUpdate();
+      if (status.available && status.latest) {
+        console.log(`\n🚀 [UPDATE AVAILABLE] A new version (v${status.latest}) is ready!`);
+        console.log(`نسخه جدید (v${status.latest}) در دسترس است! شما از نسخه v${status.current} استفاده می‌کنید.`);
+        console.log(`\nTo update, run: novacut update`);
+        console.log(`یا کافی است روی فایل update.bat دابل کلیک کنید.\n`);
+      } else {
+        console.log(`\n✓ [UP TO DATE] NovaCut AI Studio v${status.current} is the latest version.`);
+        console.log(`شما در حال استفاده از آخرین نسخه موجود هستید (v${status.current}).\n`);
+      }
+      return;
+    }
     case 'config':
       printClientConfigs(subCommand);
       return;
