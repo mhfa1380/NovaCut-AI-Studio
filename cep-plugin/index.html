@@ -725,6 +725,105 @@
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 999px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
+        /* Editing Skills & Brand Kit Styles */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .skill-card {
+            background: rgba(8, 12, 20, 0.7);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 9px 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .skill-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(14, 20, 32, 0.85);
+        }
+
+        .skill-card.active-skill {
+            border-color: var(--iris-primary);
+            background: rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 14px var(--iris-glow);
+        }
+
+        .skill-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .skill-card-title {
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-card-desc {
+            font-size: 10px;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        .skill-specs-row {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .skill-spec-tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 2px 7px;
+            font-size: 8.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .color-pickers-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+        }
+
+        .color-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(7, 10, 16, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 4px 6px;
+        }
+
+        .color-box input[type="color"] {
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .color-box span {
+            font-size: 9.5px;
+            font-family: monospace;
+            color: var(--text-main);
+        }
+
         .studio-footer {
             text-align: center;
             font-size: 9px;
@@ -805,6 +904,10 @@
             <button class="segment-btn" onclick="switchTab('capzo')" id="tabBtnCapzo">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                 <span>کپزو AI</span>
+            </button>
+            <button class="segment-btn" onclick="switchTab('brand')" id="tabBtnBrand">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                <span id="tabLabelBrand">سبک و برند</span>
             </button>
             <button class="segment-btn" onclick="switchTab('aiconnect')" id="tabBtnAi">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -955,6 +1058,226 @@
                 </button>
 
                 <div id="capzoProcessLog" style="display: none; margin-top: 8px; font-size: 10px; padding: 6px 9px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); max-height: 95px; overflow-y: auto; font-family: monospace;"></div>
+            </div>
+        </section>
+
+        <!-- Pane: Brand & Editing Skills -->
+        <section class="tab-pane" id="pane-brand">
+            <!-- World-Class Editing Skills -->
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        مهارت‌های تدوین حرفه‌ای جهانی (Editing Skills)
+                    </span>
+                    <span class="profile-chip" id="activeSkillBadge" style="background: rgba(139, 92, 246, 0.2); color: #d8b4fe;">سبک هورموزی (فعال)</span>
+                </div>
+                <p style="font-size: 10px; color: var(--text-secondary); margin-bottom: 9px; line-height: 1.45;">
+                    با ۱ کلیک، سبک، ریتم برش، ساند دیزاین و استایل زیرنویس تدوین‌گران برتر دنیا را روی پروژه فعال کنید:
+                </p>
+
+                <div class="skills-grid">
+                    <!-- Hormozi -->
+                    <div class="skill-card active-skill" id="card-skill-hormozi_kinetic">
+                        <div class="skill-card-head">
+                            <span class="skill-card-title">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFE600" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                                ریلز و شورتس ویرال (سبک هورموزی)
+                            </span>
+                            <span class="profile-chip" style="font-size: 8px;">VIRAL REELS</span>
+                        </div>
+                        <div class="skill-card-desc">ابعاد ۹:۱۶ عمودی، کات‌های ۱ تا ۲ ثانیه، زیرنویس کلمه‌ای کینتیک با هایلایت رنگی و زوم‌های ناگهانی روی کلمات کلیدی.</div>
+                        <div class="skill-specs-row">
+                            <span class="skill-spec-tag">۹:۱۶ عمودی</span>
+                            <span class="skill-spec-tag">کات هر ۱.۵s</span>
+                            <span class="skill-spec-tag">Capzo Word-by-Word</span>
+                            <span class="skill-spec-tag">ساند افکت وووش و دینگ</span>
+                        </div>
+                        <button class="dock-btn btn-launch" style="margin-top: 5px;" onclick="activateSkill('hormozi_kinetic')">
+                            فعال‌سازی این سبک روی پروژه
+                        </button>
+                    </div>
+
+                    <!-- MrBeast -->
+                    <div class="skill-card" id="card-skill-mrbeast_retention">
+                        <div class="skill-card-head">
+                            <span class="skill-card-title">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                ریتنشن ماکسیمم (سبک مستربیست)
+                            </span>
+                            <span class="profile-chip" style="font-size: 8px;">HIGH RETENTION</span>
+                        </div>
+                        <div class="skill-card-desc">ریتم فوق‌سریع کات‌ها (۱.۵ تا ۲.۵ ثانیه)، حذف کامل سکوت‌ها، ساند دیزاین پرهیجان (رایزر و ایمپکت) و تصاویر B-Roll مداوم.</div>
+                        <div class="skill-specs-row">
+                            <span class="skill-spec-tag">۱۶:۹ یوتیوب</span>
+                            <span class="skill-spec-tag">کات ۱.۵-۲.۵s</span>
+                            <span class="skill-spec-tag">سکوت‌بری -35dB</span>
+                            <span class="skill-spec-tag">ساند افکت هیجان بالا</span>
+                        </div>
+                        <button class="dock-btn btn-neutral" style="margin-top: 5px;" onclick="activateSkill('mrbeast_retention')">
+                            فعال‌سازی این سبک روی پروژه
+                        </button>
+                    </div>
+
+                    <!-- Ali Abdaal -->
+                    <div class="skill-card" id="card-skill-ali_abdaal_aesthetic">
+                        <div class="skill-card-head">
+                            <span class="skill-card-title">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path></svg>
+                                زیبایی‌شناختی و مدرن (سبک علی ابدال)
+                            </span>
+                            <span class="profile-chip" style="font-size: 8px;">CLEAN MINIMAL</span>
+                        </div>
+                        <div class="skill-card-desc">تدوین باوقار، مینیمال و خوش‌سلیقه؛ فاصله تنفس بین جملات، تایپوگرافی سوئیسی شیک با یکان باخ، تم گرم و موزیک ملایم لو-فای.</div>
+                        <div class="skill-specs-row">
+                            <span class="skill-spec-tag">۱۶:۹ آموزنده</span>
+                            <span class="skill-spec-tag">کات ۳-۵s</span>
+                            <span class="skill-spec-tag">رنگ گرم و مات</span>
+                            <span class="skill-spec-tag">موزیک Lo-Fi داینامیک</span>
+                        </div>
+                        <button class="dock-btn btn-neutral" style="margin-top: 5px;" onclick="activateSkill('ali_abdaal_aesthetic')">
+                            فعال‌سازی این سبک روی پروژه
+                        </button>
+                    </div>
+
+                    <!-- Vox Documentary -->
+                    <div class="skill-card" id="card-skill-vox_documentary">
+                        <div class="skill-card-head">
+                            <span class="skill-card-title">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                                مستند سینمایی (سبک Vox و جانی هریس)
+                            </span>
+                            <span class="profile-chip" style="font-size: 8px;">CINEMATIC ESSAY</span>
+                        </div>
+                        <div class="skill-card-desc">روایتگری پژوهشی سینمایی؛ نسبت تصویر عریض ۲.۳۹:۱، گرین فیلم، ساند افکت‌های فیزیکی ماشین‌تحریر و کاغذ با زوم‌های تدریجی عمیق.</div>
+                        <div class="skill-specs-row">
+                            <span class="skill-spec-tag">۲.۳۹:۱ سینمایی</span>
+                            <span class="skill-spec-tag">فریم‌های مقایسه‌ای</span>
+                            <span class="skill-spec-tag">افکت صوتی فیزیکی</span>
+                            <span class="skill-spec-tag">زوم آرام ۰.۵%</span>
+                        </div>
+                        <button class="dock-btn btn-neutral" style="margin-top: 5px;" onclick="activateSkill('vox_documentary')">
+                            فعال‌سازی این سبک روی پروژه
+                        </button>
+                    </div>
+
+                    <!-- MKBHD Tech -->
+                    <div class="skill-card" id="card-skill-mkbhd_minimal_tech">
+                        <div class="skill-card-head">
+                            <span class="skill-card-title">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                بررسی تکنولوژی و استودیویی (سبک MKBHD)
+                            </span>
+                            <span class="profile-chip" style="font-size: 8px;">STUDIO TECH</span>
+                        </div>
+                        <div class="skill-card-desc">کیفیت استودیویی شفاف 4K، تصحیح رنگ عمیق با بلک‌های خالص، اسپیدرمپ‌های نرم روی قطعات و وضوح صدای کریستالی -14 LUFS.</div>
+                        <div class="skill-specs-row">
+                            <span class="skill-spec-tag">4K UHD</span>
+                            <span class="skill-spec-tag">کالرگرید لومتری</span>
+                            <span class="skill-spec-tag">اسپیدرمپ B-Roll</span>
+                            <span class="skill-spec-tag">صدای مستر استودیویی</span>
+                        </div>
+                        <button class="dock-btn btn-neutral" style="margin-top: 5px;" onclick="activateSkill('mkbhd_minimal_tech')">
+                            فعال‌سازی این سبک روی پروژه
+                        </button>
+                    </div>
+
+                    <!-- Podcast Master -->
+                    <div class="skill-card" id="card-skill-podcast_master">
+                        <div class="skill-card-head">
+                            <span class="skill-card-title">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                                پادکست و مصاحبه چنددوربینه
+                            </span>
+                            <span class="profile-chip" style="font-size: 8px;">STUDIO PODCAST</span>
+                        </div>
+                        <div class="skill-card-desc">سوییچ خودکار نماها بر اساس صحبت گوینده، مسترینگ استاندارد صدا (-16 LUFS)، حذف نویز و مارکربندی فصول زمانی در تایم‌لاین.</div>
+                        <div class="skill-specs-row">
+                            <span class="skill-spec-tag">چنددوربینه (Multi-Cam)</span>
+                            <span class="skill-spec-tag">تراز صوتی -16 LUFS</span>
+                            <span class="skill-spec-tag">لورترد گوینده</span>
+                            <span class="skill-spec-tag">مارکر فصول زمانی</span>
+                        </div>
+                        <button class="dock-btn btn-neutral" style="margin-top: 5px;" onclick="activateSkill('podcast_master')">
+                            فعال‌سازی این سبک روی پروژه
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Kit -->
+            <div class="glass-card">
+                <div class="card-head">
+                    <span class="card-caption">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        هویت برند و دیزاین اختصاصی (Brand Kit)
+                    </span>
+                    <span class="profile-chip" id="brandActiveChip">برند: NovaCut Studio</span>
+                </div>
+                <p style="font-size: 10px; color: var(--text-secondary); margin-bottom: 9px; line-height: 1.45;">
+                    رنگ‌های سازمانی، فونت، واترمارک و امضای ویدیویی خود را تعریف کنید تا در تمام پروژه‌ها اعمال شوند:
+                </p>
+
+                <div class="form-row">
+                    <label class="input-label" for="brandNameInput">نام برند یا کانال:</label>
+                    <input type="text" id="brandNameInput" placeholder="مثال: دیجی‌کالا / NovaCut Studio" value="NovaCut Studio" />
+                </div>
+
+                <div class="form-row">
+                    <label class="input-label">پالت رنگی برند (اصلی / ثانویه / تاکیدی):</label>
+                    <div class="color-pickers-row">
+                        <div class="color-box">
+                            <input type="color" id="brandColorPrimary" value="#8b5cf6" onchange="document.getElementById('hexPrimary').textContent = this.value;" />
+                            <span id="hexPrimary">#8b5cf6</span>
+                        </div>
+                        <div class="color-box">
+                            <input type="color" id="brandColorSecondary" value="#06b6d4" onchange="document.getElementById('hexSecondary').textContent = this.value;" />
+                            <span id="hexSecondary">#06b6d4</span>
+                        </div>
+                        <div class="color-box">
+                            <input type="color" id="brandColorAccent" value="#10b981" onchange="document.getElementById('hexAccent').textContent = this.value;" />
+                            <span id="hexAccent">#10b981</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 9px;">
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label class="input-label" for="brandFontSelect">فونت اختصاصی:</label>
+                        <select id="brandFontSelect">
+                            <option value="Yekan Bakh" selected>یکان باخ (Yekan Bakh)</option>
+                            <option value="Vazir">وزیر (Vazir)</option>
+                            <option value="IRANSans">ایران‌سنس (IRANSans)</option>
+                            <option value="Segoe UI">سیستمی مدرن (Segoe UI)</option>
+                        </select>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label class="input-label" for="brandWatermarkPos">موقعیت واترمارک:</label>
+                        <select id="brandWatermarkPos">
+                            <option value="top-right" selected>بالا - راست</option>
+                            <option value="top-left">بالا - چپ</option>
+                            <option value="bottom-right">پایین - راست</option>
+                            <option value="bottom-left">پایین - چپ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="input-label" for="brandLogoPathInput">مسیر فایل لوگو یا واترمارک شفاف (PNG):</label>
+                    <input type="text" id="brandLogoPathInput" placeholder="C:\Assets\BrandLogo.png" />
+                </div>
+
+                <div class="actions-quad" style="margin-top: 6px;">
+                    <button class="dock-btn btn-launch" onclick="saveBrandKit()">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        <span>ذخیره هویت برند</span>
+                    </button>
+                    <button class="dock-btn btn-neutral" onclick="applyBrandKit()">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>اعمال روی پروژه</span>
+                    </button>
+                </div>
+                <div id="brandFeedbackLog" style="display: none; margin-top: 8px; font-size: 10px; padding: 6px 9px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02);"></div>
             </div>
         </section>
 

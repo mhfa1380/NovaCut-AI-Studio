@@ -7,6 +7,7 @@
 import type { ToolModule } from '../context.js';
 
 import { audioTools } from './audio.js';
+import { brandTools } from './brand.js';
 import { capzoTools } from './capzo.js';
 import { discoveryTools } from './discovery.js';
 import { effectsTools } from './effects.js';
@@ -16,12 +17,14 @@ import { markersTools } from './markers.js';
 import { mediaTools } from './media.js';
 import { projectTools } from './project.js';
 import { sequenceTools } from './sequence.js';
+import { skillsTools } from './skills.js';
 import { timelineTools } from './timeline.js';
 import { tracksTools } from './tracks.js';
 import { workflowsTools } from './workflows.js';
 
 export const domainTools: ToolModule[] = [
   ...audioTools,
+  ...brandTools,
   ...capzoTools,
   ...discoveryTools,
   ...effectsTools,
@@ -31,6 +34,7 @@ export const domainTools: ToolModule[] = [
   ...mediaTools,
   ...projectTools,
   ...sequenceTools,
+  ...skillsTools,
   ...timelineTools,
   ...tracksTools,
   ...workflowsTools,

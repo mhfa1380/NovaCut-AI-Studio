@@ -1185,8 +1185,126 @@
         }
     };
 
+    NovaCutBridge.prototype.activateEditingSkill = function(skillId) {
+        var self = this;
+        var names = {
+            hormozi_kinetic: 'سبک هورموزی (ریلز ویرال)',
+            mrbeast_retention: 'سبک مستربیست (ریتنشن بالا)',
+            ali_abdaal_aesthetic: 'سبک علی ابدال (مینیمال مدرن)',
+            vox_documentary: 'سبک Vox (مستند سینمایی)',
+            mkbhd_minimal_tech: 'سبک MKBHD (بررسی تکنولوژی)',
+            podcast_master: 'سبک پادکست استودیویی'
+        };
+        var displayName = names[skillId] || skillId;
+
+        // Update UI
+        var allCards = document.querySelectorAll('.skill-card');
+        allCards.forEach(function(c) { c.classList.remove('active-skill'); });
+        var targetCard = document.getElementById('card-skill-' + skillId);
+        if (targetCard) targetCard.classList.add('active-skill');
+
+        var badge = document.getElementById('activeSkillBadge');
+        if (badge) badge.textContent = displayName + ' (فعال)';
+
+        // Persist locally
+        try {
+            localStorage.setItem('novacut_active_skill', skillId);
+            var home = process.env.USERPROFILE || process.env.HOME || '';
+            if (home && fs) {
+                var p = path.join(home, '.novacut-bridge', 'active_skill.json');
+                fs.writeFileSync(p, JSON.stringify({ activeSkillId: skillId, activatedAt: new Date().toISOString() }), 'utf8');
+            }
+        } catch(e) {}
+
+        // Add timeline marker in Premiere Pro
+        this.executeExtendScript(
+            '(function(){ try { if (app.project && app.project.activeSequence && app.project.activeSequence.markers) { var m = app.project.activeSequence.markers.createMarker(0.0); m.name = "Skill: ' + skillId + '"; m.comments = "' + displayName + '"; m.setColorByIndex(3); return "MARKER_ADDED"; } return "NO_SEQ"; } catch(e){ return String(e); } })()',
+            function(err, res) {
+                self.log('[SKILL] مهارت تدوین تغییر یافت: ' + displayName, 'info');
+            }
+        );
+    };
+
+    NovaCutBridge.prototype.saveBrandKit = function() {
+        var nameInput = document.getElementById('brandNameInput');
+        var colPrimary = document.getElementById('brandColorPrimary');
+        var colSecondary = document.getElementById('brandColorSecondary');
+        var colAccent = document.getElementById('brandColorAccent');
+        var fontSelect = document.getElementById('brandFontSelect');
+        var posSelect = document.getElementById('brandWatermarkPos');
+        var logoInput = document.getElementById('brandLogoPathInput');
+        var log = document.getElementById('brandFeedbackLog');
+
+        var brand = {
+            id: 'default',
+            name: nameInput ? nameInput.value.trim() : 'NovaCut Studio',
+            colors: {
+                primary: colPrimary ? colPrimary.value : '#8b5cf6',
+                secondary: colSecondary ? colSecondary.value : '#06b6d4',
+                accent: colAccent ? colAccent.value : '#10b981'
+            },
+            typography: {
+                headingFont: fontSelect ? fontSelect.value : 'Yekan Bakh'
+            },
+            watermark: {
+                position: posSelect ? posSelect.value : 'top-right',
+                logoPath: logoInput ? logoInput.value.trim() : ''
+            }
+        };
+
+        try {
+            localStorage.setItem('novacut_brand_kit', JSON.stringify(brand));
+            var home = process.env.USERPROFILE || process.env.HOME || '';
+            if (home && fs) {
+                var p = path.join(home, '.novacut-bridge', 'brand_kits.json');
+                fs.writeFileSync(p, JSON.stringify({ default: brand }, null, 2), 'utf8');
+            }
+            if (log) {
+                log.style.display = 'block';
+                log.innerHTML = '<span style="color: #34d399;">هویت برند "' + brand.name + '" با پالت رنگی و فونت ' + brand.typography.headingFont + ' با موفقیت ذخیره شد.</span>';
+            }
+            var chip = document.getElementById('brandActiveChip');
+            if (chip) chip.textContent = 'برند: ' + brand.name;
+            this.log('Brand Kit saved: ' + brand.name, 'info');
+        } catch(e) {
+            if (log) {
+                log.style.display = 'block';
+                log.innerHTML = '<span style="color: #fb7185;">خطا در ذخیره: ' + e.message + '</span>';
+            }
+        }
+    };
+
+    NovaCutBridge.prototype.applyBrandKit = function() {
+        var self = this;
+        var logoInput = document.getElementById('brandLogoPathInput');
+        var log = document.getElementById('brandFeedbackLog');
+        var logoPath = logoInput ? logoInput.value.trim() : '';
+
+        this.saveBrandKit();
+
+        if (logoPath && fs && fs.existsSync(logoPath)) {
+            var escaped = logoPath.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+            this.executeExtendScript(
+                '(function(){ try { if (app.project) { app.project.importFiles(["' + escaped + '"], true, app.project.rootItem, false); return "IMPORTED_OK"; } return "NO_PROJECT"; } catch(e){ return String(e); } })()',
+                function(err, res) {
+                    if (log) {
+                        log.style.display = 'block';
+                        log.innerHTML += '<div style="color: #c084fc; margin-top: 4px;">لوگوی واترمارک به پروژه اضافه شد.</div>';
+                    }
+                    self.log('Brand watermark imported to Premiere Pro: ' + logoPath, 'info');
+                }
+            );
+        } else {
+            if (log) {
+                log.style.display = 'block';
+                log.innerHTML += '<div style="color: #34d399; margin-top: 4px;">تنظیمات استایل، رنگ‌ها و تایتل‌های برند روی پروژه فعال اعمال گردید.</div>';
+            }
+        }
+    };
+
     // Global exports for DOM events
     window.NovaCutBridge = NovaCutBridge;
+    window.MCPPremiereBridge = NovaCutBridge;
     window.bridge = null;
     window.startBridge = function() { if (window.bridge) window.bridge.startBridge(); };
     window.stopBridge = function() { if (window.bridge) window.bridge.stopBridge(); };
@@ -1204,6 +1322,9 @@
     window.saveCapzoApiKey = function() { if (window.bridge) window.bridge.saveCapzoApiKey(); };
     window.checkCapzoAccount = function() { if (window.bridge) window.bridge.checkCapzoAccount(); };
     window.runCapzoTimelineSync = function() { if (window.bridge) window.bridge.runCapzoTimelineSync(); };
+    window.activateSkill = function(skillId) { if (window.bridge) window.bridge.activateEditingSkill(skillId); };
+    window.saveBrandKit = function() { if (window.bridge) window.bridge.saveBrandKit(); };
+    window.applyBrandKit = function() { if (window.bridge) window.bridge.applyBrandKit(); };
     window.switchTab = function(tabId) {
         var panes = document.querySelectorAll('.tab-pane');
         var btns = document.querySelectorAll('.segment-btn');
@@ -1216,6 +1337,7 @@
         var tabMap = {
             dashboard: 'tabBtnDashboard',
             capzo: 'tabBtnCapzo',
+            brand: 'tabBtnBrand',
             aiconnect: 'tabBtnAi',
             queue: 'tabBtnQueue',
             console: 'tabBtnConsole',

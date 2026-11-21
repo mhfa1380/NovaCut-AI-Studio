@@ -44,6 +44,8 @@
 > **What makes NovaCut better?**
 > - **Universal AI Support:** Works out-of-the-box with **ChatGPT, Gemini, Grok, Claude, Cursor, and Windsurf** (no longer limited to Claude).
 > - **1-Click Graphical Installer:** Double-click `NovaCut-Setup.exe` with embedded icon and modern UI — zero technical setup required.
+> - **Brand Identity Kit:** Enforce corporate color palettes, local typography (Yekan Bakh & Vazir), watermark overlays, and brand caption themes with 1 click.
+> - **World-Class Editing Skills:** Built-in editing mastery engine featuring top creator styles: Hormozi (viral reels), MrBeast (retention king), Ali Abdaal (clean minimal), Vox (cinematic essay), MKBHD (studio tech), and Podcast Master.
 > - **Capzo AI Subtitles Integration:** Native integration with [Capzo.ir](https://capzo.ir/docs/api) for automatic Persian speech-to-text and 1-click timeline subtitle sync.
 > - **Luxury Minimal UI:** Sleek Obsidian dark theme with live radar beacon and Persian (RTL) / English bilingual support.
 > - **Bug Fixes:** Solved modal hangs (#76), tool ID mismatch errors (#123), and stdio transport crashes (#122).
@@ -131,6 +133,36 @@ Use the same standard MCP server command:
 }
 ```
 </details>
+
+---
+
+## Brand Identity Kit
+
+Never configure colors, fonts, or watermarks manually again:
+- **Corporate Color Palettes:** Configure Primary, Secondary, and Accent brand colors.
+- **Local Offline Typography:** Pre-bundled with Yekan Bakh & Vazir fonts for crystal-clear Persian and Latin typography.
+- **Automated Watermarks:** Overlay transparent PNG brand logos with custom opacity, position, and scale.
+- **Synchronized Captions:** Essential Graphics and Capzo subtitles automatically inherit brand colors and font styling.
+- **AI Prompt:**
+  > *"Apply my brand kit to this project and place the watermark in the top-right corner."*
+
+---
+
+## World-Class Editing Skills
+
+NovaCut includes an intelligent editing skills engine inspired by the world's most tasteful and successful creators:
+
+| Editing Skill | Vibe & Cadence | Key Specifications | Recommended Use Case |
+| :--- | :--- | :--- | :--- |
+| **Viral Reels (Hormozi)** | Fast & explosive | 9:16 vertical, 1-2s cut cadence, kinetic word-by-word captions with yellow highlight, punch-in cuts | Instagram Reels, TikTok, YouTube Shorts |
+| **Retention Beast (MrBeast)** | High retention & dopamine | 16:9 widescreen, 1.5-2.5s cut interval, high-energy sound design (risers & hits), dead-air silence removal (-35dB) | Viral YouTube entertainment & challenge videos |
+| **Clean Aesthetic (Ali Abdaal)** | Calm & tasteful | 16:9, 3-5s cuts with breath pauses, warm matte film look, minimal glass cards, chillhop lo-fi audio ducking | Educational, business, productivity & essay videos |
+| **Cinematic Essay (Vox & Harris)** | Deep narrative storytelling | 2.39:1 widescreen, 35mm grain, split comparisons, typewriter/paper foley, slow 0.5% push-ins | Investigative journalism, documentary, travel |
+| **Studio Tech (MKBHD)** | Pristine 4K commercial | 4K UHD, deep Lumetri black curve, speed-ramped B-roll, broadcast mastered dialogue (-14 LUFS) | Tech reviews, hardware unboxings, commercials |
+| **Podcast Master** | Smart multicam switching | Speaker-driven switching, -16 LUFS broadcast leveling, studio noise suppression, chapter markers | Multi-camera podcasts, interviews, roundtables |
+
+- **How to Activate:** Click "Activate Skill" in the **Brand & Style** tab of the NovaCut panel, or simply instruct your AI:
+  > *"Edit this interview footage using the Ali Abdaal aesthetic style with lo-fi background music."*
 
 ---
 
