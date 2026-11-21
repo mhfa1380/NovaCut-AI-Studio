@@ -1053,10 +1053,20 @@
                 badge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
             }
             if (card) card.style.display = 'block';
-            if (planEl) planEl.textContent = data.plan_name || data.plan || 'اشتراک ویژه (Pro)';
+            var userEl = document.getElementById('capzoUserEmail');
+            if (userEl) {
+                var email = (data.user && (data.user.email || data.user.name || data.user.mobile)) || data.email || data.name || data.username || 'کاربر کپزو';
+                userEl.textContent = email;
+            }
+            if (planEl) planEl.textContent = data.plan_name || data.plan || (data.user && data.user.plan) || 'اشتراک استاندارد';
             if (credEl) {
-                var rem = data.credits_remaining !== undefined ? data.credits_remaining : (data.remaining_minutes || data.credits || 'نامحدود');
+                var rem = data.credits_remaining !== undefined ? data.credits_remaining : (data.remaining_minutes !== undefined ? data.remaining_minutes : (data.credits || 'نامحدود'));
                 credEl.textContent = rem + ' دقیقه';
+            }
+            var usedEl = document.getElementById('capzoCreditsUsed');
+            if (usedEl) {
+                var used = data.credits_used !== undefined ? data.credits_used : (data.used_minutes !== undefined ? data.used_minutes : (data.usage || 0));
+                usedEl.textContent = used + ' دقیقه';
             }
             self.log('Capzo API Connected: ' + JSON.stringify(data), 'info');
         })
@@ -1086,7 +1096,7 @@
 
         if (logBox) {
             logBox.style.display = 'block';
-            logBox.innerHTML = '<div style="color: #c084fc;">⏳ در حال آماده‌سازی فایل و ارسال به موتور هوش مصنوعی کپزو...</div>';
+            logBox.innerHTML = '<div style="color: #c084fc;">در حال آماده‌سازی فایل و ارسال به موتور هوش مصنوعی کپزو...</div>';
         }
 
         var mediaPath = mediaInput ? mediaInput.value.trim() : '';
@@ -1140,13 +1150,17 @@
             })
             .then(function(data) {
                 if (logBox) {
-                    logBox.innerHTML += '<div style="color: #34d399;">✓ متن دریافت شد: ' + (data.transcript ? data.transcript.substring(0, 60) + '...' : 'موفق') + '</div>';
+                    logBox.innerHTML += '<div style="color: #34d399;">متن دریافت شد: ' + (data.transcript ? data.transcript.substring(0, 60) + '...' : 'موفق') + '</div>';
+                    if (data.credits_charged || data.duration_seconds) {
+                        var charged = data.credits_charged || Math.ceil((data.duration_seconds || 60) / 60);
+                        logBox.innerHTML += '<div style="color: #38bdf8;">مصرف این فایل: ' + charged + ' دقیقه | مانده: ' + (data.credits_remaining !== undefined ? data.credits_remaining : '-') + ' دقیقه</div>';
+                    }
                 }
 
                 if (data.srt) {
                     var srtPath = filePath.replace(/\.[^/.]+$/, '') + '_Capzo.srt';
                     fs.writeFileSync(srtPath, data.srt, 'utf8');
-                    if (logBox) logBox.innerHTML += '<div style="color: #34d399;">✓ فایل زیرنویس ذخیره شد: ' + path.basename(srtPath) + '</div>';
+                    if (logBox) logBox.innerHTML += '<div style="color: #34d399;">فایل زیرنویس ذخیره شد: ' + path.basename(srtPath) + '</div>';
 
                     // Import into Premiere Pro
                     var escaped = srtPath.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
